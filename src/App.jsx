@@ -4,7 +4,6 @@ function App() {
     return (
         <>
             <h3 className="">Hello World</h3>
-            <Landing />
         </>
     );
 }
