@@ -11,7 +11,7 @@ export default {
           100: '#fff6f6',
           200: '#ffdfdf',
           300: '#f87aac',
-          400: '#f875ac',
+          400: '#f875aa',
           800: '#e72473'
         },
         'red-trash': '#ef4444',
