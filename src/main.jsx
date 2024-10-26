@@ -7,11 +7,17 @@ import { queryClient } from './utils/query';
 import { Provider } from 'react-redux';
 import './index.css'
 import store from './stores';
+import Dashboard from './pages/Dashboard/index.jsx';
 
-const router = createBrowserRouter([{
+const router = createBrowserRouter([
+  {
   path: '/login',
   element: <Login />
-}
+  },
+  {
+    path: '/dashboard',
+    element: <Dashboard />
+  }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
