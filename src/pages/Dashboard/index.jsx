@@ -6,7 +6,7 @@ import OrderCounter from '@/components/Modules/Dashboard/orderCounter';
 
 const Dashboard = () => {
     return (
-        <div className='px-10 md:px-32 lg:px-20 pb-20'>
+        <div className='px-10 md:px-32 lg:max-w-[100rem] mx-auto pb-20'>
             <Sidebar />
             <DashboardHeader />
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10'>

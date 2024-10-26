@@ -1,13 +1,16 @@
-import React from 'react'
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Login from './pages/login/index.jsx';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from './utils/query';
 import { Provider } from 'react-redux';
-import './index.css'
+
+import { queryClient } from './utils/query';
 import store from './stores';
+import './index.css';
+
+import Login from './pages/Login/index.jsx';
 import Dashboard from './pages/Dashboard/index.jsx';
+import NewOrder from './pages/NewOrder';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +20,24 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <Dashboard />
+  },
+  {
+    path: '/new-order',
+    children: [
+      {
+        index: true,
+        element: <NewOrder />
+      },
+      {
+        path: 'item',
+      },
+      {
+        path: 'weight'
+      },
+      {
+        path: 'summary',
+      }
+    ]
   }
 ])
 

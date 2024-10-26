@@ -8,7 +8,7 @@ import { GiWeight } from "react-icons/gi";
 import { FaShop } from "react-icons/fa6";
 import { LuLogOut } from "react-icons/lu";
 
-import { ADMIN_SIDEBAR_MENU } from '@/constants/sidebarMenu';
+import { ADMIN_SIDEBAR_MENU } from '@/constants/sidebarList';
 import EachUtils from '@/utils/eachUtils';
 import { sidebarAction } from "@/stores/sidebar";
 
@@ -25,7 +25,7 @@ const Sidebar = () => {
 
     return (
         <div className="fixed w-[15rem] transition-all z-10" style={{ left: sidebarIsOpen ? '0rem' : '-15rem' }}>
-            <div onClick={toggleSidebar} className="bg-black/40 fixed inset-0 " style={{ display: sidebarIsOpen ? 'block' : 'none' }} />
+            <div onClick={toggleSidebar} className="bg-black/40 fixed inset-0" style={{ display: sidebarIsOpen ? 'block' : 'none' }} />
             <button onClick={toggleSidebar} className="absolute bg-primary-pink-300 rounded-r-md h-20 w-8 -right-8 top-36">
                 <div className="flex flex-col gap-4 px-2">
                     <div className="border-b-[3px]" />
@@ -34,15 +34,15 @@ const Sidebar = () => {
                 </div>
             </button>
             <div className="text-primary-pink-300 font-semibold">
-                <div className='absolute bg-primary-pink-100 h-screen w-full flex flex-col justify-between pt-32 pb-10 overflow-auto'>
-                    <div className="flex flex-col">
-                        <div className='border-t-2 border-t-primary-pink-300 '>
+                <div className='absolute bg-primary-pink-100 h-screen w-full flex flex-col justify-between pt-32 pb-10 overflow-auto px-2'>
+                    <div className="flex flex-col gap-2">
+                        {/* <div className='border-t-2 border-t-primary-pink-300 '> */}
                             <EachUtils of={ADMIN_SIDEBAR_MENU} render={(item, index) => {
                                 return <SidebarMenu handleClick={handleMenuClick} title={item.title} index={index} key={index} />;
                             }} />
-                        </div>
+                        {/* </div> */}
                     </div>
-                    <button className="flex items-center gap-3 px-4 py-2 hover:bg-pink-100 transition-colors w-11/12 mx-auto rounded">
+                    <button className="flex items-center gap-3 px-4 py-2 hover:bg-pink-100 transition-colors w-full mx-auto rounded">
                         <LuLogOut size={20} />
                         <h3>Logout</h3>
                     </button>
@@ -75,7 +75,7 @@ const SidebarMenu = ({ title, index, handleClick }) => {
             break;
     }
 
-    return <button onClick={() => handleClick(index)} className=' border-b-2 border-b-primary-pink-300 hover:bg-pink-100 transition-colors py-4 px-4 flex items-center gap-3 w-full'>
+    return <button onClick={() => handleClick(index)} className='hover:shadow-sm hover:bg-pink-100 rounded-lg transition-all py-3 px-4 flex items-center gap-3 w-full'>
         {icon}
         <h3>{title}</h3>
     </button>;
