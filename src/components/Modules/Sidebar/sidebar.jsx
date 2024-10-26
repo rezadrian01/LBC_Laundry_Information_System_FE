@@ -1,3 +1,5 @@
+import { useDispatch, useSelector } from "react-redux";
+
 import { IoSearchSharp } from "react-icons/io5";
 import { TbReportAnalytics } from "react-icons/tb";
 import { RiServiceLine } from "react-icons/ri";
@@ -8,7 +10,6 @@ import { LuLogOut } from "react-icons/lu";
 
 import { ADMIN_SIDEBAR_MENU } from '@/constants/sidebarMenu';
 import EachUtils from '@/utils/eachUtils';
-import { useDispatch, useSelector } from "react-redux";
 import { sidebarAction } from "@/stores/sidebar";
 
 const Sidebar = () => {
@@ -25,7 +26,7 @@ const Sidebar = () => {
     return (
         <div className="fixed w-[15rem] transition-all z-10" style={{ left: sidebarIsOpen ? '0rem' : '-15rem' }}>
             <div onClick={toggleSidebar} className="bg-black/40 fixed inset-0 " style={{ display: sidebarIsOpen ? 'block' : 'none' }} />
-            <button onClick={toggleSidebar} className="absolute bg-primary-pink-300 rounded-r-md h-20 w-8 -right-8 top-12">
+            <button onClick={toggleSidebar} className="absolute bg-primary-pink-300 rounded-r-md h-20 w-8 -right-8 top-36">
                 <div className="flex flex-col gap-4 px-2">
                     <div className="border-b-[3px]" />
                     <div className="border-b-[3px]" />
@@ -33,7 +34,7 @@ const Sidebar = () => {
                 </div>
             </button>
             <div className="text-primary-pink-300 font-semibold">
-                <div className='absolute bg-primary-pink-100 h-screen w-full flex flex-col justify-between pt-32 pb-10'>
+                <div className='absolute bg-primary-pink-100 h-screen w-full flex flex-col justify-between pt-32 pb-10 overflow-auto'>
                     <div className="flex flex-col">
                         <div className='border-t-2 border-t-primary-pink-300 '>
                             <EachUtils of={ADMIN_SIDEBAR_MENU} render={(item, index) => {
@@ -41,7 +42,7 @@ const Sidebar = () => {
                             }} />
                         </div>
                     </div>
-                    <button className="flex items-center gap-3 px-4">
+                    <button className="flex items-center gap-3 px-4 py-2 hover:bg-pink-100 transition-colors w-11/12 mx-auto rounded">
                         <LuLogOut size={20} />
                         <h3>Logout</h3>
                     </button>

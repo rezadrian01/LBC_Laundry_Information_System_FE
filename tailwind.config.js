@@ -10,13 +10,19 @@ export default {
         'primary-pink': {
           100: '#fff6f6',
           200: '#ffdfdf',
+          250: '#f9b8c6',
           300: '#f87aac',
           400: '#f875aa',
-          800: '#e72473'
+          500: '#f54394',
+          600: '#f03285',
+          700: '#e91f7b',
+          800: '#e72473',
+          900: '#d21465',
+          950: '#c70f5d'  
         },
         'red-trash': '#ef4444',
         'gradient-purple': '#9370db',
-        'gradient-green': '#40e0d0',
+        'gradient-cyan': '#40e0d0',
         'gradient-blue': '#007bff',
       },
     },

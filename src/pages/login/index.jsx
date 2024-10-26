@@ -1,6 +1,6 @@
 import LoginBackground from '@/components/Layouts/Login/background';
 import LoginTitle from '@/components/Modules/Login/loginTitle';
-import AuthInput from '@/components/UI/authInput';
+import AuthInput from '@/components/UI/AuthInput/authInput';
 import React from 'react';
 
 const Login = () => {
