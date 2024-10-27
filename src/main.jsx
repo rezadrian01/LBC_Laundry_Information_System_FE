@@ -11,6 +11,8 @@ import './index.css';
 import Login from './pages/Login/index.jsx';
 import Dashboard from './pages/Dashboard/index.jsx';
 import NewOrder from './pages/NewOrder';
+import NewOrderItem from './pages/NewOrderItem';
+import NewOrderWeight from './pages/NewOrderWeight';
 
 const router = createBrowserRouter([
   {
@@ -30,9 +32,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'item',
+        element: <NewOrderItem />
       },
       {
-        path: 'weight'
+        path: 'weight',
+        element: <NewOrderWeight />
       },
       {
         path: 'summary',

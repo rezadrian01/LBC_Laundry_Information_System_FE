@@ -1,4 +1,4 @@
-const { createSlice } = require("@reduxjs/toolkit");
+import { createSlice } from "@reduxjs/toolkit";
 
 export const branchSlice = createSlice({
     name: "branch",
@@ -7,7 +7,7 @@ export const branchSlice = createSlice({
     },
     reducers: {
         changeBranch: (state, action) => {
-            state.activeBranchId = action.branchId;
+            state.activeBranchId = action.payload;
         }
     }
 });

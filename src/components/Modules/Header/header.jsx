@@ -1,14 +1,12 @@
 
-import Button from "@/components/UI/Button";
+import { MdLocationOn } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import Button from "@/components/UI/Button";
+import EachUtils from "@/utils/eachUtils";
+import { BRANCH_LIST } from "@/constants/branchList";
+import Select from "@/components/UI/Select";
 
-const DashboardHeader = () => {
-    const navigate = useNavigate();
-
-    const handleAddOrderClick = () => {
-        navigate('/new-order');
-    };
+const Header = ({ hasButton = true, hasDropdown = false, ...props }) => {
 
     return (
         <>
@@ -17,14 +15,18 @@ const DashboardHeader = () => {
                     <h3 className="text-2xl md:text-3xl lg:text-4xl leading-6 font-bold text-left bg-gradient-to-br from-pink-100 to-primary-pink-400 bg-clip-text text-transparent p-1">LBC Laundry</h3>
                 </div>
                 <div className="col-span-1 flex justify-end">
-                    <Button onClick={handleAddOrderClick} className="flex items-center gap-2 md:gap-4 text-white bg-primary-pink-300 hover:bg-primary-pink-500 transition-all py-2 px-2 shadow-lg rounded">
+                    {hasButton && !hasDropdown && <Button {...props}>
                         <FaPlus size={20} />
                         <h5 className="text-[0.75rem]">TAMBAH PESANAN</h5>
-                    </Button>
+                    </Button>}
+
+                    {hasDropdown &&
+                        <Select items={BRANCH_LIST} {...props} />
+                    }
                 </div>
             </div>
         </>
     );
 };
 
-export default DashboardHeader;
+export default Header;

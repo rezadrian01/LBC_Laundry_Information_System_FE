@@ -1,19 +1,28 @@
 import StatisticCard from '@/components/Modules/Dashboard/statisticCard';
 import Sidebar from '@mods/Sidebar/sidebar';
-import DashboardHeader from '@mods/Dashboard/header';
+import Header from '@/components/Modules/Header/header';
 import React from 'react';
 import OrderCounter from '@/components/Modules/Dashboard/orderCounter';
+import DefaultLayout from '@/components/Layouts/Default';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+    const navigate = useNavigate();
+
+
+    const handleAddNewOrderClick = () => {
+        navigate('/new-order');
+    }
+
     return (
-        <div className='px-10 md:px-32 lg:max-w-[100rem] mx-auto pb-20'>
+        <DefaultLayout>
             <Sidebar />
-            <DashboardHeader />
+            <Header onClick={handleAddNewOrderClick} />
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10'>
                 <StatisticCard title="Pendapatan Harian" />
                 <OrderCounter />
             </div>
-        </div>
+        </DefaultLayout>
     );
 };
 
