@@ -11,5 +11,8 @@ export default defineConfig({
       "@layouts": path.resolve(__dirname, "src/components/Layouts"),
       "@mods": path.resolve(__dirname, "src/components/Modules"),
     }
+  },
+  server: {
+    host: '0.0.0.0',
   }
 })

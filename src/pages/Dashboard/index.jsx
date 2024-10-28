@@ -1,15 +1,13 @@
-import StatisticCard from '@/components/Modules/Dashboard/statisticCard';
-import Sidebar from '@mods/Sidebar/sidebar';
-import Header from '@/components/Modules/Header/header';
-import React from 'react';
-import OrderCounter from '@/components/Modules/Dashboard/orderCounter';
-import DefaultLayout from '@/components/Layouts/Default';
 import { useNavigate } from 'react-router-dom';
+
+import StatisticCard from '@mods/Dashboard/statisticCard';
+import Sidebar from '@mods/Sidebar/sidebar';
+import Header from '@mods/Header/header';
+import OrderCounter from '@mods/Dashboard/orderCounter';
+import DefaultLayout from '@layouts/Default';
 
 const Dashboard = () => {
     const navigate = useNavigate();
-
-
     const handleAddNewOrderClick = () => {
         navigate('/new-order');
     }

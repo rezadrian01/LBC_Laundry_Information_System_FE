@@ -7,7 +7,7 @@ import { TbIroning } from "react-icons/tb";
 
 const OrderCounterCard = ({ item, index }) => {
     let icon;
-    let wrapperClass = "col-span-1 aspect-square flex flex-col items-center justify-center p-1 ";
+    let wrapperClass = "relative col-span-1 aspect-square flex flex-col items-center  ";
     let iconClass;
     switch (index) {
         case 0:
@@ -33,7 +33,7 @@ const OrderCounterCard = ({ item, index }) => {
     }
     return (
         <div className={wrapperClass}>
-            <header className="flex items-center gap-2">
+            <header className="flex items-center gap-2 mt-4">
                 <div className={iconClass}>
                     {icon}
                 </div>
@@ -41,10 +41,14 @@ const OrderCounterCard = ({ item, index }) => {
                     {item.title}
                 </h3>
             </header>
-            <h3 className="text-3xl sm:text-7xl font-bold">
+            <div className="absolute w-full h-full">
+                <div className="flex h-full items-center justify-center">
+                    <h3 className=" text-5xl sm:text-7xl font-bold  ">
                 {item.total}
-            </h3>
-        </div>
+                    </h3>
+                </div>
+            </div>
+        </div >
     );
 };
 

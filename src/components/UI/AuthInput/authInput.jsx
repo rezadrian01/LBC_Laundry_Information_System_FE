@@ -14,7 +14,7 @@ const AuthInput = ({ label, id, name, type = 'text' }) => {
             <input className='peer w-full border-b-[1px] border-stone-950 bg-transparent outline-none py-2 placeholder-transparent' name={name} id={id} type={inputType} placeholder='' />
 
             {type === 'password' &&
-                <button className='absolute right-2 top-3' onClick={() => setIsPasswordOpen(!isPasswordOpen)}>
+                <button type='button' className='absolute right-2 top-3' onClick={() => setIsPasswordOpen(!isPasswordOpen)}>
                     {isPasswordOpen ? <PiEye size={20} /> : <PiEyeClosed size={20} />}
                 </button>
             }

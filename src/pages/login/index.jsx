@@ -1,7 +1,7 @@
-import LoginBackground from '@/components/Layouts/Login/background';
-import LoginTitle from '@/components/Modules/Login/loginTitle';
-import AuthInput from '@/components/UI/AuthInput/authInput';
 import React from 'react';
+import LoginBackground from '@layouts/Login/background';
+import LoginTitle from '@mods/Login/loginTitle';
+import AuthInput from '@/components/UI/AuthInput/authInput';
 
 const Login = () => {
 
@@ -14,10 +14,10 @@ const Login = () => {
 
     return (
         <div className=''>
-            <div className='relative max-w-[40rem] mx-auto h-screen pt-14 md:pt-32'>
+            <div className='relative max-w-[40rem] mx-auto max-h-screen pt-14 md:pt-32'>
                 <LoginTitle />
                 <form onSubmit={submitHandler}>
-                    <div className='h-screen flex flex-col items-center gap-6 md:gap-16
+                    <div className='flex flex-col items-center gap-6 md:gap-16
             '>
                         <h2 className='text-primary-pink-300 font-bold text-3xl text-center'>Login</h2>
                         <div className='w-full flex flex-col gap-12 pt-10'>

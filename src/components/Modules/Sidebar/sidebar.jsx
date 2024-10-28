@@ -36,13 +36,11 @@ const Sidebar = () => {
             <div className="text-primary-pink-300 font-semibold">
                 <div className='absolute bg-primary-pink-100 h-screen w-full flex flex-col justify-between pt-32 pb-10 overflow-auto px-2'>
                     <div className="flex flex-col gap-2">
-                        {/* <div className='border-t-2 border-t-primary-pink-300 '> */}
                             <EachUtils of={ADMIN_SIDEBAR_MENU} render={(item, index) => {
                                 return <SidebarMenu handleClick={handleMenuClick} title={item.title} index={index} key={index} />;
-                            }} />
-                        {/* </div> */}
+                        }} />
                     </div>
-                    <button className="flex items-center gap-3 px-4 py-2 hover:bg-pink-100 transition-colors w-full mx-auto rounded">
+                    <button className="flex items-center gap-3 px-4 py-2 mb-6 hover:bg-pink-100 transition-colors w-full mx-auto rounded">
                         <LuLogOut size={20} />
                         <h3>Logout</h3>
                     </button>

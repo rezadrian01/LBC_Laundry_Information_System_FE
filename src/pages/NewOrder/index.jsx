@@ -1,12 +1,14 @@
-import DefaultLayout from '@/components/Layouts/Default';
-import Header from '@mods/Header/header';
-import ChooseOrderTypeBg from '@/components/Modules/NewOrder/orderTypeBg';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import DefaultLayout from '@layouts/Default';
+import ChooseOrderTypeBg from '@mods/NewOrder/orderTypeBg';
+import Header from '@mods/Header/header';
+
 import { branchAction } from '@/stores/branch';
 import Button from '@/components/UI/Button';
 import EachUtils from '@/utils/eachUtils';
+
 import { ORDER_TYPE } from '@/constants/orderType';
 import { orderAction } from '@/stores/order';
 
