@@ -11,6 +11,7 @@ import EachUtils from '@/utils/eachUtils';
 
 import { ORDER_TYPE } from '@/constants/orderType';
 import { orderAction } from '@/stores/order';
+import Footer from '@/components/Modules/Footer';
 
 const NewOrder = () => {
     const navigate = useNavigate();
@@ -29,10 +30,6 @@ const NewOrder = () => {
         navigate('weight');
     };
 
-    const handleBackClick = () => {
-        navigate('/dashboard');
-    }
-
     return (
         <DefaultLayout>
             <ChooseOrderTypeBg />
@@ -49,7 +46,7 @@ const NewOrder = () => {
                     }} />
                 </div>
             </div>
-            <Button onClick={handleBackClick} isDefault={false} back={true} />
+            <Footer hasNext={false} />
         </DefaultLayout>
     );
 };

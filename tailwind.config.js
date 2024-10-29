@@ -27,5 +27,20 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addBase }) {
+      addBase({
+        'input[type="number"]::-webkit-inner-spin-button': {
+          display: 'none',
+        },
+        'input[type="number"]::-webkit-outer-spin-button': {
+          display: 'none'
+        },
+        'input[type="number"]': {
+          'moz-appearance': 'textField',
+          '-webkit-appearance': 'none'
+        }
+      });
+    }
+  ],
 }

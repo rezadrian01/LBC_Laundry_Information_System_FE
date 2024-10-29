@@ -32,15 +32,28 @@ const router = createBrowserRouter([
       },
       {
         path: 'item',
-        element: <NewOrderItem />
+        children: [
+          {
+            index: true,
+            element: <NewOrderItem />
+          },
+          {
+            path: 'summary',
+          }
+        ]
       },
       {
         path: 'weight',
-        element: <NewOrderWeight />
+        children: [
+          {
+            index: true,
+            element: <NewOrderWeight />
+          },
+          {
+            path: 'summary',
+          }
+        ]
       },
-      {
-        path: 'summary',
-      }
     ]
   }
 ])
