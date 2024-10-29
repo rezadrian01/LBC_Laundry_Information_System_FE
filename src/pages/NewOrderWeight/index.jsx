@@ -16,7 +16,7 @@ const NewOrderWeight = () => {
     return (
         <DefaultLayout>
             <Header hasButton={false} />
-            <div className="flex flex-col gap-10 mt-14 w-full">
+            <div className="flex flex-col gap-10 mt-14 w-full md:max-w-[50rem] mx-auto">
                 <h3 className="text-4xl font-semibold text-center  ">Masukan Pesanan</h3>
                 <div className='flex flex-col gap-10'>
                     <InputGroup ref={weightInputRef} mainLabel="Berat" subLabel="(maks 20kg)" id="weight" name="weight" unitLabel="Kg" />
@@ -31,7 +31,7 @@ const NewOrderWeight = () => {
 const InputGroup = forwardRef(({ mainLabel, subLabel, id, name, unitLabel }, ref) => {
     return <div>
         <h4 className='font-thin text-xl'><span className='font-semibold'>{mainLabel}</span> {subLabel}</h4>
-        <Input ref={ref} borderBottom id={id} name={name} unitLabel={unitLabel} type="number" inputMode="numeric" step="0.01" />
+        <Input ref={ref} borderBottom id={id} name={name} unitLabel={unitLabel} type="number" inputMode="numeric" step="0.01" bgColor={null} />
     </div>;
 })
 
