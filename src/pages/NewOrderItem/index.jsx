@@ -21,7 +21,7 @@ const NewOrderItem = () => {
     return (
         <DefaultLayout>
             <Header hasButton={false} />
-            <div className='flex flex-col gap-10 mt-14 w-full md:max-w-[50rem] mx-auto'>
+            <div className='flex flex-col gap-6 md:gap-10 mt-4 md:mt-14 w-full md:max-w-[50rem] mx-auto'>
                 <h3 className="text-4xl font-semibold text-center  ">Masukan Pesanan</h3>
                 <Input ref={searchInputRef} id="item-name" name="item-name" placeholder="Pilih Item..." textCenter={false} hasSearchBtn={true} onBtnClick={handleSearchClick} />
 

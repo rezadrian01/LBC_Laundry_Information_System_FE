@@ -28,6 +28,7 @@ export default {
     },
   },
   plugins: [
+    require('tailwind-scrollbar-hide'),
     function ({ addBase }) {
       addBase({
         'input[type="number"]::-webkit-inner-spin-button': {

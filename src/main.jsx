@@ -17,7 +17,7 @@ import NewOrderWeight from './pages/NewOrderWeight';
 const router = createBrowserRouter([
   {
   path: '/login',
-  element: <Login />
+    element: <Login />,
   },
   {
     path: '/dashboard',
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <NewOrderWeight />
+            element: <NewOrderWeight />,
           },
           {
             path: 'summary',
