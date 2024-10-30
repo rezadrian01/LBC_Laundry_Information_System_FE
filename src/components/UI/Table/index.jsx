@@ -4,7 +4,7 @@ import { HiMinusSmall } from 'react-icons/hi2';
 
 import EachUtils from '@/utils/eachUtils';
 
-const Table = ({ headerCol, tableContent, isSummary = false }) => {
+const Table = ({ headerCol, tableContent, isSummary = false, isItemOrderSummary = false, isWeightOrderSummary = false }) => {
     return (
         <div className="overflow-auto scrollbar-hide">
             <table className='text-center text-[.73rem] md:text-base font-semibold w-full table-fixed'>
@@ -18,14 +18,14 @@ const Table = ({ headerCol, tableContent, isSummary = false }) => {
                 <tbody>
                     <EachUtils of={tableContent} render={(item, index) => {
                         return <tr className="">
-                            <td className='p-2 md:p-4'>{item.title}</td>
+                            <td className='p-2 md:p-4'>{isItemOrderSummary ? item.title : item.weight}</td>
                             <td className='p-2 md:p-4'>
                                 {!isSummary && <select onChange={({ target }) => handleSelectServiceChange(target.value, item.id)} defaultValue={item.services[item.serviceIndex]} className='outline-none'>
                                     {item.services.map((service, index) => {
                                         return <option key={index} value={service}>{service}</option>;
                                     })}
                                 </select>}
-                                {isSummary && item.service}
+                                {isSummary && (isItemOrderSummary ? item.service : item.quantity)}
                             </td>
                             <td className='p-2 md:p-4 w-full h-full'>
                                 <div className="flex gap-4 justify-center items-center">
@@ -40,15 +40,15 @@ const Table = ({ headerCol, tableContent, isSummary = false }) => {
                                             </button>
                                         </>
                                     }
-                                    {isSummary && item.quantity}
+                                    {isSummary && (isItemOrderSummary ? item.quantity : item.service)}
                                 </div>
                             </td>
                             {!isSummary && <td>
                                 <button className='p-2 bg-red-500 hover:bg-red-600 text-white rounded-full'><FaRegTrashAlt /></button>
                             </td>}
                             {isSummary && <>
-                                <td className='p-2 md:p-4'>{item.price}</td>
-                                <td className='p-2 md:p-4'>{item.total}</td>
+                                <td className='p-2 md:p-4'>{isItemOrderSummary ? item.price : item.serviceTime}</td>
+                                <td className='p-2 md:p-4'>{isItemOrderSummary ? item.total : item.price}</td>
                             </>}
                         </tr>;
                     }} />

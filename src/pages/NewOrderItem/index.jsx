@@ -26,7 +26,7 @@ const NewOrderItem = () => {
         <DefaultLayout>
             <OrderLayout title="Masukan Pesanan">
                 <Input ref={searchInputRef} id="item-name" name="item-name" placeholder="Pilih Item..." textCenter={false} hasSearchBtn={true} onBtnClick={handleSearchClick} />
-                <Table headerCol={TABLE_HEADER} tableContent={TABLE_CONTENT} />
+                <Table isItemOrderSummary headerCol={TABLE_HEADER} tableContent={TABLE_CONTENT} />
                 <Footer onNextClick={handleNextClick} />
             </OrderLayout>
         </DefaultLayout>
