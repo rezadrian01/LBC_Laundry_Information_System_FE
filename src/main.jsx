@@ -13,10 +13,11 @@ import Dashboard from './pages/Dashboard/index.jsx';
 import NewOrder from './pages/NewOrder';
 import NewOrderItem from './pages/NewOrderItem';
 import NewOrderWeight from './pages/NewOrderWeight';
+import OrderSummary from './pages/OrderSummary';
 
 const router = createBrowserRouter([
   {
-  path: '/login',
+    path: '/login',
     element: <Login />,
   },
   {
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'summary',
+            element: <OrderSummary />
           }
         ]
       },
@@ -51,6 +53,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'summary',
+            element: <OrderSummary />
           }
         ]
       },
@@ -66,4 +69,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </QueryClientProvider>
     </Provider>
   </React.StrictMode>,
-)
+);

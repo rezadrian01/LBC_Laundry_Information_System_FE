@@ -9,7 +9,7 @@ const Header = ({ hasButton = true, hasDropdown = false, ...props }) => {
 
     return (
         <>
-            <div className='grid grid-cols-2 w-full justify-between items-center pt-14 md:pt-14 '>
+            <div className='grid grid-cols-2 w-full justify-between items-center pt-14 '>
                 <div className="col-span-1">
                     <h3 className="text-2xl md:text-3xl lg:text-4xl leading-6 font-bold text-left bg-gradient-to-br from-pink-100 to-primary-pink-400 bg-clip-text text-transparent p-1">LBC Laundry</h3>
                 </div>

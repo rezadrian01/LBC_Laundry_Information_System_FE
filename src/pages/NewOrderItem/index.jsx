@@ -2,11 +2,12 @@ import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import Footer from '@/components/Modules/Footer';
-import Input from '@/components/UI/Input';
+import Footer from '@mods/Footer';
 import DefaultLayout from '@layouts/Default';
-import Header from '@mods/Header/header';
-import OrderItemTable from '@/components/Modules/NewOrder/orderItemTable';
+import OrderLayout from '@layouts/Order';
+import Input from '@/components/UI/Input';
+import Table from '@/components/UI/Table';
+import { TABLE_CONTENT, TABLE_HEADER } from '@/constants/orderItemTable';
 
 const NewOrderItem = () => {
     const searchInputRef = useRef();
@@ -17,18 +18,17 @@ const NewOrderItem = () => {
     const handleSearchClick = () => {
         console.log(searchInputRef.current.value);
     }
+    const handleNextClick = () => {
+        navigate('summary');
+    }
 
     return (
         <DefaultLayout>
-            <Header hasButton={false} />
-            <div className='flex flex-col gap-6 md:gap-10 mt-4 md:mt-14 w-full md:max-w-[50rem] mx-auto'>
-                <h3 className="text-4xl font-semibold text-center  ">Masukan Pesanan</h3>
+            <OrderLayout title="Masukan Pesanan">
                 <Input ref={searchInputRef} id="item-name" name="item-name" placeholder="Pilih Item..." textCenter={false} hasSearchBtn={true} onBtnClick={handleSearchClick} />
-
-                <OrderItemTable />
-
-                <Footer />
-            </div>
+                <Table headerCol={TABLE_HEADER} tableContent={TABLE_CONTENT} />
+                <Footer onNextClick={handleNextClick} />
+            </OrderLayout>
         </DefaultLayout>
     );
 };
