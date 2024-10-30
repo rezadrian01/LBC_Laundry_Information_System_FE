@@ -1,3 +1,6 @@
+import { useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 import DefaultLayout from '@/components/Layouts/Default';
 import OrderLayout from '@/components/Layouts/Order';
 import CustomerData from '@/components/Modules/CustomerData';
@@ -6,11 +9,31 @@ import InputGroup from '@/components/UI/InputGroup';
 import Table from '@/components/UI/Table';
 import { TABLE_CONTENT as TABLE_CONTENT_ITEM, TABLE_HEADER as TABLE_HEADER_ITEM } from '@/constants/orderItemSummary';
 import { TABLE_CONTENT as TABLE_CONTENT_WEIGHT, TABLE_HEADER as TABLE_HEADER_WEIGHT } from '@/constants/orderWeightSummary';
-import { useLocation } from 'react-router-dom';
 
 const OrderSummary = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const path = location.pathname.split("/")[2];
+
+    const handleNextClick = () => {
+        Swal.fire({
+            title: "Pesanan Berhasil Dibuat",
+            icon: "success",
+            confirmButtonText: "Cetak Nota",
+            confirmButtonColor: "#f87aac",
+            backdrop: "#00000070"
+        }).then(result => {
+            console.log(result);
+            if (result.isConfirmed || result.isDismissed) {
+                handlePrintReceipt();
+            }
+        });
+    };
+
+    const handlePrintReceipt = () => {
+        navigate('/dashboard');
+    }
+
     return (
         <DefaultLayout>
             <OrderLayout gap='gap-6' titleSize='3xl' title="Nota Satuan">
@@ -27,7 +50,7 @@ const OrderSummary = () => {
                     </div>
                     <CustomerData />
                 </div>
-                <Footer />
+                <Footer onNextClick={handleNextClick} />
             </OrderLayout>
         </DefaultLayout>
     );

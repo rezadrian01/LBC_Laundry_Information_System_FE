@@ -14,6 +14,7 @@ const Header = ({ hasButton = true, hasDropdown = false, ...props }) => {
                     <h3 className="text-2xl md:text-3xl lg:text-4xl leading-6 font-bold text-left bg-gradient-to-br from-pink-100 to-primary-pink-400 bg-clip-text text-transparent p-1">LBC Laundry</h3>
                 </div>
                 <div className="col-span-1 flex justify-end">
+                    <div>
                     {hasButton && !hasDropdown && <Button {...props}>
                         <FaPlus size={20} />
                         <h5 className="text-[0.75rem]">TAMBAH PESANAN</h5>
@@ -22,6 +23,7 @@ const Header = ({ hasButton = true, hasDropdown = false, ...props }) => {
                     {hasDropdown &&
                         <Select items={BRANCH_LIST} {...props} />
                     }
+                    </div>
                 </div>
             </div>
         </>
