@@ -4,7 +4,7 @@ import Footer from '@/components/Modules/Footer';
 import { TABLE_CONTENT } from '@/constants/orderList';
 import { TABLE_HEADER } from '@/constants/orderList';
 
-const SearchOrder = () => {
+const Order = () => {
     const keys = ["receiptNumber", "customerName", "status"];
     return (
         <DefaultLayout>
@@ -16,4 +16,4 @@ const SearchOrder = () => {
     );
 };
 
-export default SearchOrder;   
+export default Order;   

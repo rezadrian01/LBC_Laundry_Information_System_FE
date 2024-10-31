@@ -11,16 +11,19 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                 <section className='mt-4 md:mt-10'>
 
                     {/* Searchbar */}
-                    {(isOrderList || isItemList) && <div className='grid grid-cols-6'>
-                        {isOrderList && <div className='col-span-6'>
+                    {(isOrderList || isItemList) && <div className='grid grid-cols-12 gap-x-2'>
+                        {isOrderList && <div className='col-span-12'>
                             <Search />
                         </div>}
 
-                        {isItemList && <div className='col-span-5'>
+                        {isItemList && <div className='col-span-7 lg:col-span-10'>
                             <Search />
                         </div>}
 
-                        {isItemList && <Button>Tambah Item</Button>}
+                        {isItemList && <div className='col-span-5 lg:col-span-2'>
+                            <Button style={{ width: '100%' }}>Tambah Item</Button>
+                        </div>
+                        }
                     </div>}
 
                     <table className='text-center text-[.73rem] md:text-base font-semibold w-full table-fixed mt-4 md:mt-10'>
@@ -32,11 +35,12 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                             </tr>
                         </thead>
                         <tbody>
-                            <EachUtils of={tableContent} render={(item, index) => {
+                            <EachUtils of={tableContent} render={(item, indexRow) => {
                                 return <tr key={item.id}>
                                     <EachUtils of={keys} render={(key, index) => {
                                         let content = item[key];
 
+                                        // OrderList
                                         if (isOrderList) {
                                             if (index === 2) {
                                                 const currentStatus = item[key];
@@ -46,6 +50,23 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                                                         return <option key={index} value={orderStatus.title}>{orderStatus.title}</option>;
                                                     }} />
                                                 </OrderStatusSelect>;
+                                            }
+                                        }
+
+                                        // Item List
+                                        if (isItemList) {
+                                            if (index === 0) {
+                                                content = `${indexRow + 1}.`;
+                                            }
+                                            if (index >= 2) {
+                                                const itemServiceIndex = item.services.findIndex(service => service.title.toLowerCase() === key.toLowerCase());
+                                                if (itemServiceIndex !== -1) {
+                                                    content = item.services[itemServiceIndex].price;
+                                                } else {
+                                                    // Item With Original Service
+                                                    if (index > 2) return;
+                                                    return <td colSpan={3} className='py-4' key={index}>{item.services[0].price}</td>;
+                                                }
                                             }
                                         }
 

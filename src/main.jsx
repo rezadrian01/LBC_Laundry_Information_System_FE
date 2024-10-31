@@ -15,7 +15,8 @@ import NewOrderItem from './pages/NewOrderItem';
 import NewOrderWeight from './pages/NewOrderWeight';
 import OrderSummary from './pages/OrderSummary';
 import Error from './pages/Error';
-import SearchOrder from './pages/SearchOrder';
+import Order from './pages/Orders';
+import Items from './pages/Items';
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'orders',
-        element: <SearchOrder />
+        element: <Order />
+      },
+      {
+        path: 'items',
+        element: <Items />
       },
       {
         path: 'new-order',
