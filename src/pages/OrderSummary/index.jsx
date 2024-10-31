@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-import DefaultLayout from '@/components/Layouts/Default';
-import OrderLayout from '@/components/Layouts/Order';
-import CustomerData from '@/components/Modules/CustomerData';
-import Footer from '@/components/Modules/Footer';
+import DefaultLayout from '@layouts/Default';
+import OrderLayout from '@layouts/Order';
+import CustomerData from '@mods/CustomerData';
+import Footer from '@mods/Footer';
 import InputGroup from '@/components/UI/InputGroup';
 import Table from '@/components/UI/Table';
 import { TABLE_CONTENT as TABLE_CONTENT_ITEM, TABLE_HEADER as TABLE_HEADER_ITEM } from '@/constants/orderItemSummary';
@@ -16,17 +16,34 @@ const OrderSummary = () => {
     const path = location.pathname.split("/")[2];
 
     const handleNextClick = () => {
+        // Validation
+
         Swal.fire({
-            title: "Pesanan Berhasil Dibuat",
-            icon: "success",
-            confirmButtonText: "Cetak Nota",
-            confirmButtonColor: "#f87aac",
-            backdrop: "#00000070"
+            title: "Apakah data sudah sesuai?",
+            text: "Anda tidak dapat mengubah data tersebut jika sudah membuat pesanan.",
+            icon: "warning",
+            showCancelButton: true,
+            cancelButtonText: "Batal",
+            cancelButtonColor: "red",
+            confirmButtonColor: "green",
         }).then(result => {
-            if (result.isConfirmed || result.isDismissed) {
-                handlePrintReceipt();
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Pesanan Berhasil Dibuat",
+                    icon: "success",
+                    confirmButtonText: "Cetak Nota",
+                    confirmButtonColor: "#f87aac",
+                    backdrop: "#00000070"
+                }).then(result => {
+                    if (result.isConfirmed || result.isDismissed) {
+                        handlePrintReceipt();
+                    }
+                });
             }
         });
+
+
+
     };
 
     const handlePrintReceipt = () => {
