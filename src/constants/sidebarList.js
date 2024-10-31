@@ -1,21 +1,27 @@
 const ADMIN_SIDEBAR_MENU = [
     {
-        title: "CARI PESANAN"
+        title: "CARI PESANAN",
+        path: "/search-orders"
     },
     {
-        title: "BUAT LAPORAN"
+        title: "LAPORAN",
+        path: "/reports"
     },
     {
-        title: "LAYANAN"
+        title: "LAYANAN",
+        path: "/services"
     },
     {
         title: "ITEM",
+        path: "/items"
     },
     {
-        title: "HARGA BERAT"
+        title: "HARGA BERAT",
+        path: "/weight-prices"
     },
     {
-        title: "CABANG"
+        title: "CABANG",
+        path: "/branches"
     }
 ];
 

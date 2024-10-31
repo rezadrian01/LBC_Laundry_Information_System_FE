@@ -11,6 +11,7 @@ import { LuLogOut } from "react-icons/lu";
 import { ADMIN_SIDEBAR_MENU } from '@/constants/sidebarList';
 import EachUtils from '@/utils/eachUtils';
 import { sidebarAction } from "@/stores/sidebar";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
     const dispatch = useDispatch();
@@ -19,9 +20,6 @@ const Sidebar = () => {
         dispatch(sidebarAction.toggleSidebar());
     };
 
-    const handleMenuClick = (index) => {
-        console.log(index);
-    };
 
     return (
         <div className="fixed w-[15rem] transition-all z-10" style={{ left: sidebarIsOpen ? '0rem' : '-15rem' }}>
@@ -37,10 +35,10 @@ const Sidebar = () => {
                 <div className='absolute bg-primary-pink-100 h-screen w-full flex flex-col justify-between pt-32 pb-10 overflow-auto px-2'>
                     <div className="flex flex-col gap-2">
                             <EachUtils of={ADMIN_SIDEBAR_MENU} render={(item, index) => {
-                                return <SidebarMenu handleClick={handleMenuClick} title={item.title} index={index} key={index} />;
+                            return <SidebarMenu item={item} index={index} key={index} />;
                         }} />
                     </div>
-                    <button className="flex items-center gap-3 px-4 py-2 mb-6 hover:bg-pink-100 transition-colors w-full mx-auto rounded">
+                    <button className="flex items-center gap-3 px-4 py-2 mb-6 hover:bg-pink-100  w-full mx-auto rounded">
                         <LuLogOut size={20} />
                         <h3>Logout</h3>
                     </button>
@@ -50,7 +48,7 @@ const Sidebar = () => {
     );
 };
 
-const SidebarMenu = ({ title, index, handleClick }) => {
+const SidebarMenu = ({ index, item }) => {
     let icon;
     switch (index) {
         case 0:
@@ -73,10 +71,10 @@ const SidebarMenu = ({ title, index, handleClick }) => {
             break;
     }
 
-    return <button onClick={() => handleClick(index)} className='hover:shadow-sm hover:bg-pink-100 rounded-lg transition-all py-3 px-4 flex items-center gap-3 w-full'>
+    return <Link to={item.path} className='hover:shadow-sm hover:bg-pink-100 rounded-lg  py-3 px-4 flex items-center gap-3 w-full'>
         {icon}
-        <h3>{title}</h3>
-    </button>;
+        <h3>{item.title}</h3>
+    </Link>;
 };
 
 export default Sidebar;

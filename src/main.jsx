@@ -14,51 +14,64 @@ import NewOrder from './pages/NewOrder';
 import NewOrderItem from './pages/NewOrderItem';
 import NewOrderWeight from './pages/NewOrderWeight';
 import OrderSummary from './pages/OrderSummary';
+import Error from './pages/Error';
+import SearchOrder from './pages/SearchOrder';
 
 const router = createBrowserRouter([
   {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/dashboard',
-    element: <Dashboard />
-  },
-  {
-    path: '/new-order',
+    path: "/",
+    errorElement: <Error />,
     children: [
       {
-        index: true,
-        element: <NewOrder />
+        path: 'login',
+        element: <Login />,
       },
       {
-        path: 'item',
+        path: 'dashboard',
+        element: <Dashboard />
+      },
+      {
+        path: 'search-orders',
+        element: <SearchOrder />
+      },
+      {
+        path: 'new-order',
         children: [
           {
             index: true,
-            element: <NewOrderItem />
+            element: <NewOrder />
           },
           {
-            path: 'summary',
-            element: <OrderSummary />
-          }
-        ]
-      },
-      {
-        path: 'weight',
-        children: [
-          {
-            index: true,
-            element: <NewOrderWeight />,
+            path: 'item',
+            children: [
+              {
+                index: true,
+                element: <NewOrderItem />
+              },
+              {
+                path: 'summary',
+                element: <OrderSummary />
+              }
+            ]
           },
           {
-            path: 'summary',
-            element: <OrderSummary />
-          }
+            path: 'weight',
+            children: [
+              {
+                index: true,
+                element: <NewOrderWeight />,
+              },
+              {
+                path: 'summary',
+                element: <OrderSummary />
+              }
+            ]
+          },
         ]
       },
     ]
-  }
+  },
+
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
