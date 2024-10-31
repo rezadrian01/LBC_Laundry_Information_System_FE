@@ -23,7 +23,6 @@ const OrderSummary = () => {
             confirmButtonColor: "#f87aac",
             backdrop: "#00000070"
         }).then(result => {
-            console.log(result);
             if (result.isConfirmed || result.isDismissed) {
                 handlePrintReceipt();
             }
