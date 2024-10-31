@@ -24,15 +24,15 @@ const Sidebar = () => {
     return (
         <div className="fixed w-[15rem] transition-all z-10" style={{ left: sidebarIsOpen ? '0rem' : '-15rem' }}>
             <div onClick={toggleSidebar} className="bg-black/40 fixed inset-0" style={{ display: sidebarIsOpen ? 'block' : 'none' }} />
-            <button onClick={toggleSidebar} className="absolute bg-primary-pink-300 rounded-r-md h-20 w-8 -right-8 top-36">
-                <div className="flex flex-col gap-4 px-2">
+            <button onClick={toggleSidebar} className="absolute bg-primary-pink-300 rounded-r-md h-20 w-6 sm:w-8 -right-6 sm:-right-8 top-14">
+                <div className="flex flex-col gap-4 px-[.4rem]">
                     <div className="border-b-[3px]" />
                     <div className="border-b-[3px]" />
                     <div className="border-b-[3px]" />
                 </div>
             </button>
             <div className="text-primary-pink-300 font-semibold">
-                <div className='absolute bg-primary-pink-100 h-screen w-full flex flex-col justify-between pt-32 pb-10 overflow-auto px-2'>
+                <div className='absolute bg-primary-pink-100 h-screen w-full flex flex-col justify-between pt-12 pb-10 overflow-auto px-2'>
                     <div className="flex flex-col gap-2">
                             <EachUtils of={ADMIN_SIDEBAR_MENU} render={(item, index) => {
                             return <SidebarMenu item={item} index={index} key={index} />;

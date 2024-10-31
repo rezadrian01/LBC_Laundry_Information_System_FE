@@ -1,12 +1,12 @@
 import { FaChevronLeft } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const Button = ({ children, isDefault = true, next = false, back = false, ...props }) => {
+const Button = ({ children, isDefault = true, next = false, backToDashboard = false, back = false, ...props }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
     const handleBackClick = () => {
-        if (location.pathname === '/new-order') {
+        if (location.pathname === '/new-order' || backToDashboard) {
             navigate('/dashboard');
             return;
         }

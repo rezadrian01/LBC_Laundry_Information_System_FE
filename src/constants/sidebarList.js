@@ -1,7 +1,7 @@
 const ADMIN_SIDEBAR_MENU = [
     {
         title: "CARI PESANAN",
-        path: "/search-orders"
+        path: "/orders"
     },
     {
         title: "LAPORAN",
