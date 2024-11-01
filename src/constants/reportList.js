@@ -24,4 +24,23 @@ const REPORT_TYPE_LIST = [
     },
 ];
 
-export { ORDER_TYPE_LIST, REPORT_TYPE_LIST };
+const REPORT_STATISTIC_TITLE_LIST = [
+    {
+        title: "Penghasilan Harian"
+    },
+    {
+        title: "Cuci Basah"
+    },
+    {
+        title: "Cuci Kering"
+    },
+    {
+        title: "Cuci Kering Setrika"
+    },
+    {
+        title: "Setrika"
+    },
+];
+
+
+export { ORDER_TYPE_LIST, REPORT_TYPE_LIST, REPORT_STATISTIC_TITLE_LIST };

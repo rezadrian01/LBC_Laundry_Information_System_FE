@@ -33,10 +33,9 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                     </div>}
                     {(isWeightPriceList || isBranchList) && <div className="w-full flex justify-end" >
                         <div className="md:w-[10rem]">
-                            <Button style={{ width: '100%' }}>Tambah Item</Button>
+                            <Button style={{ width: '100%' }}>{isWeightPriceList ? "Tambah Harga Berat" : "Tambah Cabang"}</Button>
                         </div>
                     </div>}
-
 
 
                     <table className='text-center text-[.73rem] md:text-base font-semibold w-full table-fixed mt-4 md:mt-10'>
