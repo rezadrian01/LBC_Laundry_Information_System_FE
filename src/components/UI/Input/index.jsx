@@ -4,7 +4,7 @@ import { IoSearchSharp } from "react-icons/io5";
 const Input = forwardRef(({ id, name, label, floatLabel = false, unitLabel = null, border = false, borderBottom = false, padding = "p-2", textSize = "text-xl", color = 'primary-pink-300', bgColor = 'bg-primary-pink-200', rounded = true, textCenter = true, placeholder = "", hasSearchBtn = false, bgSearchBtn = null, onBtnClick, grid = false, ...props }, ref) => {
 
     let inputClass = "w-full outline-none font-semibold placeholder:font-normal " + padding + " " + textSize + " ";
-    let wrapperClass = "relative w-full";
+    let wrapperClass = "relative w-full ";
     let btnClass = 'absolute right-1 bottom-1 bg-primary-pink-100 p-2 rounded ';
 
     if (color && borderBottom) {

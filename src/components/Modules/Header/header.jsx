@@ -6,7 +6,7 @@ import { BRANCH_LIST } from "@/constants/branchList";
 import Select from "@/components/UI/Select";
 import { Link } from "react-router-dom";
 
-const Header = ({ hasButton = true, hasDropdown = false, ...props }) => {
+const Header = ({ hasButton = true, hasDropdown = false, branchList = null, ...props }) => {
 
     return (
         <>
@@ -26,7 +26,7 @@ const Header = ({ hasButton = true, hasDropdown = false, ...props }) => {
                     </Button>}
 
                     {hasDropdown &&
-                        <Select items={BRANCH_LIST} {...props} />
+                            <Select items={branchList ? branchList : BRANCH_LIST} {...props} />
                     }
                     </div>
                 </div>

@@ -19,6 +19,7 @@ import Order from './pages/Orders';
 import Items from './pages/Items';
 import Weights from './pages/Weights';
 import Branches from './pages/Branches';
+import Reports from './pages/Reports';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: 'branches',
         element: <Branches />
+      },
+      {
+        path: 'reports',
+        element: <Reports />
       },
       {
         path: 'new-order',

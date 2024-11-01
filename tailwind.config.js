@@ -24,6 +24,7 @@ export default {
         'gradient-purple': '#9370db',
         'gradient-cyan': '#40e0d0',
         'gradient-blue': '#007bff',
+        'gradient-pink-0': "#c8608a",
       },
     },
   },

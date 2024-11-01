@@ -21,4 +21,16 @@ const BRANCH_LIST = [
     }
 ];
 
-export { TABLE_HEADER, BRANCH_LIST };
+const BRANCH_LIST_REPORT = [
+    {
+        title: "Blimbing"
+    },
+    {
+        title: "Trs. Surabaya"
+    },
+    {
+        title: "Semua"
+    },
+];
+
+export { TABLE_HEADER, BRANCH_LIST, BRANCH_LIST_REPORT };
