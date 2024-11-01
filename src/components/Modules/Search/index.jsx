@@ -1,8 +1,8 @@
 import Input from '@/components/UI/Input';
-const Search = () => {
+const Search = ({ placeholder = "No. Nota/Nama" }) => {
     return (
         <>
-            <Input placeholder="No. Nota/Nama" padding="p-1" textSize="text-lg" bgColor={null} textCenter={false} border hasSearchBtn />
+            <Input placeholder={placeholder} padding="p-1" textSize="text-lg" bgColor={null} textCenter={false} border hasSearchBtn />
         </>
     );
 };

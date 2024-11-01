@@ -1,5 +1,9 @@
 const ADMIN_SIDEBAR_MENU = [
     {
+        title: "DASHBOARD",
+        path: "/dashboard"
+    },
+    {
         title: "CARI PESANAN",
         path: "/orders"
     },

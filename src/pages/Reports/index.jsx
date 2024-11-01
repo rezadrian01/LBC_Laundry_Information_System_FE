@@ -2,6 +2,7 @@ import DefaultLayout from "@/components/Layouts/Default";
 import StatisticCard from "@/components/Modules/Dashboard/statisticCard";
 import Header from "@/components/Modules/Header/header";
 import TabMenu from "@/components/Modules/Reports/TabMenu";
+import Sidebar from "@/components/Modules/Sidebar/sidebar";
 import { BRANCH_LIST_REPORT } from "@/constants/branchList";
 import { ORDER_TYPE } from "@/constants/orderType";
 import { REPORT_TYPE_LIST } from "@/constants/reportList";
@@ -9,6 +10,7 @@ import { REPORT_TYPE_LIST } from "@/constants/reportList";
 const Reports = () => {
     return (
         <DefaultLayout>
+            <Sidebar />
             <Header hasButton={false} hasDropdown branchList={BRANCH_LIST_REPORT} />
             <div className="my-6 flex flex-col items-center gap-4 justify-center">
                 <TabMenu layoutId="orderType" contents={ORDER_TYPE} />

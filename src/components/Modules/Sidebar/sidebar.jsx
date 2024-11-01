@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
+import { LuLayoutDashboard } from "react-icons/lu";
 import { IoSearchSharp } from "react-icons/io5";
 import { TbReportAnalytics } from "react-icons/tb";
 import { RiServiceLine } from "react-icons/ri";
@@ -16,6 +17,7 @@ import { sidebarAction } from "@/stores/sidebar";
 const Sidebar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const { isOpen: sidebarIsOpen } = useSelector(state => state.sidebar);
     const toggleSidebar = () => {
         dispatch(sidebarAction.toggleSidebar());
@@ -41,7 +43,7 @@ const Sidebar = () => {
                 <div className='absolute bg-primary-pink-100 h-screen w-full flex flex-col justify-between pt-12 pb-10 overflow-auto px-2'>
                     <div className="flex flex-col gap-2">
                             <EachUtils of={ADMIN_SIDEBAR_MENU} render={(item, index) => {
-                            return <SidebarMenu onClick={toggleSidebar} item={item} index={index} key={index} />;
+                            return <SidebarMenu location={location} onClick={toggleSidebar} item={item} index={index} key={index} />;
                         }} />
                     </div>
                     <button onClick={handleLogoutClick} className="flex items-center gap-3 px-4 py-2 mb-6 hover:bg-pink-100  w-full mx-auto rounded">
@@ -54,30 +56,33 @@ const Sidebar = () => {
     );
 };
 
-const SidebarMenu = ({ index, onClick, item }) => {
+const SidebarMenu = ({ index, onClick, item, location }) => {
     let icon;
     switch (index) {
         case 0:
-            icon = <IoSearchSharp size={20} />;
+            icon = <LuLayoutDashboard size={20} />;
             break;
         case 1:
-            icon = <TbReportAnalytics size={20} />;
+            icon = <IoSearchSharp size={20} />;
             break;
         case 2:
-            icon = <RiServiceLine size={20} />;
+            icon = <TbReportAnalytics size={20} />;
             break;
         case 3:
-            icon = <BiBlanket size={20} />;
+            icon = <RiServiceLine size={20} />;
             break;
         case 4:
-            icon = <GiWeight size={20} />;
+            icon = <BiBlanket size={20} />;
             break;
         case 5:
+            icon = <GiWeight size={20} />;
+            break;
+        case 6:
             icon = <FaShop size={20} />;
             break;
     }
 
-    return <Link onClick={onClick} to={item.path} className='hover:shadow-sm hover:bg-pink-100 rounded-lg  py-3 px-4 flex items-center gap-3 w-full'>
+    return <Link onClick={onClick} to={item.path} className='hover:shadow-sm hover:bg-pink-100 rounded-lg  py-3 px-4 flex items-center gap-3 w-full' style={{ backgroundColor: location.pathname === item.path ? '#fce7f3' : '' }} >
         {icon}
         <h3>{item.title}</h3>
     </Link>;

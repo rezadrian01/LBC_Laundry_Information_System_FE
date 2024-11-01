@@ -23,7 +23,7 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                         </div>}
 
                         {isItemList && <div className='col-span-7 lg:col-span-10'>
-                            <Search />
+                            <Search placeholder="Nama Item" />
                         </div>}
 
                         {isItemList && <div className='col-span-5 lg:col-span-2'>
@@ -109,16 +109,17 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                                             if (indexKey === 0) {
                                                 content = `${indexRow + 1}.`;
                                             }
-                                        } if (indexKey === 2) {
-                                            content = <div className="flex justify-center gap-3 ">
-                                                <button onClick={() => onEdit(item.id)} className="bg-blue-500 hover:bg-blue-600 text-white p-[.4rem] rounded-full">
-                                                    <FiEdit2 />
-                                                </button>
-                                                <button onClick={() => onDelete(item.id)} className="bg-red-500 hover:bg-red-600 text-white p-[.4rem] rounded-full">
-                                                    <FaRegTrashAlt />
-                                                </button>
-                                            </div>;
-                                        }
+                                            if (indexKey === 2) {
+                                                content = <div className="flex justify-center gap-3 ">
+                                                    <button onClick={() => onEdit(item.id)} className="bg-blue-500 hover:bg-blue-600 text-white p-[.4rem] rounded-full">
+                                                        <FiEdit2 />
+                                                    </button>
+                                                    <button onClick={() => onDelete(item.id)} className="bg-red-500 hover:bg-red-600 text-white p-[.4rem] rounded-full">
+                                                        <FaRegTrashAlt />
+                                                    </button>
+                                                </div>;
+                                            }
+                                        } 
 
 
                                         return <td className='py-4' key={indexKey}>{content}</td>;
