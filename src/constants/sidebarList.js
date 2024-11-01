@@ -17,7 +17,7 @@ const ADMIN_SIDEBAR_MENU = [
     },
     {
         title: "HARGA BERAT",
-        path: "/weight-prices"
+        path: "/weights"
     },
     {
         title: "CABANG",

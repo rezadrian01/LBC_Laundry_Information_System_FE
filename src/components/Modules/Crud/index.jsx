@@ -1,10 +1,16 @@
+import { FiEdit2 } from "react-icons/fi";
+import { FaRegTrashAlt } from 'react-icons/fa';
+
+
 import CrudLayout from '@/components/Layouts/Crud';
 import Search from '../Search';
 import Button from '@/components/UI/Button';
 import EachUtils from '@/utils/eachUtils';
 import { ORDER_STATUS_LIST } from '@/constants/orderStatusList';
 
-const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, isItemList = false, isWeightPriceList = false, isBranchList = false, children }) => {
+const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, isItemList = false, isWeightPriceList = false, isBranchList = false, onEdit = () => { }, onDelete = () => { } }) => {
+    let weightCounter = 0;
+
     return (
         <>
             <CrudLayout>
@@ -37,17 +43,17 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                         <tbody>
                             <EachUtils of={tableContent} render={(item, indexRow) => {
                                 return <tr key={item.id}>
-                                    <EachUtils of={keys} render={(key, index) => {
+                                    <EachUtils of={keys} render={(key, indexKey) => {
                                         let content = item[key];
 
                                         // OrderList
                                         if (isOrderList) {
-                                            if (index === 2) {
+                                            if (indexKey === 2) {
                                                 const currentStatus = item[key];
                                                 const orderStatusIndex = ORDER_STATUS_LIST.findIndex(status => status.title.toLowerCase() === currentStatus.toLowerCase());
                                                 content = <OrderStatusSelect defaultValue={currentStatus} orderStatusIndex={orderStatusIndex}>
-                                                    <EachUtils of={ORDER_STATUS_LIST} render={(orderStatus, index) => {
-                                                        return <option key={index} value={orderStatus.title}>{orderStatus.title}</option>;
+                                                    <EachUtils of={ORDER_STATUS_LIST} render={(orderStatus, orderStatusIndex) => {
+                                                        return <option key={orderStatusIndex} value={orderStatus.title}>{orderStatus.title}</option>;
                                                     }} />
                                                 </OrderStatusSelect>;
                                             }
@@ -55,22 +61,43 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
 
                                         // Item List
                                         if (isItemList) {
-                                            if (index === 0) {
+                                            if (indexKey === 0) {
                                                 content = `${indexRow + 1}.`;
                                             }
-                                            if (index >= 2) {
+                                            if (indexKey >= 2) {
                                                 const itemServiceIndex = item.services.findIndex(service => service.title.toLowerCase() === key.toLowerCase());
                                                 if (itemServiceIndex !== -1) {
                                                     content = item.services[itemServiceIndex].price;
                                                 } else {
                                                     // Item With Original Service
-                                                    if (index > 2) return;
-                                                    return <td colSpan={3} className='py-4' key={index}>{item.services[0].price}</td>;
+                                                    if (indexKey > 2) return;
+                                                    return <td colSpan={3} className='py-4' key={indexKey}>{item.services[0].price}</td>;
                                                 }
                                             }
                                         }
 
-                                        return <td className='py-4' key={index}>{content}</td>;
+                                        // Weight Price List
+                                        if (isWeightPriceList) {
+                                            if (indexKey === 0) {
+                                                content = `${indexRow + 1}.`;
+                                            }
+                                            if (indexKey === 1) {
+                                                content = `${weightCounter} - ${(item[key] - 0.1).toFixed(1)}`;
+                                                weightCounter = item[key];
+                                            }
+                                            if (indexKey === 3) {
+                                                content = <div className="flex justify-center gap-3 ">
+                                                    <button onClick={() => onEdit(item.id)} className="bg-blue-500 hover:bg-blue-600 text-white p-[.4rem] rounded-full">
+                                                        <FiEdit2 />
+                                                    </button>
+                                                    <button onClick={() => onDelete(item.id)} className="bg-red-500 hover:bg-red-600 text-white p-[.4rem] rounded-full">
+                                                        <FaRegTrashAlt />
+                                                    </button>
+                                                </div>;
+                                            }
+                                        }
+
+                                        return <td className='py-4' key={indexKey}>{content}</td>;
                                     }} />
                                 </tr>;
                             }} />

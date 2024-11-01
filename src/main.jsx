@@ -17,6 +17,7 @@ import OrderSummary from './pages/OrderSummary';
 import Error from './pages/Error';
 import Order from './pages/Orders';
 import Items from './pages/Items';
+import Weights from './pages/Weights';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: 'items',
         element: <Items />
+      },
+      {
+        path: 'weights',
+        element: <Weights />
       },
       {
         path: 'new-order',
@@ -87,4 +92,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </QueryClientProvider>
     </Provider>
   </React.StrictMode>,
+
 );

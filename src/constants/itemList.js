@@ -1,6 +1,6 @@
 const TABLE_HEADER = [
     {
-        title: "No"
+        title: "No."
     },
     {
         title: "Nama Barang"
