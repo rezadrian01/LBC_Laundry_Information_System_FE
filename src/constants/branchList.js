@@ -1,3 +1,15 @@
+const TABLE_HEADER = [
+    {
+        title: "No."
+    },
+    {
+        title: "Nama"
+    },
+    {
+        title: "Aksi"
+    }
+]
+
 const BRANCH_LIST = [
     {
         title: "Blimbing",
@@ -9,4 +21,4 @@ const BRANCH_LIST = [
     }
 ];
 
-export { BRANCH_LIST };
+export { TABLE_HEADER, BRANCH_LIST };

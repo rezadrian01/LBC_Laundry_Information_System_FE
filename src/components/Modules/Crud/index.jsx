@@ -31,6 +31,13 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                         </div>
                         }
                     </div>}
+                    {(isWeightPriceList || isBranchList) && <div className="w-full flex justify-end" >
+                        <div className="md:w-[10rem]">
+                            <Button style={{ width: '100%' }}>Tambah Item</Button>
+                        </div>
+                    </div>}
+
+
 
                     <table className='text-center text-[.73rem] md:text-base font-semibold w-full table-fixed mt-4 md:mt-10'>
                         <thead className='border-b-2 border-b-primary-pink-300 text-primary-pink-300'>
@@ -96,6 +103,23 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                                                 </div>;
                                             }
                                         }
+
+                                        // Branch List
+                                        if (isBranchList) {
+                                            if (indexKey === 0) {
+                                                content = `${indexRow + 1}.`;
+                                            }
+                                        } if (indexKey === 2) {
+                                            content = <div className="flex justify-center gap-3 ">
+                                                <button onClick={() => onEdit(item.id)} className="bg-blue-500 hover:bg-blue-600 text-white p-[.4rem] rounded-full">
+                                                    <FiEdit2 />
+                                                </button>
+                                                <button onClick={() => onDelete(item.id)} className="bg-red-500 hover:bg-red-600 text-white p-[.4rem] rounded-full">
+                                                    <FaRegTrashAlt />
+                                                </button>
+                                            </div>;
+                                        }
+
 
                                         return <td className='py-4' key={indexKey}>{content}</td>;
                                     }} />

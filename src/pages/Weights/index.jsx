@@ -6,11 +6,11 @@ import React from 'react';
 
 const Weights = () => {
     const keys = ["_", "maxWeight", "price", "_"];
-    const handleEditWeightPrice = (id) => {
-        console.log(id);
+    const handleEditWeightPrice = (weightPriceId) => {
+        console.log(weightPriceId);
     };
-    const handleDeleteWeightPrice = (id) => {
-        console.log(id);
+    const handleDeleteWeightPrice = (weightPriceId) => {
+        console.log(weightPriceId);
     };
     return (
         <DefaultLayout>
