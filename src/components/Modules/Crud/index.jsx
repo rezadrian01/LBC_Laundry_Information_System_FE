@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { FiEdit2 } from "react-icons/fi";
 import { FaRegTrashAlt } from 'react-icons/fa';
 
@@ -8,7 +9,8 @@ import Button from '@/components/UI/Button';
 import EachUtils from '@/utils/eachUtils';
 import { ORDER_STATUS_LIST } from '@/constants/orderStatusList';
 
-const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, isItemList = false, isWeightPriceList = false, isBranchList = false, onEdit = () => { }, onDelete = () => { } }) => {
+const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, isItemList = false, isWeightPriceList = false, isBranchList = false, onCreate = () => { }, onEdit = () => { }, onDelete = () => { } }) => {
+    const navigate = useNavigate();
     let weightCounter = 0;
 
     return (
@@ -27,13 +29,13 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                         </div>}
 
                         {isItemList && <div className='col-span-5 lg:col-span-2'>
-                            <Button style={{ width: '100%' }}>Tambah Item</Button>
+                            <Button style={{ width: '100%' }} onClick={onCreate}>Tambah Item</Button>
                         </div>
                         }
                     </div>}
                     {(isWeightPriceList || isBranchList) && <div className="w-full flex justify-end" >
                         <div className="md:w-[10rem]">
-                            <Button style={{ width: '100%' }}>{isWeightPriceList ? "Tambah Harga Berat" : "Tambah Cabang"}</Button>
+                            <Button onClick={onCreate} style={{ width: '100%' }}>{isWeightPriceList ? "Tambah Harga Berat" : "Tambah Cabang"}</Button>
                         </div>
                     </div>}
 
@@ -48,7 +50,7 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                         </thead>
                         <tbody>
                             <EachUtils of={tableContent} render={(item, indexRow) => {
-                                return <tr key={item.id}>
+                                return <tr className="cursor-pointer hover:bg-gray-50" onClick={() => navigate(`${item.id}`)} key={item.id}>
                                     <EachUtils of={keys} render={(key, indexKey) => {
                                         let content = item[key];
 
@@ -74,10 +76,6 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                                                 const itemServiceIndex = item.services.findIndex(service => service.title.toLowerCase() === key.toLowerCase());
                                                 if (itemServiceIndex !== -1) {
                                                     content = item.services[itemServiceIndex].price;
-                                                } else {
-                                                    // Item With Original Service
-                                                    if (indexKey > 2) return;
-                                                    return <td colSpan={3} className='py-4' key={indexKey}>{item.services[0].price}</td>;
                                                 }
                                             }
                                         }

@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { IoSearchSharp } from "react-icons/io5";
 
-const Input = forwardRef(({ id, name, label, floatLabel = false, unitLabel = null, border = false, borderBottom = false, padding = "p-2", textSize = "text-xl", color = 'primary-pink-300', bgColor = 'bg-primary-pink-200', rounded = true, textCenter = true, placeholder = "", hasSearchBtn = false, bgSearchBtn = null, onBtnClick, grid = false, ...props }, ref) => {
+const Input = forwardRef(({ id, name, label, floatLabel = false, unitLabel = null, border = false, borderBottom = false, padding = "p-2", textSize = "text-xl", color = 'primary-pink-300', bgColor = 'bg-primary-pink-200', rounded = true, textCenter = true, placeholder = "", hasSearchBtn = false, bgSearchBtn = null, onBtnClick, grid = false, hasShadow = false, ...props }, ref) => {
 
     let inputClass = "w-full outline-none font-semibold placeholder:font-normal " + padding + " " + textSize + " ";
     let wrapperClass = "relative w-full ";
@@ -24,6 +24,9 @@ const Input = forwardRef(({ id, name, label, floatLabel = false, unitLabel = nul
     }
     if (textCenter) {
         inputClass += "text-center ";
+    }
+    if (hasShadow) {
+        inputClass += "shadow-xl ";
     }
 
     return (

@@ -6,7 +6,7 @@ const TABLE_HEADER = [
         title: "Nama Barang"
     },
     {
-        title: "Lipat"
+        title: "Original (Lipat)"
     },
     {
         title: "Gantung"
@@ -23,7 +23,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Lipat",
+                title: "Original (Lipat)",
                 price: 10000
             },
             {
@@ -44,7 +44,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Lipat",
+                title: "Original (Lipat)",
                 price: 10000
             },
             {
@@ -65,7 +65,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original",
+                title: "Original (Lipat)",
                 price: 10000
             },
         ]
@@ -76,7 +76,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original",
+                title: "Original (Lipat)",
                 price: 10000
             },
         ]
@@ -87,7 +87,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Lipat",
+                title: "Original (Lipat)",
                 price: 10000
             },
             {
@@ -108,7 +108,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Lipat",
+                title: "Original (Lipat)",
                 price: 10000
             },
             {
@@ -129,7 +129,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Lipat",
+                title: "Original (Lipat)",
                 price: 10000
             },
             {
@@ -150,7 +150,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Lipat",
+                title: "Original (Lipat)",
                 price: 10000
             },
             {
@@ -171,7 +171,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Lipat",
+                title: "Original (Lipat)",
                 price: 10000
             },
             {
@@ -192,7 +192,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Lipat",
+                title: "Original (Lipat)",
                 price: 10000
             },
             {
@@ -213,7 +213,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Lipat",
+                title: "Original (Lipat)",
                 price: 10000
             },
             {
@@ -234,7 +234,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Lipat",
+                title: "Original (Lipat)",
                 price: 10000
             },
             {
@@ -255,7 +255,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Lipat",
+                title: "Original (Lipat)",
                 price: 10000
             },
             {
@@ -276,7 +276,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Lipat",
+                title: "Original (Lipat)",
                 price: 10000
             },
             {
@@ -297,7 +297,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Lipat",
+                title: "Original (Lipat)",
                 price: 10000
             },
             {
