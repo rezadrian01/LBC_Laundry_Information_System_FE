@@ -51,7 +51,7 @@ const CreateLayout = ({ title, isNew = true, keys = [], isItemList = false, numb
 
     return (
         <div className='px-1 font-semibold md:max-w-[50rem] mx-auto'>
-            <h3 className='text-primary-pink-300 text-[1.7rem] lg:text-4xl font-bold md:mt-103'>{title}</h3>
+            <h3 className='text-primary-pink-300 text-[1.7rem] lg:text-4xl font-bold md:mt-10'>{title}</h3>
             <div className='grid grid-cols-6 items-center gap-y-2 md:mt-4'>
                 <EachUtils of={contents} render={(content, index) => {
                     const isNumber = numberTypeIndex.includes(index);

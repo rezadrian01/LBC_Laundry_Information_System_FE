@@ -9,12 +9,14 @@ const TABLE_HEADER = [
 
 const BRANCH_LIST = [
     {
+        id: 1,
         title: "Blimbing",
-        id: 1
+        address: "Jln. Blimbing",
     },
     {
+        id: 2,
         title: "Trs. Surabaya",
-        id: 2
+        address: "Jln. Trs. Surabaya",
     }
 ];
 

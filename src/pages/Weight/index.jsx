@@ -14,8 +14,8 @@ const Weight = () => {
 
     let existingWeightPrice = null;
     if (weightPriceId) {
-        const existingWeightPriceIndex = TABLE_CONTENT.findIndex(item => item.id === +weightPriceId);
-        if (existingWeightPriceIndex === -1) throw json({ message: "Item not found" }, { status: 404 });
+        const existingWeightPriceIndex = TABLE_CONTENT.findIndex(weight => weight.id === +weightPriceId);
+        if (existingWeightPriceIndex === -1) throw json({ message: "Weight price not found" }, { status: 404 });
 
         const previousWeightPrice = TABLE_CONTENT[existingWeightPriceIndex - 1];
         const result = {
