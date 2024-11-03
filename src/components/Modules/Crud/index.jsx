@@ -76,6 +76,8 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                                                 const itemServiceIndex = item.services.findIndex(service => service.title.toLowerCase() === key.toLowerCase());
                                                 if (itemServiceIndex !== -1) {
                                                     content = item.services[itemServiceIndex].price;
+                                                } else {
+                                                    content = "-"
                                                 }
                                             }
                                         }

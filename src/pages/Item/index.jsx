@@ -4,7 +4,7 @@ import Footer from '@/components/Modules/Footer';
 import Header from '@/components/Modules/Header/header';
 import { CREATE_ITEM_INPUT_LIST } from '@/constants/createInputList';
 import { TABLE_CONTENT } from '@/constants/itemList';
-import { useParams } from 'react-router-dom';
+import { json, useParams } from 'react-router-dom';
 
 const Item = () => {
     const { itemId } = useParams();
@@ -13,13 +13,12 @@ const Item = () => {
     let existingItem = null;
     if (itemId) {
         existingItem = TABLE_CONTENT.find(item => item.id === +itemId.toLowerCase());
-        if (!existingItem) throw new Error("Item not found");
+        if (!existingItem) throw new json({ message: "Item not found" }, { status: 404 });
     }
-    // console.log(existingItem);
     return (
         <DefaultLayout>
             <Header hasButton={false} />
-            <CreateLayout keys={keys} defaultValues={existingItem} hasDeleteBtn contents={CREATE_ITEM_INPUT_LIST} title="Item" />
+            <CreateLayout isNew={itemId ? false : true} keys={keys} defaultValues={existingItem} contents={CREATE_ITEM_INPUT_LIST} title="Item" />
             <Footer hasNext={false} />
         </DefaultLayout>
     );

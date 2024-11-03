@@ -4,7 +4,7 @@ import Input from '@/components/UI/Input';
 import EachUtils from '@/utils/eachUtils';
 import { useNavigate } from 'react-router-dom';
 
-const CreateLayout = ({ title, keys, defaultValues = null, successCreateAlertTitle = "Data berhasil dibuat", successDeleteAlertTitle = "Data berhasil dihapus", contents = [], hasDeleteBtn = false }) => {
+const CreateLayout = ({ title, isNew = true, keys, defaultValues = null, successCreateAlertTitle = "Data berhasil dibuat", successDeleteAlertTitle = "Data berhasil dihapus", contents = [] }) => {
     const navigate = useNavigate();
 
     const handleSaveClick = () => {
@@ -59,10 +59,12 @@ const CreateLayout = ({ title, keys, defaultValues = null, successCreateAlertTit
                             <h5>{content.label}</h5>
                         </div>
                         <div className='col-span-4 '>
-                            {defaultValues[keys[index]] && <Input defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
+                            {isNew && <Input textSize="text-lg" type={index === 0 ? 'text' : 'number'} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
+
+                            {!isNew && defaultValues[keys[index]] && <Input textSize="text-lg" defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
 
                             {/* Just for items with services */}
-                            {!defaultValues[keys[index]] && <Input defaultValue={defaultValues.services[index - 1]?.price || "-"} name={content.name} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />
+                            {!isNew && !defaultValues[keys[index]] && <Input textSize="text-lg" type="number" defaultValue={defaultValues.services[index - 1]?.price || "-"} name={content.name} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />
                             }
 
                         </div>
@@ -70,7 +72,7 @@ const CreateLayout = ({ title, keys, defaultValues = null, successCreateAlertTit
                 }} />
             </div>
             <div className='flex items-center justify-end gap-2 mt-14'>
-                {hasDeleteBtn && <button onClick={handleDeleteClick} className='bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded'>Hapus</button>}
+                {!isNew && <button onClick={handleDeleteClick} className='bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded'>Hapus</button>}
                 <button onClick={handleSaveClick} className='bg-primary-pink-300 hover:bg-primary-pink-500 text-white px-4 py-2 rounded'>Simpan</button>
             </div>
         </div>
