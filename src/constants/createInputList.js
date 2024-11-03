@@ -29,15 +29,21 @@ const CREATE_WEIGHT_INPUT_LIST = [
     {
         id: 1,
         label: "Kiloan (start)",
-        id: "start-price",
-        name: "startPrice",
+        id: "start-weight",
+        name: "startWeight",
     },
     {
         id: 2,
         label: "Kiloan (end)",
-        id: "end-price",
-        name: "endPrice"
-    }
+        id: "end-weight",
+        name: "endWeight"
+    },
+    {
+        id: 3,
+        label: "Harga",
+        id: "price",
+        name: "price"
+    },
 ];
 
 const CREATE_BRANCH_INPUT_LIST = [

@@ -21,6 +21,7 @@ import Weights from './pages/Weights';
 import Branches from './pages/Branches';
 import Reports from './pages/Reports';
 import Item from './pages/Item';
+import Weight from './pages/Weight';
 
 const router = createBrowserRouter([
   {
@@ -58,7 +59,20 @@ const router = createBrowserRouter([
       },
       {
         path: 'weights',
-        element: <Weights />
+        children: [
+          {
+            index: true,
+            element: <Weights />
+          },
+          {
+            path: ':weightPriceId',
+            element: <Weight />
+          },
+          {
+            path: 'new',
+            element: <Weight />
+          }
+        ]
       },
       {
         path: 'branches',
