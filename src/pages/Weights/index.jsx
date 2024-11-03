@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Weights = () => {
     const navigate = useNavigate();
-    const keys = ["_", "maxWeight", "price", "_"];
+    const keys = ["_", "maxWeight", "price"];
     const handleEditWeightPrice = (weightPriceId) => {
         console.log(weightPriceId);
     };

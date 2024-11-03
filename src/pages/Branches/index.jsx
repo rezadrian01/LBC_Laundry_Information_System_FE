@@ -6,7 +6,7 @@ import Sidebar from '@/components/Modules/Sidebar/sidebar';
 import { TABLE_HEADER, BRANCH_LIST as TABLE_CONTENT } from '@/constants/branchList';
 
 const Branches = () => {
-    const keys = ["_", "title", "_"];
+    const keys = ["_", "title"];
     const handleEditBranch = (branchId) => {
         console.log(branchId);
     };

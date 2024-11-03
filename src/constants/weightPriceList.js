@@ -8,9 +8,6 @@ const TABLE_HEADER = [
     {
         title: "Harga",
     },
-    {
-        title: "Aksi",
-    },
 ];
 
 const TABLE_CONTENT = [

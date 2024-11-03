@@ -4,9 +4,6 @@ const TABLE_HEADER = [
     },
     {
         title: "Nama"
-    },
-    {
-        title: "Aksi"
     }
 ]
 

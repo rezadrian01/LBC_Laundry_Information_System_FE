@@ -50,7 +50,7 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                         </thead>
                         <tbody>
                             <EachUtils of={tableContent} render={(item, indexRow) => {
-                                return <tr className="cursor-pointer hover:bg-gray-50" onClick={() => navigate(`${item.id}`)} key={item.id}>
+                                return <tr className="cursor-pointer hover:bg-gray-100" onClick={() => navigate(`${item.id}`)} key={item.id}>
                                     <EachUtils of={keys} render={(key, indexKey) => {
                                         let content = item[key];
 
