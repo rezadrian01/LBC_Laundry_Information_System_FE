@@ -11,6 +11,13 @@ import { ORDER_STATUS_LIST } from '@/constants/orderStatusList';
 
 const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, isItemList = false, isWeightPriceList = false, isBranchList = false, onCreate = () => { }, onEdit = () => { }, onDelete = () => { } }) => {
     const navigate = useNavigate();
+    const handleRowClick = (event, id) => {
+        if (event.target.tagName === 'select' || event.target.closest('select')) {
+            return;
+        }
+        navigate(`${id}`);
+    }
+
     let weightCounter = 0;
 
     return (
@@ -40,7 +47,7 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                     </div>}
 
 
-                    <table className='text-center text-[.73rem] md:text-base font-semibold w-full table-fixed mt-4 md:mt-10'>
+                    <table className=' text-center text-[.73rem] md:text-base font-semibold w-full table-fixed mt-4 md:mt-10'>
                         <thead className='border-b-2 border-b-primary-pink-300 text-primary-pink-300'>
                             <tr>
                                 <EachUtils of={tableHeader} render={(item, index) => {
@@ -50,7 +57,7 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                         </thead>
                         <tbody>
                             <EachUtils of={tableContent} render={(item, indexRow) => {
-                                return <tr className="cursor-pointer hover:bg-gray-100" onClick={() => navigate(`${item.id}`)} key={item.id}>
+                                return <tr className="cursor-pointer hover:bg-gray-100" onClick={e => handleRowClick(e, item.id)} key={item.id}>
                                     <EachUtils of={keys} render={(key, indexKey) => {
                                         let content = item[key];
 

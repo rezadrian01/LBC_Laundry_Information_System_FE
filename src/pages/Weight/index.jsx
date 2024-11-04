@@ -2,6 +2,7 @@ import CreateLayout from "@/components/Layouts/Crud/create";
 import DefaultLayout from "@/components/Layouts/Default";
 import Footer from "@/components/Modules/Footer";
 import Header from "@/components/Modules/Header/header";
+import Sidebar from "@/components/Modules/Sidebar/sidebar";
 import { CREATE_WEIGHT_INPUT_LIST } from "@/constants/createInputList";
 import { TABLE_CONTENT } from "@/constants/weightPriceList";
 import { useParams } from "react-router-dom";
@@ -27,6 +28,7 @@ const Weight = () => {
     }
     return (
         <DefaultLayout>
+            <Sidebar />
             <Header hasButton={false} />
             <CreateLayout isNew={weightPriceId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingWeightPrice} contents={CREATE_WEIGHT_INPUT_LIST} title="Harga Berat" />
             <Footer hasNext={false} />

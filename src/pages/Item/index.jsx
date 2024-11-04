@@ -6,6 +6,7 @@ import Footer from '@mods/Footer';
 import Header from '@mods/Header/header';
 import { CREATE_ITEM_INPUT_LIST } from '@/constants/createInputList';
 import { TABLE_CONTENT } from '@/constants/itemList';
+import Sidebar from '@/components/Modules/Sidebar/sidebar';
 
 const Item = () => {
     const { itemId } = useParams();
@@ -20,6 +21,7 @@ const Item = () => {
     }
     return (
         <DefaultLayout>
+            <Sidebar />
             <Header hasButton={false} />
             <CreateLayout isItemList isNew={itemId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingItem} contents={CREATE_ITEM_INPUT_LIST} title="Item" />
             <Footer hasNext={false} />

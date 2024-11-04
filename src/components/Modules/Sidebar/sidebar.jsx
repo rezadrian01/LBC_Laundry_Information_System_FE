@@ -9,6 +9,8 @@ import { BiBlanket } from "react-icons/bi";
 import { GiWeight } from "react-icons/gi";
 import { FaShop } from "react-icons/fa6";
 import { LuLogOut } from "react-icons/lu";
+import { BsPersonVcard } from "react-icons/bs";
+import { GoPerson } from "react-icons/go";
 
 import { ADMIN_SIDEBAR_MENU } from '@/constants/sidebarList';
 import EachUtils from '@/utils/eachUtils';
@@ -19,6 +21,7 @@ const Sidebar = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { isOpen: sidebarIsOpen } = useSelector(state => state.sidebar);
+
     const toggleSidebar = () => {
         dispatch(sidebarAction.toggleSidebar());
     };
@@ -27,12 +30,16 @@ const Sidebar = () => {
         navigate('/login');
         toggleSidebar();
     }
+    const handleProfileClick = () => {
+        navigate('/user');
+        toggleSidebar();
+    }
 
 
     return (
         <div className="fixed w-[15rem] transition-all z-20" style={{ left: sidebarIsOpen ? '0rem' : '-15rem' }}>
             <div onClick={toggleSidebar} className="bg-black/40 fixed inset-0" style={{ display: sidebarIsOpen ? 'block' : 'none' }} />
-            <button onClick={toggleSidebar} className="absolute bg-primary-pink-300 rounded-r-md h-20 w-6 sm:w-8 -right-6 sm:-right-8 top-14">
+            <button onClick={toggleSidebar} className="absolute bg-primary-pink-500/80 shadow-xl rounded-r-md h-20 w-6 sm:w-8 -right-6 sm:-right-8 top-14">
                 <div className="flex flex-col gap-4 px-[.4rem]">
                     <div className="border-b-[3px]" />
                     <div className="border-b-[3px]" />
@@ -46,10 +53,16 @@ const Sidebar = () => {
                             return <SidebarMenu location={location} onClick={toggleSidebar} item={item} index={index} key={index} />;
                         }} />
                     </div>
-                    <button onClick={handleLogoutClick} className="flex items-center gap-3 px-4 py-2 mb-6 hover:bg-pink-100  w-full mx-auto rounded">
-                        <LuLogOut size={20} />
-                        <h3>Logout</h3>
-                    </button>
+                    <div className="flex flex-col gap-1">
+                        <button onClick={handleProfileClick} className="flex items-center gap-3 px-4 py-2  hover:bg-pink-100  w-full mx-auto rounded">
+                            <GoPerson size={20} />
+                            <h3>Profile</h3>
+                        </button>
+                        <button onClick={handleLogoutClick} className="flex items-center gap-3 px-4 py-2 mb-6 hover:bg-pink-100  w-full mx-auto rounded text-red-500">
+                            <LuLogOut size={20} />
+                            <h3>Logout</h3>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,9 +93,12 @@ const SidebarMenu = ({ index, onClick, item, location }) => {
         case 6:
             icon = <FaShop size={20} />;
             break;
+        case 7:
+            icon = <BsPersonVcard size={20} />;
+            break;
     }
 
-    return <Link onClick={onClick} to={item.path} className='hover:shadow-sm hover:bg-pink-100 rounded-lg  py-3 px-4 flex items-center gap-3 w-full' style={{ backgroundColor: location.pathname === item.path ? '#fce7f3' : '' }} >
+    return <Link onClick={onClick} to={item.path} className='hover:shadow-sm hover:bg-pink-100 rounded-lg  py-3 px-4 flex items-center gap-3 w-full' style={{ backgroundColor: location.pathname.startsWith(item.path) ? '#fce7f3' : '' }} >
         {icon}
         <h3>{item.title}</h3>
     </Link>;

@@ -26,7 +26,11 @@ const ADMIN_SIDEBAR_MENU = [
     {
         title: "CABANG",
         path: "/branches"
-    }
+    },
+    {
+        title: "KARYAWAN",
+        path: "/employees"
+    },
 ];
 
 export { ADMIN_SIDEBAR_MENU };

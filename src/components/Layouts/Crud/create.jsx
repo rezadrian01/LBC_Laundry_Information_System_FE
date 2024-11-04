@@ -62,10 +62,10 @@ const CreateLayout = ({ title, isNew = true, keys = [], isItemList = false, numb
                         <div className='col-span-4 '>
                             {isNew && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
 
-                            {!isNew && defaultValues[keys[index]] !== null && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
+                            {!isNew && defaultValues[keys[index]] && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
 
                             {/* Just for items with services */}
-                            {!isNew && isItemList && defaultValues[keys[index]] === null && <Input textSize="text-lg" type="number" step="0.01" defaultValue={defaultValues.services[index - 1]?.price || "-"} name={content.name} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />
+                            {!isNew && isItemList && !defaultValues[keys[index]] && <Input textSize="text-lg" type="number" step="0.01" defaultValue={defaultValues.services[index - 1]?.price || "-"} name={content.name} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />
                             }
 
                         </div>

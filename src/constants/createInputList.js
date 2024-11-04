@@ -61,5 +61,32 @@ const CREATE_BRANCH_INPUT_LIST = [
     },
 ];
 
+const USER_PROFILE_INPUT_LIST = [
+    {
+        id: 1,
+        label: "Username",
+        id: "username",
+        name: "username",
+    },
+    {
+        id: 2,
+        label: "No. HP",
+        id: "phone",
+        name: "phone",
+    },
+    {
+        id: 3,
+        label: "Role",
+        id: "role",
+        name: "role",
+    },
+    {
+        id: 4,
+        label: "Password",
+        id: "password",
+        name: "password",
+    },
+]
 
-export { CREATE_ITEM_INPUT_LIST, CREATE_WEIGHT_INPUT_LIST, CREATE_BRANCH_INPUT_LIST };
+
+export { CREATE_ITEM_INPUT_LIST, CREATE_WEIGHT_INPUT_LIST, CREATE_BRANCH_INPUT_LIST, USER_PROFILE_INPUT_LIST };
