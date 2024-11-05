@@ -40,12 +40,17 @@ const router = createBrowserRouter([
       },
       {
         path: 'orders',
-        element: <Order />
+        children: [
+          {
+            index: true,
+            element: <Order />
+          }
+        ]
       },
       {
         path: 'items',
         children: [
-          {
+          {   
             index: true,
             element: <Items />
           },
