@@ -5,7 +5,6 @@ const USER_PROFILE =
     phone: "081233214291",
     role: "Employee",
     password: "**********"
-
 }
     ;
 

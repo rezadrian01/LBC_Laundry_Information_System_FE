@@ -25,6 +25,7 @@ import Weight from './pages/Weight';
 import Branch from './pages/Branch';
 import User from './pages/User';
 import Order from './pages/Order';
+import Employees from './pages/Employees';
 
 const router = createBrowserRouter([
   {
@@ -100,6 +101,15 @@ const router = createBrowserRouter([
           {
             path: 'new',
             element: <Branch />
+          }
+        ]
+      },
+      {
+        path: 'employees',
+        children: [
+          {
+            index: true,
+            element: <Employees />
           }
         ]
       },

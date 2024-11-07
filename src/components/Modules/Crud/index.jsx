@@ -9,7 +9,7 @@ import Button from '@/components/UI/Button';
 import EachUtils from '@/utils/eachUtils';
 import { ORDER_STATUS_LIST } from '@/constants/orderStatusList';
 
-const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, isItemList = false, isWeightPriceList = false, isBranchList = false, onCreate = () => { }, onEdit = () => { }, onDelete = () => { } }) => {
+const Crud = ({ keys, title = '', tableHeader = [], tableContent = [], isOrderList = false, isItemList = false, isWeightPriceList = false, isBranchList = false, isEmployeeList = false, onCreate = () => { }, onEdit = () => { }, onDelete = () => { } }) => {
     const navigate = useNavigate();
     const handleRowClick = (event, id) => {
         if (event.target.tagName === 'select' || event.target.closest('select')) {
@@ -24,7 +24,6 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
         <>
             <CrudLayout>
                 <section className='mt-4 md:mt-10'>
-
                     {/* Searchbar */}
                     {(isOrderList || isItemList) && <div className='grid grid-cols-12 gap-x-2'>
                         {isOrderList && <div className='col-span-12'>
@@ -40,9 +39,14 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                         </div>
                         }
                     </div>}
-                    {(isWeightPriceList || isBranchList) && <div className="w-full flex justify-end" >
+                    {(isWeightPriceList || isBranchList || isEmployeeList) && <div className="w-full flex justify-between" >
+                        <h3 className="text-primary-pink-300 font-bold text-3xl">{title}</h3>
                         <div className="md:w-[10rem]">
-                            <Button onClick={onCreate} style={{ width: '100%' }}>{isWeightPriceList ? "Tambah Harga Berat" : "Tambah Cabang"}</Button>
+                            <Button onClick={onCreate} style={{ width: '100%' }}>
+                                {isWeightPriceList && "Tambah Harga Berat"}
+                                {isBranchList && "Tambah Cabang"}
+                                {isEmployeeList && "Tambah Karyawan"}
+                            </Button>
                         </div>
                     </div>}
 
@@ -125,7 +129,14 @@ const Crud = ({ keys, tableHeader = [], tableContent = [], isOrderList = false, 
                                                     </button>
                                                 </div>;
                                             }
-                                        } 
+                                        }
+
+                                        // Employee List
+                                        if (isEmployeeList) {
+                                            if (indexKey === 0) {
+                                                content = `${indexRow + 1}.`;
+                                            }
+                                        }
 
 
                                         return <td className='py-4' key={indexKey}>{content}</td>;
