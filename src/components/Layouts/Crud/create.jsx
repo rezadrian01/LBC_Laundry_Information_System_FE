@@ -4,7 +4,7 @@ import Input from '@/components/UI/Input';
 import EachUtils from '@/utils/eachUtils';
 import { useNavigate } from 'react-router-dom';
 
-const CreateLayout = ({ title, isNew = true, keys = [], isItemDetail = false, isOrderDetail = false, isEmployeeDetail = false, dropdownIndex = null, confirmAlert = true, numberTypeIndex = [], defaultValues = null, successCreateAlertTitle = "Data berhasil dibuat", successDeleteAlertTitle = "Data berhasil dihapus", fields = [] }) => {
+const CreateLayout = ({ title, isNew = true, keys = [], isItemDetail = false, isOrderDetail = false, dropdownIndex = null, confirmAlert = true, numberTypeIndex = [], defaultValues = null, successCreateAlertTitle = "Data berhasil dibuat", successDeleteAlertTitle = "Data berhasil dihapus", fields = [] }) => {
     const navigate = useNavigate();
 
     const handleSaveClick = () => {

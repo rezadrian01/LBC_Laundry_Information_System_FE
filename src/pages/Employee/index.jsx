@@ -1,12 +1,12 @@
-import CreateLayout from '@/components/Layouts/Crud/create';
-import DefaultLayout from '@/components/Layouts/Default';
-import Footer from '@/components/Modules/Footer';
-import Header from '@/components/Modules/Header/header';
-import Sidebar from '@/components/Modules/Sidebar/sidebar';
+import { json, useParams } from 'react-router-dom';
+
+import CreateLayout from '@layouts/Crud/create';
+import DefaultLayout from '@layouts/Default';
+import Footer from '@mods/Footer';
+import Header from '@mods/Header/header';
+import Sidebar from '@mods/Sidebar/sidebar';
 import { USER_PROFILE_FIELDS } from '@/constants/detailFieldList';
 import { TABLE_CONTENT } from '@/constants/employeeList';
-import React from 'react';
-import { useParams } from 'react-router-dom';
 
 const Employee = () => {
     const { employeeId } = useParams();
@@ -14,16 +14,16 @@ const Employee = () => {
     const keys = ["name", "phone", "role", "password"];
     const numberTypeIndex = [];
 
-    let existingItem = null;
+    let existingEmployee = null;
     if (employeeId) {
-        existingItem = TABLE_CONTENT.find(employee => employee.id === +employeeId);
-        if (!existingItem) throw json({ message: "Item not found" }, { status: 404 });
+        existingEmployee = TABLE_CONTENT.find(employee => employee.id === +employeeId);
+        if (!existingEmployee) throw json({ message: "Employee not found" }, { status: 404 });
     }
     return (
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            <CreateLayout isEmployeeDetail isNew={employeeId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingItem} fields={USER_PROFILE_FIELDS} title="Karyawan" />
+            <CreateLayout isNew={employeeId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingEmployee} fields={USER_PROFILE_FIELDS} title="Karyawan" />
             <Footer hasNext={false} />
         </DefaultLayout>
     );

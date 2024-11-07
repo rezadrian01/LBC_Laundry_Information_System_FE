@@ -28,6 +28,7 @@ import Order from './pages/Order';
 import Employees from './pages/Employees';
 import Employee from './pages/Employee';
 import Services from './pages/Services';
+import Service from './pages/Service';
 
 const router = createBrowserRouter([
   {
@@ -129,7 +130,15 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Services />
-          }
+          },
+          {
+            path: ':serviceId',
+            element: <Service />
+          },
+          {
+            path: 'new',
+            element: <Service />
+          },
         ]
       },
       {

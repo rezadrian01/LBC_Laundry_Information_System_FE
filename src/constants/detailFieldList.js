@@ -134,5 +134,18 @@ const ORDER_DETAIL_FIELDS = [
     },
 ];
 
+const SERVICE_DETAIL_LIST = [
+    {
+        id: 'service-name',
+        label: 'Nama Layanan',
+        name: 'serviceName'
+    },
+    {
+        id: 'service-price',
+        label: 'Harga',
+        name: 'servicePrice'
+    },
+]
 
-export { ITEM_DETAIL_FIELDS, WEIGHT_DETAIL_FIELDS, BRANCH_DETAIL_FIELDS, USER_PROFILE_FIELDS, ORDER_DETAIL_FIELDS };
+
+export { ITEM_DETAIL_FIELDS, WEIGHT_DETAIL_FIELDS, BRANCH_DETAIL_FIELDS, USER_PROFILE_FIELDS, ORDER_DETAIL_FIELDS, SERVICE_DETAIL_LIST };
