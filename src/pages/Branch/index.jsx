@@ -4,7 +4,7 @@ import Footer from "@/components/Modules/Footer";
 import Header from "@/components/Modules/Header/header";
 import Sidebar from "@/components/Modules/Sidebar/sidebar";
 import { BRANCH_LIST } from "@/constants/branchList";
-import { CREATE_BRANCH_INPUT_LIST } from "@/constants/createInputList";
+import { BRANCH_DETAIL_FIELDS } from "@/constants/detailFieldList";
 import { useParams } from "react-router-dom";
 
 const Branch = () => {
@@ -21,7 +21,7 @@ const Branch = () => {
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            <CreateLayout isNew={branchId ? false : true} keys={keys} defaultValues={existingBranch} contents={CREATE_BRANCH_INPUT_LIST} title="Cabang" />
+            <CreateLayout isNew={branchId ? false : true} keys={keys} defaultValues={existingBranch} fields={BRANCH_DETAIL_FIELDS} title="Cabang" />
             <Footer hasNext={false} />
         </DefaultLayout>
     );

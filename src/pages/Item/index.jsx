@@ -4,9 +4,9 @@ import CreateLayout from '@layouts/Crud/create';
 import DefaultLayout from '@layouts/Default';
 import Footer from '@mods/Footer';
 import Header from '@mods/Header/header';
-import { CREATE_ITEM_INPUT_LIST } from '@/constants/createInputList';
+import { ITEM_DETAIL_FIELDS } from '@/constants/detailFieldList';
 import { TABLE_CONTENT } from '@/constants/itemList';
-import Sidebar from '@/components/Modules/Sidebar/sidebar';
+import Sidebar from '@mods/Sidebar/sidebar';
 
 const Item = () => {
     const { itemId } = useParams();
@@ -23,7 +23,7 @@ const Item = () => {
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            <CreateLayout isItemList isNew={itemId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingItem} contents={CREATE_ITEM_INPUT_LIST} title="Item" />
+            <CreateLayout isItemDetail isNew={itemId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingItem} fields={ITEM_DETAIL_FIELDS} title="Item" />
             <Footer hasNext={false} />
         </DefaultLayout>
     );

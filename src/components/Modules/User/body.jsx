@@ -1,6 +1,6 @@
 import Button from '@/components/UI/Button';
 import Input from '@/components/UI/Input';
-import { USER_PROFILE_INPUT_LIST } from '@/constants/createInputList';
+import { USER_PROFILE_FIELDS } from '@/constants/detailFieldList';
 import EachUtils from '@/utils/eachUtils';
 import React from 'react';
 import Swal from 'sweetalert2';
@@ -17,7 +17,7 @@ const BodyUserProfile = ({ user, keys }) => {
     return (
         <div className='relative px-6 sm:px-32 lg:max-w-[55rem] mx-auto pb-20'>
             <div className='px-6 grid grid-cols-6 md:grid-cols-8 items-center gap-y-4 my-10'>
-                <EachUtils of={USER_PROFILE_INPUT_LIST} render={(content, index) => {
+                <EachUtils of={USER_PROFILE_FIELDS} render={(content, index) => {
                     return <>
                         <div className="col-span-2 md:col-span-2">
                             <h4 className='text-xl'>{content.label}</h4>

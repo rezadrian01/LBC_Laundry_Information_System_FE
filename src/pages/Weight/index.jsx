@@ -3,7 +3,7 @@ import DefaultLayout from "@/components/Layouts/Default";
 import Footer from "@/components/Modules/Footer";
 import Header from "@/components/Modules/Header/header";
 import Sidebar from "@/components/Modules/Sidebar/sidebar";
-import { CREATE_WEIGHT_INPUT_LIST } from "@/constants/createInputList";
+import { BRANCH_DETAIL_FIELDS } from "@/constants/detailFieldList";
 import { TABLE_CONTENT } from "@/constants/weightPriceList";
 import { useParams } from "react-router-dom";
 
@@ -30,7 +30,7 @@ const Weight = () => {
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            <CreateLayout isNew={weightPriceId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingWeightPrice} contents={CREATE_WEIGHT_INPUT_LIST} title="Harga Berat" />
+            <CreateLayout isNew={weightPriceId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingWeightPrice} fields={BRANCH_DETAIL_FIELDS} title="Harga Berat" />
             <Footer hasNext={false} />
         </DefaultLayout>
     );

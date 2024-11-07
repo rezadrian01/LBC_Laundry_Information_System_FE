@@ -15,7 +15,7 @@ import NewOrderItem from './pages/NewOrderItem';
 import NewOrderWeight from './pages/NewOrderWeight';
 import OrderSummary from './pages/OrderSummary';
 import Error from './pages/Error';
-import Order from './pages/Orders';
+import Orders from './pages/Orders';
 import Items from './pages/Items';
 import Weights from './pages/Weights';
 import Branches from './pages/Branches';
@@ -24,6 +24,7 @@ import Item from './pages/Item';
 import Weight from './pages/Weight';
 import Branch from './pages/Branch';
 import User from './pages/User';
+import Order from './pages/Order';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
+            element: <Orders />
+          },
+          {
+            path: ':orderId',
             element: <Order />
           }
         ]

@@ -5,7 +5,7 @@ import Sidebar from '@/components/Modules/Sidebar/sidebar';
 import { TABLE_CONTENT } from '@/constants/orderList';
 import { TABLE_HEADER } from '@/constants/orderList';
 
-const Order = () => {
+const Orders = () => {
     const keys = ["receiptNumber", "customerName", "status"];
     return (
         <DefaultLayout>
@@ -18,4 +18,4 @@ const Order = () => {
     );
 };
 
-export default Order;   
+export default Orders;   

@@ -16,7 +16,7 @@ const Items = () => {
         <DefaultLayout>
             <Sidebar />
             <Crud onCreate={handleCreateItem} keys={keys} isItemList tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} />
-            <div className='mt-4 md:mt-10'>
+            <div className='mt-4 md:mt-10 tracking-wider'>
                 <Footer backToDashboard hasNext={false} />
             </div>
         </DefaultLayout>

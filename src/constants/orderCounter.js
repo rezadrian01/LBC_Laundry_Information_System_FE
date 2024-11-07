@@ -14,7 +14,7 @@ const ORDER_COUNTER = [
     {
         title: "Disetrika",
         total: 24
-    }
+    },
 ];
 
 export { ORDER_COUNTER };
