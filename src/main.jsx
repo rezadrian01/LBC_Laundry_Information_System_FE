@@ -27,6 +27,7 @@ import User from './pages/User';
 import Order from './pages/Order';
 import Employees from './pages/Employees';
 import Employee from './pages/Employee';
+import Services from './pages/Services';
 
 const router = createBrowserRouter([
   {
@@ -119,6 +120,15 @@ const router = createBrowserRouter([
           {
             path: 'new',
             element: <Employee />
+          }
+        ]
+      },
+      {
+        path: 'services',
+        children: [
+          {
+            index: true,
+            element: <Services />
           }
         ]
       },

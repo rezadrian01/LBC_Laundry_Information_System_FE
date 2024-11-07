@@ -9,7 +9,21 @@ import Button from '@/components/UI/Button';
 import EachUtils from '@/utils/eachUtils';
 import { ORDER_STATUS_LIST } from '@/constants/orderStatusList';
 
-const Crud = ({ keys, title = '', tableHeader = [], tableContent = [], isOrderList = false, isItemList = false, isWeightPriceList = false, isBranchList = false, isEmployeeList = false, onCreate = () => { }, onEdit = () => { }, onDelete = () => { } }) => {
+const Crud = ({
+    keys,
+    title = '',
+    tableHeader = [],
+    tableContent = [],
+    isOrderList = false,
+    isItemList = false,
+    isWeightPriceList = false,
+    isBranchList = false,
+    isEmployeeList = false,
+    isServiceList = false,
+    onCreate = () => { },
+    onEdit = () => { },
+    onDelete = () => { }
+}) => {
     const navigate = useNavigate();
     const handleRowClick = (event, id) => {
         if (event.target.tagName === 'select' || event.target.closest('select')) {
@@ -39,13 +53,14 @@ const Crud = ({ keys, title = '', tableHeader = [], tableContent = [], isOrderLi
                         </div>
                         }
                     </div>}
-                    {(isWeightPriceList || isBranchList || isEmployeeList) && <div className="w-full flex justify-between" >
+                    {(isWeightPriceList || isBranchList || isEmployeeList || isServiceList) && <div className="w-full flex justify-between" >
                         <h3 className="text-primary-pink-300 font-bold text-3xl">{title}</h3>
                         <div className="md:w-[10rem]">
                             <Button onClick={onCreate} style={{ width: '100%' }}>
                                 {isWeightPriceList && "Tambah Harga Berat"}
                                 {isBranchList && "Tambah Cabang"}
                                 {isEmployeeList && "Tambah Karyawan"}
+                                {isServiceList && "Tambah Layanan"}
                             </Button>
                         </div>
                     </div>}
@@ -131,8 +146,8 @@ const Crud = ({ keys, title = '', tableHeader = [], tableContent = [], isOrderLi
                                             }
                                         }
 
-                                        // Employee List
-                                        if (isEmployeeList) {
+                                        // Employee List and Service List
+                                        if (isEmployeeList || isServiceList) {
                                             if (indexKey === 0) {
                                                 content = `${indexRow + 1}.`;
                                             }
