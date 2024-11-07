@@ -9,7 +9,7 @@ import { TABLE_HEADER, BRANCH_LIST as TABLE_CONTENT } from '@/constants/branchLi
 
 const Branches = () => {
     const navigate = useNavigate();
-    const keys = ["_", "title"];
+    const keys = ["_", "name"];
     const handleEditBranch = (branchId) => {
         console.log(branchId);
     };

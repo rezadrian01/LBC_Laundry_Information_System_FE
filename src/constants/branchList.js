@@ -10,25 +10,28 @@ const TABLE_HEADER = [
 const BRANCH_LIST = [
     {
         id: 1,
-        title: "Blimbing",
+        name: "Blimbing",
         address: "Jln. Blimbing",
     },
     {
         id: 2,
-        title: "Trs. Surabaya",
+        name: "Trs. Surabaya",
         address: "Jln. Trs. Surabaya",
     }
 ];
 
 const BRANCH_LIST_REPORT = [
     {
-        title: "Blimbing"
+        id: 1,
+        name: "Blimbing"
     },
     {
-        title: "Trs. Surabaya"
+        id: 2,
+        name: "Trs. Surabaya"
     },
     {
-        title: "Semua"
+        id: 3,
+        name: "Semua"
     },
 ];
 

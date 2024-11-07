@@ -3,11 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 export const branchSlice = createSlice({
     name: "branch",
     initialState: {
-        activeBranchId: 1
+        activeBranch: {
+            id: 1,
+            name: "Blimbing",
+            address: "Jln. Blimbing"
+        }
     },
     reducers: {
         changeBranch: (state, action) => {
-            state.activeBranchId = action.payload;
+            state.activeBranch = { ...action.payload };
         }
     }
 });

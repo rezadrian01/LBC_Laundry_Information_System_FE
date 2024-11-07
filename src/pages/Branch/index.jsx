@@ -1,16 +1,17 @@
-import CreateLayout from "@/components/Layouts/Crud/create";
-import DefaultLayout from "@/components/Layouts/Default";
-import Footer from "@/components/Modules/Footer";
-import Header from "@/components/Modules/Header/header";
-import Sidebar from "@/components/Modules/Sidebar/sidebar";
+import { useParams } from "react-router-dom";
+
+import CreateLayout from "@layouts/Crud/create";
+import DefaultLayout from "@layouts/Default";
+import Footer from "@mods/Footer";
+import Header from "@mods/Header/header";
+import Sidebar from "@mods/Sidebar/sidebar";
 import { BRANCH_LIST } from "@/constants/branchList";
 import { BRANCH_DETAIL_FIELDS } from "@/constants/detailFieldList";
-import { useParams } from "react-router-dom";
 
 const Branch = () => {
     const { branchId } = useParams();
 
-    const keys = ["title", "address"];
+    const keys = ["name", "address"];
 
     let existingBranch = null;
     if (branchId) {

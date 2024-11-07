@@ -3,15 +3,18 @@ import LoginBackground from '@layouts/Login/background';
 import LoginTitle from '@mods/Login/loginTitle';
 import AuthInput from '@/components/UI/AuthInput/authInput';
 import Sidebar from '@/components/Modules/Sidebar/sidebar';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
 
     const submitHandler = (event) => {
         event.preventDefault();
         const fd = new FormData(event.target);
         const data = Object.fromEntries(fd.entries());
         console.log(data);
-    }
+        navigate('/dashboard');
+    };
 
     return (
         <div className=''>

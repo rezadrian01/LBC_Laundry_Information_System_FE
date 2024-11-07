@@ -33,7 +33,7 @@ const NewOrder = () => {
     return (
         <DefaultLayout>
             <ChooseOrderTypeBg />
-            <Header hasDropdown={true} onChange={handleSelectBranch} />
+            <Header hasButton={false} onChange={handleSelectBranch} />
             <div className='flex flex-col gap-12 justify-center items-center mt-28'>
                 <h3 className='text-2xl md:text-3xl font-semibold'>Pilih Tipe Pesanan</h3>
                 <div className='grid grid-cols-2 gap-y-4 justify-center items-center w-full max-w-[50rem]'>

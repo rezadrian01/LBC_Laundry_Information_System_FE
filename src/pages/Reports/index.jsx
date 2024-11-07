@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import DefaultLayout from "@layouts/Default";
 import StatisticCard from "@mods/Dashboard/statisticCard";
 import Header from "@mods/Header/header";
@@ -9,10 +11,19 @@ import { REPORT_STATISTIC_TITLE_LIST, REPORT_TYPE_LIST } from "@/constants/repor
 import EachUtils from "@/utils/eachUtils";
 
 const Reports = () => {
+    const [selectedBranchReport, setSelectedBranchReport] = useState({
+        id: 1,
+        name: "Blimbing"
+    });
+
+    const handleSelectBranchReport = (branch) => {
+        setSelectedBranchReport(branch);
+    }
+
     return (
         <DefaultLayout>
             <Sidebar />
-            <Header hasButton={false} hasDropdown branchList={BRANCH_LIST_REPORT} />
+            <Header hasButton={false} hasBranchBtn isReports selectedBranch={selectedBranchReport} branchList={BRANCH_LIST_REPORT} onSelect={handleSelectBranchReport} />
             <div className="my-6 flex flex-col items-center gap-4 justify-center ">
                 <TabMenu layoutId="orderType" contents={ORDER_TYPE} />
                 <TabMenu layoutId="reportType" contents={REPORT_TYPE_LIST} />
