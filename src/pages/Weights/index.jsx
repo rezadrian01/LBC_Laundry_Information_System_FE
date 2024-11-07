@@ -18,7 +18,7 @@ const Weights = () => {
     return (
         <DefaultLayout>
             <Sidebar />
-            <Crud isWeightPriceList keys={keys} tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} onCreate={() => navigate('new')} onEdit={handleEditWeightPrice} onDelete={handleDeleteWeightPrice} />
+            <Crud title='Berat' isWeightPriceList keys={keys} tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} onCreate={() => navigate('new')} onEdit={handleEditWeightPrice} onDelete={handleDeleteWeightPrice} />
             <div className='mt-4 md:mt-10'>
                 <Footer backToDashboard hasNext={false} />
             </div>

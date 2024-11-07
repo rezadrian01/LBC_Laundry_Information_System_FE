@@ -1,9 +1,10 @@
-import DefaultLayout from '@/components/Layouts/Default';
-import Crud from '@/components/Modules/Crud';
-import Sidebar from '@/components/Modules/Sidebar/sidebar';
-import { TABLE_CONTENT, TABLE_HEADER } from '@/constants/employeeList';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import DefaultLayout from '@layouts/Default';
+import Crud from '@mods/Crud';
+import Footer from '@mods/Footer';
+import Sidebar from '@mods/Sidebar/sidebar';
+import { TABLE_CONTENT, TABLE_HEADER } from '@/constants/employeeList';
 
 const Employees = () => {
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ const Employees = () => {
         <DefaultLayout>
             <Sidebar />
             <Crud isEmployeeList keys={keys} title="Karyawan" tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} onCreate={() => navigate('new')} onEdit={handleEditEmployee} onDelete={handleDeleteEmployee} />
+            <Footer backToDashboard hasNext={false} />
         </DefaultLayout>
     );
 };

@@ -20,7 +20,7 @@ const Branches = () => {
     return (
         <DefaultLayout>
             <Sidebar />
-            <Crud isBranchList keys={keys} tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} onCreate={() => navigate('new')} onEdit={handleEditBranch} onDelete={handleDeleteBranch} />
+            <Crud title='Cabang' isBranchList keys={keys} tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} onCreate={() => navigate('new')} onEdit={handleEditBranch} onDelete={handleDeleteBranch} />
             <div className='mt-4 md:mt-10'>
                 <Footer backToDashboard hasNext={false} />
             </div>
