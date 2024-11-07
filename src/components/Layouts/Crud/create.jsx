@@ -4,7 +4,7 @@ import Input from '@/components/UI/Input';
 import EachUtils from '@/utils/eachUtils';
 import { useNavigate } from 'react-router-dom';
 
-const CreateLayout = ({ title, isNew = true, keys = [], isItemDetail = false, isOrderDetail = false, dropdownIndex = null, confirmAlert = true, numberTypeIndex = [], defaultValues = null, successCreateAlertTitle = "Data berhasil dibuat", successDeleteAlertTitle = "Data berhasil dihapus", fields = [] }) => {
+const CreateLayout = ({ title, isNew = true, keys = [], isItemDetail = false, isOrderDetail = false, isEmployeeDetail = false, dropdownIndex = null, confirmAlert = true, numberTypeIndex = [], defaultValues = null, successCreateAlertTitle = "Data berhasil dibuat", successDeleteAlertTitle = "Data berhasil dihapus", fields = [] }) => {
     const navigate = useNavigate();
 
     const handleSaveClick = () => {
@@ -72,6 +72,7 @@ const CreateLayout = ({ title, isNew = true, keys = [], isItemDetail = false, is
                             {isNew && !isOrderDetail && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
 
                             {!isNew && !isOrderDetail && defaultValues[keys[index]] && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
+
 
                             {/* Just for orderDetail */}
                             {isOrderDetail && index !== dropdownIndex && <>

@@ -26,6 +26,7 @@ import Branch from './pages/Branch';
 import User from './pages/User';
 import Order from './pages/Order';
 import Employees from './pages/Employees';
+import Employee from './pages/Employee';
 
 const router = createBrowserRouter([
   {
@@ -110,6 +111,14 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Employees />
+          },
+          {
+            path: ':employeeId',
+            element: <Employee />
+          },
+          {
+            path: 'new',
+            element: <Employee />
           }
         ]
       },
