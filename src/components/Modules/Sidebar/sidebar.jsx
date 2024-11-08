@@ -36,7 +36,7 @@ const Sidebar = () => {
     }
 
     return (
-        <div className="fixed w-[15rem] transition-all z-20" style={{ left: sidebarIsOpen ? '0rem' : '-15rem' }}>
+        <div className="fixed w-[15rem] transition-all z-50" style={{ left: sidebarIsOpen ? '0rem' : '-15rem' }}>
             <div onClick={toggleSidebar} className="bg-black/40 fixed inset-0" style={{ display: sidebarIsOpen ? 'block' : 'none' }} />
             <button onClick={toggleSidebar} className="absolute bg-primary-pink-500/80 shadow-xl rounded-r-md h-20 w-6 sm:w-8 -right-6 sm:-right-8 top-14">
                 <div className="flex flex-col gap-4 px-[.4rem]">

@@ -37,6 +37,7 @@ const NewOrderWeight = () => {
                     title: "Maksimal 2 layanan.",
                     text: 'Anda hanya dapat memilih 2 layanan saja per laundry.',
                     icon: 'error',
+                    confirmButtonColor: '#f87aac'
                 });
                 event.target.checked = false;
                 return;
@@ -57,9 +58,9 @@ const NewOrderWeight = () => {
                 <div className='flex flex-col gap-2 mb-6 text-lg bg-primary-pink-200 rounded-xl shadow-xl p-4'>
                     <h3 className='mb-4 text-3xl font-semibold'>Layanan</h3>
                     <EachUtils of={TABLE_CONTENT} render={(service, index) => {
-                        return <div className='flex gap-2 items-center'>
-                            <input onChange={handleSelectService} type='checkbox' id={service.name} name='service' value={service.id} />
-                            <label htmlFor={service.name}>{service.name}</label>
+                        return <div className='flex gap-2 items-center '>
+                            <input className='bg-primary-pink-300 cursor-pointer' onChange={handleSelectService} type='checkbox' id={service.name} name='service' value={service.id} />
+                            <label className='cursor-pointer' htmlFor={service.name}>{service.name}</label>
                         </div>;
                     }} />
                 </div>
