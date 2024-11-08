@@ -6,7 +6,8 @@ export const orderSlice = createSlice({
         orderTypeId: null,
         items: [],
         weight: 0,
-        totalItems: 0
+        totalItems: 0,
+        services: []
     },
     reducers: {
         changeOrderType: (state, action) => {
@@ -31,6 +32,13 @@ export const orderSlice = createSlice({
             state.items = [];
             state.weight = 0;
             state.totalItems = 0;
+            state.services = [];
+        },
+        addService: (state, action) => {
+            state.services.push(action.payload.service);
+        },
+        removeService: (state, action) => {
+            state.services = state.services.filter(service => service.id !== action.payload.serviceId);
         }
     }
 });

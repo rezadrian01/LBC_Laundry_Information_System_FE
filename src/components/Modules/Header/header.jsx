@@ -53,7 +53,7 @@ const Header = ({ hasButton = true, hasBranchBtn = false, branchList = null, isR
 
 const BranchDropdown = ({ toggleBranchDropdown, activeBranch, isBranchDropdownOpen, branchList, isReports = false, onSelect }) => {
     return <div className="col-span-2 relative flex justify-end mt-4">
-        <button className="flex justify-between items-center  text-primary-pink-300 bg-white border-2 border-primary-pink-300 rounded-lg w-[12rem]  py-2 shadow-md pr-1" onClick={toggleBranchDropdown}>
+        <button className="flex justify-between items-center  text-primary-pink-300 bg-white border-2 border-primary-pink-300 w-[12rem] rounded py-2 shadow-md pr-1" onClick={toggleBranchDropdown}>
             <div className="flex items-center gap-1 px-2">
                 <MdLocationOn size={20} />
                 {activeBranch.name}
@@ -62,9 +62,9 @@ const BranchDropdown = ({ toggleBranchDropdown, activeBranch, isBranchDropdownOp
         </button>
         {isBranchDropdownOpen && <>
             <div onClick={toggleBranchDropdown} className="fixed inset-0" />
-            <ul className="absolute z-20 shadow-xl rounded-lg w-[12rem] top-11">
+            <ul className="absolute z-20 shadow-xl rounded-lg w-[12rem] top-10">
                 <EachUtils of={isReports ? branchList : BRANCH_LIST} render={(branch, index) => {
-                    return <li onClick={() => onSelect(branch)} className="cursor-pointer flex items-center text-white bg-primary-pink-300 hover:bg-primary-pink-400 py-2 px-3 last:rounded-b-lg" key={index}>
+                    return <li onClick={() => onSelect(branch)} className="cursor-pointer flex items-center text-white bg-primary-pink-300 hover:bg-primary-pink-400 py-2 px-3 last:rounded-b" key={index}>
                         <MdLocationOn size={20} />
                         {branch.name}
                     </li>;
