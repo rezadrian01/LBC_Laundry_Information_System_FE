@@ -1,12 +1,18 @@
 
+import { orderAction } from "@/stores/order";
 import { FaChevronLeft } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Button = ({ children, isDefault = true, next = false, backToDashboard = false, back = false, ...props }) => {
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
 
     const handleBackClick = () => {
+        if (location.pathname === '/new-order/weight') {
+            dispatch(orderAction.resetOrder());
+        }
         if (location.pathname === '/new-order' || backToDashboard) {
             navigate('/dashboard');
             return;

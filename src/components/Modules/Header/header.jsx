@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { animate, AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { MdLocationOn } from "react-icons/md";
 import { IoChevronDown } from "react-icons/io5";
@@ -9,7 +9,6 @@ import { FaPlus } from "react-icons/fa6";
 
 // import Button from "@/components/UI/Button";
 import { BRANCH_LIST } from "@/constants/branchList";
-import Select from "@/components/UI/Select";
 import EachUtils from "@/utils/eachUtils";
 import { branchAction } from "@/stores/branch";
 import Button from "@/components/UI/Button";

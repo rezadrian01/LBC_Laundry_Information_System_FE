@@ -5,9 +5,19 @@ import Sidebar from '@mods/Sidebar/sidebar';
 import Header from '@mods/Header/header';
 import OrderCounter from '@mods/Dashboard/orderCounter';
 import DefaultLayout from '@layouts/Default';
+import { useDispatch } from 'react-redux';
+import { orderAction } from '@/stores/order';
+import { useEffect } from 'react';
 
 const Dashboard = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    // Reset Global State
+    useEffect(() => {
+        dispatch(orderAction.resetOrder());
+    }, [])
+
     const handleAddNewOrderClick = () => {
         navigate('/new-order');
     }
