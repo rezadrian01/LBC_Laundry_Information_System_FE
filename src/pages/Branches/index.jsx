@@ -6,9 +6,11 @@ import Footer from '@mods/Footer';
 import Sidebar from '@mods/Sidebar/sidebar';
 
 import { TABLE_HEADER, BRANCH_LIST as TABLE_CONTENT } from '@/constants/branchList';
+import useAuth from '@/hooks/useAuth';
 
 const Branches = () => {
     const navigate = useNavigate();
+    useAuth();
     const keys = ["_", "name"];
     const handleEditBranch = (branchId) => {
         console.log(branchId);

@@ -1,12 +1,16 @@
+import { useNavigate } from 'react-router-dom';
+
 import DefaultLayout from '@layouts/Default';
 import Crud from '@mods/Crud';
 import Footer from '@mods/Footer';
+import Sidebar from '@mods/Sidebar/sidebar';
 import { TABLE_CONTENT, TABLE_HEADER } from '@/constants/itemList';
-import Sidebar from '@/components/Modules/Sidebar/sidebar';
-import { useNavigate } from 'react-router-dom';
+
+import useAuth from '@/hooks/useAuth';
 
 const Items = () => {
     const navigate = useNavigate();
+    useAuth();
     const keys = ["_", "name", "Original (Lipat)", "Gantung", "Dry Clean"];
     const handleCreateItem = () => {
         navigate('new');

@@ -1,14 +1,16 @@
-import CreateLayout from '@/components/Layouts/Crud/create';
-import DefaultLayout from '@/components/Layouts/Default';
-import Footer from '@/components/Modules/Footer';
-import Header from '@/components/Modules/Header/header';
-import Sidebar from '@/components/Modules/Sidebar/sidebar';
-import { SERVICE_DETAIL_LIST, USER_PROFILE_FIELDS } from '@/constants/detailFieldList';
-import { TABLE_CONTENT } from '@/constants/serviceList';
 import { json, useParams } from 'react-router-dom';
+import CreateLayout from '@layouts/Crud/create';
+import DefaultLayout from '@layouts/Default';
+import Footer from '@mods/Footer';
+import Header from '@mods/Header/header';
+import Sidebar from '@mods/Sidebar/sidebar';
+import { SERVICE_DETAIL_LIST } from '@/constants/detailFieldList';
+import { TABLE_CONTENT } from '@/constants/serviceList';
+import useAuth from '@/hooks/useAuth';
 
 const Service = () => {
     const { serviceId } = useParams();
+    useAuth();
 
     const keys = ["name", "price"];
     const numberTypeIndex = [];

@@ -8,12 +8,14 @@ import DefaultLayout from '@layouts/Default';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderAction } from '@/stores/order';
 import { useEffect } from 'react';
+import useAuth from '@/hooks/useAuth';
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
-    console.log(auth);
+    useAuth();
+
 
     // Reset Global State
     useEffect(() => {

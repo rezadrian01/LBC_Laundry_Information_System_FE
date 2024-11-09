@@ -1,13 +1,17 @@
-import DefaultLayout from '@/components/Layouts/Default';
-import Crud from '@/components/Modules/Crud';
-import Footer from '@/components/Modules/Footer';
-import Sidebar from '@/components/Modules/Sidebar/sidebar';
-import { TABLE_CONTENT, TABLE_HEADER } from '@/constants/weightPriceList';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import DefaultLayout from '@layouts/Default';
+import Crud from '@mods/Crud';
+import Footer from '@mods/Footer';
+import Sidebar from '@mods/Sidebar/sidebar';
+import { TABLE_CONTENT, TABLE_HEADER } from '@/constants/weightPriceList';
+
+import useAuth from '@/hooks/useAuth';
+
 const Weights = () => {
     const navigate = useNavigate();
+    useAuth();
     const keys = ["_", "maxWeight", "price"];
     const handleEditWeightPrice = (weightPriceId) => {
         console.log(weightPriceId);

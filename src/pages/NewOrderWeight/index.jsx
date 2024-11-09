@@ -4,12 +4,14 @@ import { json, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import DefaultLayout from '@layouts/Default';
-import Footer from '@mods/Footer';
 import OrderLayout from '@layouts/Order';
+import Footer from '@mods/Footer';
 import InputGroup from '@/components/UI/InputGroup';
 import EachUtils from '@/utils/eachUtils';
-import { TABLE_CONTENT } from '@/constants/serviceList';
 import { orderAction } from '@/stores/order';
+import { TABLE_CONTENT } from '@/constants/serviceList';
+
+import useAuth from '@/hooks/useAuth';
 
 const NewOrderWeight = () => {
     const weightInputRef = useRef(null);
@@ -17,6 +19,7 @@ const NewOrderWeight = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const orderState = useSelector(state => state.order);
+    useAuth();
 
     const handleNextClick = () => {
         // console.log(weightInputRef.current.value);

@@ -6,8 +6,11 @@ import Footer from '@mods/Footer';
 import Sidebar from '@mods/Sidebar/sidebar';
 import { TABLE_CONTENT, TABLE_HEADER } from '@/constants/serviceList';
 
+import useAuth from '@/hooks/useAuth';
+
 const Services = () => {
     const navigate = useNavigate();
+    useAuth();
     const keys = ['_', 'name', 'price'];
 
     const handleEditService = (serviceId) => {

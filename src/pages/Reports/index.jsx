@@ -5,12 +5,15 @@ import StatisticCard from "@mods/Dashboard/statisticCard";
 import Header from "@mods/Header/header";
 import TabMenu from "@mods/Reports/TabMenu";
 import Sidebar from "@mods/Sidebar/sidebar";
-import { BRANCH_LIST_REPORT } from "@/constants/branchList";
 import { ORDER_TYPE } from "@/constants/orderType";
+import { BRANCH_LIST_REPORT } from "@/constants/branchList";
 import { REPORT_STATISTIC_TITLE_LIST, REPORT_TYPE_LIST } from "@/constants/reportList";
 import EachUtils from "@/utils/eachUtils";
 
+import useAuth from "@/hooks/useAuth";
+
 const Reports = () => {
+    useAuth();
     const [selectedBranchReport, setSelectedBranchReport] = useState({
         id: 1,
         name: "Blimbing"

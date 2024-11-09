@@ -1,11 +1,14 @@
-import DefaultLayout from '@/components/Layouts/Default';
-import Crud from '@/components/Modules/Crud';
-import Footer from '@/components/Modules/Footer';
-import Sidebar from '@/components/Modules/Sidebar/sidebar';
+import DefaultLayout from '@layouts/Default';
+import Crud from '@mods/Crud';
+import Footer from '@mods/Footer';
+import Sidebar from '@mods/Sidebar/sidebar';
 import { TABLE_CONTENT } from '@/constants/orderList';
 import { TABLE_HEADER } from '@/constants/orderList';
 
+import useAuth from '@/hooks/useAuth';
+
 const Orders = () => {
+    useAuth();
     const keys = ["receiptNumber", "customerName", "status"];
     return (
         <DefaultLayout>

@@ -6,8 +6,11 @@ import Footer from '@mods/Footer';
 import Sidebar from '@mods/Sidebar/sidebar';
 import { TABLE_CONTENT, TABLE_HEADER } from '@/constants/employeeList';
 
+import useAuth from '@/hooks/useAuth';
+
 const Employees = () => {
     const navigate = useNavigate();
+    useAuth();
     const keys = ['_', 'name', 'role'];
 
     const handleEditEmployee = (employeeId) => {

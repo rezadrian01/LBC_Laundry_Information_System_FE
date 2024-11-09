@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 
 import { LuLayoutDashboard } from "react-icons/lu";
 import { IoSearchSharp } from "react-icons/io5";
@@ -12,11 +13,11 @@ import { LuLogOut } from "react-icons/lu";
 import { BsPersonVcard } from "react-icons/bs";
 import { GoPerson } from "react-icons/go";
 
-import { ADMIN_SIDEBAR_MENU } from '@/constants/sidebarList';
 import EachUtils from '@/utils/eachUtils';
 import { sidebarAction } from "@/stores/sidebar";
-import { useMutation } from "@tanstack/react-query";
+import { ADMIN_SIDEBAR_MENU } from '@/constants/sidebarList';
 import apiInstance from "@/utils/apiInstance";
+import { queryClient } from "@/utils/query";
 import { authAction } from "@/stores/auth";
 
 const Sidebar = () => {
@@ -32,6 +33,7 @@ const Sidebar = () => {
         },
         onSuccess: (response) => {
             dispatch(authAction.signout());
+            queryClient.invalidateQueries({ queryKey: ['auth-data'] });
             navigate('/login');
             toggleSidebar();
         },

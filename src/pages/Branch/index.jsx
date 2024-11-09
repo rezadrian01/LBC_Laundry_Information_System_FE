@@ -8,8 +8,11 @@ import Sidebar from "@mods/Sidebar/sidebar";
 import { BRANCH_LIST } from "@/constants/branchList";
 import { BRANCH_DETAIL_FIELDS } from "@/constants/detailFieldList";
 
+import useAuth from "@/hooks/useAuth";
+
 const Branch = () => {
     const { branchId } = useParams();
+    useAuth()
 
     const keys = ["name", "address"];
 

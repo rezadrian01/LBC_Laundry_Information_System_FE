@@ -3,19 +3,22 @@ import { useNavigate } from 'react-router-dom';
 
 import DefaultLayout from '@layouts/Default';
 import ChooseOrderTypeBg from '@mods/NewOrder/orderTypeBg';
+import Footer from '@mods/Footer';
 import Header from '@mods/Header/header';
 
-import { branchAction } from '@/stores/branch';
 import Button from '@/components/UI/Button';
 import EachUtils from '@/utils/eachUtils';
 
 import { ORDER_TYPE } from '@/constants/orderType';
+import { branchAction } from '@/stores/branch';
 import { orderAction } from '@/stores/order';
-import Footer from '@/components/Modules/Footer';
+
+import useAuth from '@/hooks/useAuth';
 
 const NewOrder = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    useAuth();
 
     const handleSelectBranch = (event) => {
         dispatch(branchAction.changeBranch(event.target.value));

@@ -4,12 +4,15 @@ import CreateLayout from '@layouts/Crud/create';
 import DefaultLayout from '@layouts/Default';
 import Footer from '@mods/Footer';
 import Header from '@mods/Header/header';
-import { ITEM_DETAIL_FIELDS } from '@/constants/detailFieldList';
-import { TABLE_CONTENT } from '@/constants/itemList';
 import Sidebar from '@mods/Sidebar/sidebar';
+import { TABLE_CONTENT } from '@/constants/itemList';
+import { ITEM_DETAIL_FIELDS } from '@/constants/detailFieldList';
+
+import useAuth from '@/hooks/useAuth';
 
 const Item = () => {
     const { itemId } = useParams();
+    useAuth();
 
     const keys = ["name", "Original (Lipat)", "Gantung", "Dry Clean"];
     const numberTypeIndex = [1, 2, 3];

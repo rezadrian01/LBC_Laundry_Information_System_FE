@@ -7,13 +7,16 @@ import DefaultLayout from '@layouts/Default';
 import OrderLayout from '@layouts/Order';
 import Input from '@/components/UI/Input';
 import Table from '@/components/UI/Table';
-import { TABLE_CONTENT, TABLE_HEADER } from '@/constants/orderItemTable';
 import ItemSearchModal from '@mods/OrderModal/itemSearch';
+import { TABLE_CONTENT, TABLE_HEADER } from '@/constants/orderItemTable';
+
+import useAuth from '@/hooks/useAuth';
 
 const NewOrderItem = () => {
     const searchInputRef = useRef();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    useAuth();
     const [searchModalIsOpen, setSearchModalIsOpen] = useState(false);
 
 

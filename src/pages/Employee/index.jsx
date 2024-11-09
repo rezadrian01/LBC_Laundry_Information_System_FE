@@ -8,8 +8,11 @@ import Sidebar from '@mods/Sidebar/sidebar';
 import { USER_PROFILE_FIELDS } from '@/constants/detailFieldList';
 import { TABLE_CONTENT } from '@/constants/employeeList';
 
+import useAuth from '@/hooks/useAuth';
+
 const Employee = () => {
     const { employeeId } = useParams();
+    useAuth();
 
     const keys = ["name", "phone", "role", "password"];
     const numberTypeIndex = [];

@@ -7,8 +7,11 @@ import Header from '@mods/Header/header';
 import { ORDER_DETAIL_FIELDS } from '@/constants/detailFieldList';
 import { TABLE_CONTENT } from '@/constants/orderList';
 
+import useAuth from '@/hooks/useAuth';
+
 const Order = () => {
     const { orderId } = useParams();
+    useAuth();
     const keys = ['receiptNumber', 'createdAt', 'branch', 'customerName', 'customerAddress', 'customerPhone', 'service', 'price', 'status', 'estimateDay', 'isPaidOff'];
 
     const existingOrder = TABLE_CONTENT.find(order => order.id === +orderId);

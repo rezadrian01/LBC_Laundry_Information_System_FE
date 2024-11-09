@@ -10,10 +10,13 @@ import Table from '@/components/UI/Table';
 import { TABLE_CONTENT as TABLE_CONTENT_ITEM, TABLE_HEADER as TABLE_HEADER_ITEM } from '@/constants/orderItemSummary';
 import { TABLE_CONTENT as TABLE_CONTENT_WEIGHT, TABLE_HEADER as TABLE_HEADER_WEIGHT } from '@/constants/orderWeightSummary';
 
+import useAuth from '@/hooks/useAuth';
+
 const OrderSummary = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const path = location.pathname.split("/")[2];
+    useAuth();
 
     const handleNextClick = () => {
         // Validation
