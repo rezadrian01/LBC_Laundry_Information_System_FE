@@ -4,7 +4,22 @@ import Input from '@/components/UI/Input';
 import EachUtils from '@/utils/eachUtils';
 import { useNavigate } from 'react-router-dom';
 
-const CreateLayout = ({ title, isNew = true, keys = [], isItemDetail = false, isOrderDetail = false, dropdownIndex = null, confirmAlert = true, numberTypeIndex = [], defaultValues = null, successCreateAlertTitle = "Data berhasil dibuat", successDeleteAlertTitle = "Data berhasil dihapus", fields = [] }) => {
+const CreateLayout = ({
+    title,
+    isNew = true,
+    keys = [],
+    isItemDetail = false,
+    isOrderDetail = false,
+    dropdownIndex = null,
+    confirmAlert = true,
+    numberTypeIndex = [],
+    defaultValues = null,
+    successCreateAlertTitle = "Data berhasil dibuat",
+    successDeleteAlertTitle = "Data berhasil dihapus",
+    fields = [],
+    disableSaveBtn = false,
+    disableDeleteBtn = false,
+}) => {
     const navigate = useNavigate();
 
     const handleSaveClick = () => {
@@ -82,7 +97,7 @@ const CreateLayout = ({ title, isNew = true, keys = [], isItemDetail = false, is
                             </>}
 
                             {isOrderDetail && index === dropdownIndex && <>
-                                : <select className='bg-primary-pink-300 text-white rounded' name='isPaidOff' defaultValue={defaultValues[keys[index]]}>
+                                : <select className='bg-primary-pink-300 text-white rounded outline-none' name='isPaidOff' defaultValue={defaultValues[keys[index]]}>
                                     <option value={true}>Lunas</option>
                                     <option value={false}>Belum Lunas</option>
                                 </select>
@@ -97,11 +112,15 @@ const CreateLayout = ({ title, isNew = true, keys = [], isItemDetail = false, is
                 }} />
             </div>
             <div className='flex items-center justify-end gap-2 mt-14'>
-                {!isNew && <button onClick={handleDeleteClick} className='bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded'>Hapus</button>}
-                <button onClick={confirmAlert ? handleSaveClick : successSaveFeedback} className='bg-primary-pink-300 hover:bg-primary-pink-500 text-white px-4 py-2 rounded'>Simpan</button>
+                {!isNew && <button disabled={disableDeleteBtn} onClick={handleDeleteClick} className='bg-red-500 hover:bg-red-600 disabled:bg-red-400 text-white px-4 py-2 rounded'>{disableDeleteBtn ? 'Loading...' : 'Hapus'}</button>}
+                <button
+                    disabled={disableSaveBtn}
+                    className='bg-primary-pink-300 hover:bg-primary-pink-500 disabled:bg-primary-pink-250 text-white px-4 py-2 rounded'>{disableSaveBtn ? 'Loading...' : 'Simpan'}</button>
             </div>
         </div>
     );
 };
+
+//onClick={confirmAlert ? handleSaveClick : successSaveFeedback} 
 
 export default CreateLayout;

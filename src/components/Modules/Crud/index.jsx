@@ -23,7 +23,8 @@ const Crud = ({
     isServiceList = false,
     onCreate = () => { },
     onEdit = () => { },
-    onDelete = () => { }
+    onDelete = () => { },
+    onDropdownChange = () => { }
 }) => {
     const navigate = useNavigate();
     const handleRowClick = (event, id) => {
@@ -76,7 +77,7 @@ const Crud = ({
                         </thead>
                         <tbody>
                             <EachUtils of={tableContent} render={(item, indexRow) => {
-                                return <tr className="cursor-pointer hover:bg-gray-100" onClick={e => handleRowClick(e, item._id)} key={item.id}>
+                                return <tr className="cursor-pointer hover:bg-gray-100" onClick={e => handleRowClick(e, item._id)} key={item._id}>
                                     <EachUtils of={keys} render={(key, indexKey) => {
                                         let content = item[key];
 
@@ -84,11 +85,10 @@ const Crud = ({
                                         if (isOrderList) {
                                             if (indexKey === 2) {
                                                 const currentStatus = item[key].name;
-
                                                 const orderStatusIndex = dataCompare.findIndex(status => status.name.toLowerCase() === currentStatus.toLowerCase());
-                                                content = <OrderStatusSelect defaultValue={currentStatus} orderStatusIndex={orderStatusIndex}>
+                                                content = <OrderStatusSelect onChange={onDropdownChange} defaultValue={currentStatus} orderStatusIndex={orderStatusIndex} orderId={item._id}>
                                                     <EachUtils of={dataCompare} render={(orderStatus, orderStatusIndex) => {
-                                                        return <option key={orderStatusIndex} value={orderStatus.name}>{orderStatus.name}</option>;
+                                                        return <option id={orderStatus._id} key={orderStatusIndex} value={orderStatus.name}>{orderStatus.name}</option>;
                                                     }} />
                                                 </OrderStatusSelect>;
                                             }
@@ -167,9 +167,12 @@ const Crud = ({
     );
 };
 
-const OrderStatusSelect = ({ orderStatusIndex, defaultValue, children }) => {
-    let content;
+const OrderStatusSelect = ({ orderStatusIndex, defaultValue, children, orderId, onChange }) => {
     let cssClass = "outline-none text-primary-pink-100 p-1 rounded ";
+    const handleSelectChange = (event) => {
+        const statusId = event.target.options[event.target.selectedIndex].id;
+        onChange(orderId, statusId);
+    }
     switch (orderStatusIndex) {
         case 0:
             cssClass += "bg-blue-500 ";
@@ -189,7 +192,7 @@ const OrderStatusSelect = ({ orderStatusIndex, defaultValue, children }) => {
         case 5:
             cssClass += "bg-gray-500";
     }
-    return <select className={cssClass} defaultValue={defaultValue}>
+    return <select onChange={handleSelectChange} className={cssClass} defaultValue={defaultValue}>
         {children}
     </select>;
 };
