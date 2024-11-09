@@ -15,20 +15,37 @@ import { GoPerson } from "react-icons/go";
 import { ADMIN_SIDEBAR_MENU } from '@/constants/sidebarList';
 import EachUtils from '@/utils/eachUtils';
 import { sidebarAction } from "@/stores/sidebar";
+import { useMutation } from "@tanstack/react-query";
+import apiInstance from "@/utils/apiInstance";
+import { authAction } from "@/stores/auth";
 
 const Sidebar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
     const { isOpen: sidebarIsOpen } = useSelector(state => state.sidebar);
+    const { mutate: logoutFn } = useMutation({
+        mutationFn: async () => {
+            return apiInstance('auth/logout', {
+                method: "POST",
+            });
+        },
+        onSuccess: (response) => {
+            dispatch(authAction.signout());
+            navigate('/login');
+            toggleSidebar();
+        },
+        onError: (response) => {
+            console.log(response);
+        }
+    })
 
     const toggleSidebar = () => {
         dispatch(sidebarAction.toggleSidebar());
     };
 
     const handleLogoutClick = () => {
-        navigate('/login');
-        toggleSidebar();
+        logoutFn();
     }
     const handleProfileClick = () => {
         navigate('/user');

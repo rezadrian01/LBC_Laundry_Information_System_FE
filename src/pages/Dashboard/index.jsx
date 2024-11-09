@@ -5,13 +5,15 @@ import Sidebar from '@mods/Sidebar/sidebar';
 import Header from '@mods/Header/header';
 import OrderCounter from '@mods/Dashboard/orderCounter';
 import DefaultLayout from '@layouts/Default';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { orderAction } from '@/stores/order';
 import { useEffect } from 'react';
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const auth = useSelector(state => state.auth);
+    console.log(auth);
 
     // Reset Global State
     useEffect(() => {

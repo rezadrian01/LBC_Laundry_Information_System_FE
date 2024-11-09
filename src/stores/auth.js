@@ -6,13 +6,13 @@ export const authSlice = createSlice({
     initialState: {
         userId: null,
         token: null,
-        role: 'employee'
+        role: null
     },
     reducers: {
         signin: (state, action) => {
-            state.userId = localStorage.getItem('userId');
-            state.token = localStorage.getItem('token');
-            state.role = action.role;
+            state.userId = action.payload.userId;
+            state.token = action.payload.token || null;
+            state.role = action.payload.role;
         },
         signout: (state, action) => {
             state.userId = null;
