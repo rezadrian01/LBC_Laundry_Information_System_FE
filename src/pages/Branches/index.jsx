@@ -10,7 +10,7 @@ import useAuth from '@/hooks/useAuth';
 
 const Branches = () => {
     const navigate = useNavigate();
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth()
     const keys = ["_", "name"];
     const handleEditBranch = (branchId) => {
         console.log(branchId);
@@ -22,7 +22,7 @@ const Branches = () => {
     return (
         <DefaultLayout>
             <Sidebar />
-            <Crud title='Cabang' isBranchList keys={keys} tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} onCreate={() => navigate('new')} onEdit={handleEditBranch} onDelete={handleDeleteBranch} />
+            {!loadAuthData && <Crud title='Cabang' isBranchList keys={keys} tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} onCreate={() => navigate('new')} onEdit={handleEditBranch} onDelete={handleDeleteBranch} />}
             <div className='mt-4 md:mt-10'>
                 <Footer backToDashboard hasNext={false} />
             </div>

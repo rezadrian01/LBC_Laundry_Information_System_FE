@@ -19,7 +19,7 @@ const NewOrderWeight = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const orderState = useSelector(state => state.order);
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth()
 
     const handleNextClick = () => {
         // console.log(weightInputRef.current.value);
@@ -54,6 +54,7 @@ const NewOrderWeight = () => {
     return (
         <DefaultLayout>
             <OrderLayout title="Masukan Pesanan">
+                {!loadAuthData && <>
                 <div className='flex flex-col gap-10'>
                     <InputGroup isWeightOrderInput={true} ref={weightInputRef} mainLabel="Berat" subLabel="(maks 20kg)" id="weight" name="weight" unitLabel="Kg" />
                     <InputGroup isWeightOrderInput={true} ref={unitInputRef} mainLabel="Kuantitas" id="quantity" name="quantity" unitLabel="Pcs" />
@@ -67,6 +68,7 @@ const NewOrderWeight = () => {
                         </div>;
                     }} />
                 </div>
+                </>}
                 <Footer onNextClick={handleNextClick} />
             </OrderLayout>
         </DefaultLayout>

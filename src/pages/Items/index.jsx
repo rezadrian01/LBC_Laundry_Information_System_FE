@@ -10,7 +10,7 @@ import useAuth from '@/hooks/useAuth';
 
 const Items = () => {
     const navigate = useNavigate();
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth()
     const keys = ["_", "name", "Original (Lipat)", "Gantung", "Dry Clean"];
     const handleCreateItem = () => {
         navigate('new');
@@ -19,7 +19,7 @@ const Items = () => {
     return (
         <DefaultLayout>
             <Sidebar />
-            <Crud onCreate={handleCreateItem} keys={keys} isItemList tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} />
+            {!loadAuthData && <Crud onCreate={handleCreateItem} keys={keys} isItemList tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} />}
             <Footer backToDashboard hasNext={false} />
         </DefaultLayout>
     );

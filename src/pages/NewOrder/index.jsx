@@ -18,8 +18,7 @@ import useAuth from '@/hooks/useAuth';
 const NewOrder = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    useAuth();
-
+    const { isLoading: loadAuthData } = useAuth()
     const handleSelectBranch = (event) => {
         dispatch(branchAction.changeBranch(event.target.value));
     };
@@ -35,6 +34,7 @@ const NewOrder = () => {
 
     return (
         <DefaultLayout>
+            {!loadAuthData && <>
             <ChooseOrderTypeBg />
             <Header hasButton={false} onChange={handleSelectBranch} />
             <div className='flex flex-col gap-12 justify-center items-center mt-28'>
@@ -49,6 +49,8 @@ const NewOrder = () => {
                     }} />
                 </div>
             </div>
+            </>
+            }
             <Footer hasNext={false} />
         </DefaultLayout>
     );

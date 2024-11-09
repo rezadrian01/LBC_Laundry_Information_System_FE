@@ -13,21 +13,24 @@ import FallbackText from '@/components/UI/Loading/FallbackText';
 import { queryClient } from '@/utils/query';
 
 const Orders = () => {
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth();
+    // Pending first before loadAuthData = false
     const { data: orderList, isPending: isPendingOrderList, isError: isErrorOrderList } = useQuery({
         queryKey: ['orders'],
         queryFn: async () => {
             const response = await apiInstance('laundry/unarchived');
             return response.data.data;
         },
-        retry: false
+        retry: false,
+        enabled: !loadAuthData
     });
     const { data: orderStatusList, isPending: isPendingOrderStatusList, isError: errorOrderStatusList } = useQuery({
         queryKey: ['order-status-list'],
         queryFn: async () => {
             const response = await apiInstance('status');
             return response.data.data;
-        }
+        },
+        enabled: !loadAuthData
     });
     const { mutate: updateOrderStatusFn, isPending: isPendingUpdateOrderStatus } = useMutation({
         mutationFn: async ({ orderId, statusId }) => {
@@ -62,8 +65,8 @@ const Orders = () => {
     return (
         <DefaultLayout>
             <Sidebar />
-            {isPendingOrderList || isPendingOrderStatusList && <FallbackText />}
-            {!isPendingOrderList && !isPendingOrderStatusList && <Crud dataCompare={orderStatusList} keys={keys} isOrderList tableHeader={TABLE_HEADER} tableContent={orderList} onDropdownChange={handleDropdownChange} />}
+            {isPendingOrderList || isPendingOrderStatusList && !loadAuthData && <FallbackText />}
+            {!isPendingOrderList && !isPendingOrderStatusList && !loadAuthData && <Crud dataCompare={orderStatusList} keys={keys} isOrderList tableHeader={TABLE_HEADER} tableContent={orderList} onDropdownChange={handleDropdownChange} />}
             <div className='mt-4 md:mt-10'>
                 <Footer backToDashboard hasNext={false} />
             </div>

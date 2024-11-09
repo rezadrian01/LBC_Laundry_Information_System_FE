@@ -31,6 +31,7 @@ const useAuth = () => {
             dispatch(authAction.signin({ userId: id, role }));
         }
     }, [isLoading, data]);
+    return { isLoading };
 };
 
 export default useAuth;

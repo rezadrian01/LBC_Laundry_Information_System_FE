@@ -10,7 +10,7 @@ import useAuth from '@/hooks/useAuth';
 
 const Employees = () => {
     const navigate = useNavigate();
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth()
     const keys = ['_', 'name', 'role'];
 
     const handleEditEmployee = (employeeId) => {
@@ -23,7 +23,7 @@ const Employees = () => {
     return (
         <DefaultLayout>
             <Sidebar />
-            <Crud isEmployeeList keys={keys} title="Karyawan" tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} onCreate={() => navigate('new')} onEdit={handleEditEmployee} onDelete={handleDeleteEmployee} />
+            {!loadAuthData && <Crud isEmployeeList keys={keys} title="Karyawan" tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} onCreate={() => navigate('new')} onEdit={handleEditEmployee} onDelete={handleDeleteEmployee} />}
             <Footer backToDashboard hasNext={false} />
         </DefaultLayout>
     );

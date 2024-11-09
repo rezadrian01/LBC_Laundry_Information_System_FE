@@ -12,7 +12,7 @@ import useAuth from '@/hooks/useAuth';
 
 const Item = () => {
     const { itemId } = useParams();
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth()
 
     const keys = ["name", "Original (Lipat)", "Gantung", "Dry Clean"];
     const numberTypeIndex = [1, 2, 3];
@@ -26,7 +26,7 @@ const Item = () => {
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            <CreateLayout isItemDetail isNew={itemId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingItem} fields={ITEM_DETAIL_FIELDS} title="Item" />
+            {!loadAuthData && <CreateLayout isItemDetail isNew={itemId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingItem} fields={ITEM_DETAIL_FIELDS} title="Item" />}
             <Footer hasNext={false} />
         </DefaultLayout>
     );

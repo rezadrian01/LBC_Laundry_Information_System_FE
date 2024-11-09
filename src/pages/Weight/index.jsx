@@ -11,7 +11,7 @@ import useAuth from "@/hooks/useAuth";
 
 const Weight = () => {
     const { weightPriceId } = useParams();
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth();
 
     const keys = ["minWeight", "maxWeight", "price"];
     const numberTypeIndex = [0, 1, 2];
@@ -33,7 +33,7 @@ const Weight = () => {
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            <CreateLayout isNew={weightPriceId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingWeightPrice} fields={BRANCH_DETAIL_FIELDS} title="Harga Berat" />
+            {!loadAuthData && <CreateLayout isNew={weightPriceId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingWeightPrice} fields={BRANCH_DETAIL_FIELDS} title="Harga Berat" />}
             <Footer hasNext={false} />
         </DefaultLayout>
     );

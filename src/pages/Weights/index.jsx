@@ -11,7 +11,7 @@ import useAuth from '@/hooks/useAuth';
 
 const Weights = () => {
     const navigate = useNavigate();
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth();
     const keys = ["_", "maxWeight", "price"];
     const handleEditWeightPrice = (weightPriceId) => {
         console.log(weightPriceId);
@@ -22,7 +22,7 @@ const Weights = () => {
     return (
         <DefaultLayout>
             <Sidebar />
-            <Crud title='Berat' isWeightPriceList keys={keys} tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} onCreate={() => navigate('new')} onEdit={handleEditWeightPrice} onDelete={handleDeleteWeightPrice} />
+            {!loadAuthData && <Crud title='Berat' isWeightPriceList keys={keys} tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} onCreate={() => navigate('new')} onEdit={handleEditWeightPrice} onDelete={handleDeleteWeightPrice} />}
             <div className='mt-4 md:mt-10'>
                 <Footer backToDashboard hasNext={false} />
             </div>

@@ -17,7 +17,7 @@ import { queryClient } from '@/utils/query';
 const Order = () => {
     const { orderId } = useParams();
     const navigate = useNavigate();
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth();
     const { data: existingOrder, isPending: isPendingOrderDetail, isError: isErrorOrderDetail } = useQuery({
         queryKey: ['orders', { orderId }],
         queryFn: async () => {
@@ -81,8 +81,8 @@ const Order = () => {
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            {isPendingOrderDetail && <FallbackText />}
-            {!isPendingOrderDetail && <form onSubmit={handleSubmit}>
+            {isPendingOrderDetail && !loadAuthData && <FallbackText />}
+            {!isPendingOrderDetail && !loadAuthData && <form onSubmit={handleSubmit}>
                 <CreateLayout disableSaveBtn={isPendingUpdateIsPaidOffStatus} isOrderDetail keys={keys} defaultValues={existingOrder} fields={ORDER_DETAIL_FIELDS} dropdownIndex={8} title="Detail Pesanan" confirmAlert={false} />
             </form>
             }

@@ -13,7 +13,7 @@ import EachUtils from "@/utils/eachUtils";
 import useAuth from "@/hooks/useAuth";
 
 const Reports = () => {
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth();
     const [selectedBranchReport, setSelectedBranchReport] = useState({
         id: 1,
         name: "Blimbing"
@@ -26,6 +26,7 @@ const Reports = () => {
     return (
         <DefaultLayout>
             <Sidebar />
+            {!loadAuthData && <>
             <Header hasButton={false} hasBranchBtn isReports selectedBranch={selectedBranchReport} branchList={BRANCH_LIST_REPORT} onSelect={handleSelectBranchReport} />
             <div className="my-6 flex flex-col items-center gap-4 justify-center ">
                 <TabMenu layoutId="orderType" contents={ORDER_TYPE} />
@@ -36,6 +37,7 @@ const Reports = () => {
                     return <StatisticCard title={item.title} />;
                 }} />
             </div>
+            </>}
         </DefaultLayout>
     );
 };

@@ -16,7 +16,7 @@ const NewOrderItem = () => {
     const searchInputRef = useRef();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth()
     const [searchModalIsOpen, setSearchModalIsOpen] = useState(false);
 
 
@@ -38,6 +38,7 @@ const NewOrderItem = () => {
             {searchModalIsOpen && <ItemSearchModal onClose={handleBlurSearchInput} />}
         <DefaultLayout>
             <OrderLayout title="Masukan Pesanan">
+                    {!loadAuthData && <>
                     <div className='relative'>
                         <div className='relative'>
                             <div className='relative z-40'>
@@ -47,7 +48,9 @@ const NewOrderItem = () => {
                         </div>
                         <div id='select-item-service-modal' />
                     </div>
-                <Table isItemOrderSummary headerCol={TABLE_HEADER} tableContent={TABLE_CONTENT} />
+                        <Table isItemOrderSummary headerCol={TABLE_HEADER} tableContent={TABLE_CONTENT} />
+                    </>
+                    }
                 <Footer onNextClick={handleNextClick} />
             </OrderLayout>
         </DefaultLayout>

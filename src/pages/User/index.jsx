@@ -6,15 +6,17 @@ import { USER_PROFILE } from "@/constants/userProfile";
 import useAuth from "@/hooks/useAuth";
 
 const User = () => {
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth();
     const keys = ["name", "phone", "role", "password"];
     const user = USER_PROFILE;
 
     return (
         <>
             <Sidebar />
+            {!loadAuthData && <>
             <UserProfileHeader user={user} />
             <BodyUserProfile user={user} keys={keys} />
+            </>}
         </>
     );
 };

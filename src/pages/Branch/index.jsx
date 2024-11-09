@@ -12,7 +12,7 @@ import useAuth from "@/hooks/useAuth";
 
 const Branch = () => {
     const { branchId } = useParams();
-    useAuth()
+    const { isLoading: loadAuthData } = useAuth()
 
     const keys = ["name", "address"];
 
@@ -25,7 +25,7 @@ const Branch = () => {
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            <CreateLayout isNew={branchId ? false : true} keys={keys} defaultValues={existingBranch} fields={BRANCH_DETAIL_FIELDS} title="Cabang" />
+            {!loadAuthData && <CreateLayout isNew={branchId ? false : true} keys={keys} defaultValues={existingBranch} fields={BRANCH_DETAIL_FIELDS} title="Cabang" />}
             <Footer hasNext={false} />
         </DefaultLayout>
     );

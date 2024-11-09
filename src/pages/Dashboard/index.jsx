@@ -14,8 +14,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
-    useAuth();
-
+    const { isLoading } = useAuth();
 
     // Reset Global State
     useEffect(() => {
@@ -31,8 +30,11 @@ const Dashboard = () => {
             <Sidebar />
             <Header hasBranchBtn onClick={handleAddNewOrderClick} />
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10'>
+                {!isLoading && <>
                 <StatisticCard title="Pendapatan Harian" />
                 <OrderCounter />
+                </>
+                }
             </div>
         </DefaultLayout>
     );

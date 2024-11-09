@@ -10,7 +10,7 @@ import useAuth from '@/hooks/useAuth';
 
 const Services = () => {
     const navigate = useNavigate();
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth();
     const keys = ['_', 'name', 'price'];
 
     const handleEditService = (serviceId) => {
@@ -23,8 +23,10 @@ const Services = () => {
     return (
         <DefaultLayout>
             <Sidebar />
+            {!loadAuthData && <>
             <Crud isServiceList keys={keys} title="Layanan" tableHeader={TABLE_HEADER} tableContent={TABLE_CONTENT} onCreate={() => navigate('new')} onEdit={handleEditService} onDelete={handleDeleteService} />
             <Footer backToDashboard hasNext={false} />
+            </>}
         </DefaultLayout>
     );
 };

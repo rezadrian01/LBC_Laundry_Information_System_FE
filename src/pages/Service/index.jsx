@@ -10,7 +10,7 @@ import useAuth from '@/hooks/useAuth';
 
 const Service = () => {
     const { serviceId } = useParams();
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth();
 
     const keys = ["name", "price"];
     const numberTypeIndex = [];
@@ -23,9 +23,11 @@ const Service = () => {
     return (
         <DefaultLayout>
             <Sidebar />
+            {!loadAuthData && <>
             <Header hasButton={false} />
             <CreateLayout isNew={serviceId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingService} fields={SERVICE_DETAIL_LIST} title="Layanan" />
             <Footer hasNext={false} />
+            </>}
         </DefaultLayout>
     );
 };

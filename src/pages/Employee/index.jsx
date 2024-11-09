@@ -12,7 +12,7 @@ import useAuth from '@/hooks/useAuth';
 
 const Employee = () => {
     const { employeeId } = useParams();
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth()
 
     const keys = ["name", "phone", "role", "password"];
     const numberTypeIndex = [];
@@ -26,7 +26,7 @@ const Employee = () => {
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            <CreateLayout isNew={employeeId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingEmployee} fields={USER_PROFILE_FIELDS} title="Karyawan" />
+            {!loadAuthData && <CreateLayout isNew={employeeId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingEmployee} fields={USER_PROFILE_FIELDS} title="Karyawan" />}
             <Footer hasNext={false} />
         </DefaultLayout>
     );

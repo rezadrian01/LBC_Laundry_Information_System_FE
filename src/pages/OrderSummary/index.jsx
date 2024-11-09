@@ -16,7 +16,7 @@ const OrderSummary = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const path = location.pathname.split("/")[2];
-    useAuth();
+    const { isLoading: loadAuthData } = useAuth();
 
     const handleNextClick = () => {
         // Validation
@@ -56,6 +56,7 @@ const OrderSummary = () => {
     return (
         <DefaultLayout>
             <OrderLayout gap='gap-6' titleSize='3xl' title="Nota Satuan">
+                {!loadAuthData && <>
                 <section className='flex flex-col gap-2'>
                     <InputGroup textCenter={false} isOrderSummary={true} label="No. Nota" id="receiptNumber" name="receiptNumber" />
                     <InputGroup textCenter={false} isOrderSummary={true} label="Tanggal" id="date" name="date" />
@@ -69,6 +70,7 @@ const OrderSummary = () => {
                     </div>
                     <CustomerData />
                 </div>
+                </>}
                 <Footer onNextClick={handleNextClick} />
             </OrderLayout>
         </DefaultLayout>
