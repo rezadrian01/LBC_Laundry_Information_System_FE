@@ -1,18 +1,18 @@
 const ORDER_COUNTER = [
     {
-        title: "Pesanan Masuk",
+        name: "Pesanan Masuk",
         total: 0
     },
     {
-        title: "Siap Diambil",
+        name: "Siap Diambil",
         total: 4
     },
     {
-        title: "Dicuci",
+        name: "Dicuci",
         total: 12
     },
     {
-        title: "Disetrika",
+        name: "Disetrika",
         total: 24
     },
 ];
