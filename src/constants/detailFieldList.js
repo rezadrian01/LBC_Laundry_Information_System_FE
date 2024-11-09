@@ -107,11 +107,11 @@ const ORDER_DETAIL_FIELDS = [
         label: 'No. Hp',
         name: 'customerPhone',
     },
-    {
-        id: 'service',
-        label: 'Layanan',
-        name: 'service',
-    },
+    // {
+    //     id: 'service',
+    //     label: 'Layanan',
+    //     name: 'service',
+    // },
     {
         id: 'price',
         label: 'Harga',
@@ -122,11 +122,11 @@ const ORDER_DETAIL_FIELDS = [
         label: 'Status',
         name: 'status',
     },
-    {
-        id: 'estimate-day',
-        label: 'Estimasi',
-        name: 'estimateDay',
-    },
+    // {
+    //     id: 'estimate-day',
+    //     label: 'Estimasi',
+    //     name: 'estimateDay',
+    // },
     {
         id: 'is-paid-off',
         label: 'Pelunasan',

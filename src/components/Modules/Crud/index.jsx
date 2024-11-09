@@ -16,6 +16,7 @@ const Crud = ({
     tableContent = [],
     isOrderList = false,
     isItemList = false,
+    dataCompare = [],
     isWeightPriceList = false,
     isBranchList = false,
     isEmployeeList = false,
@@ -65,7 +66,6 @@ const Crud = ({
                         </div>
                     </div>}
 
-
                     <table className=' text-center text-[.73rem] md:text-base font-semibold w-full table-fixed mt-4 md:mt-10'>
                         <thead className='border-b-2 border-b-primary-pink-300 text-primary-pink-300'>
                             <tr>
@@ -76,18 +76,19 @@ const Crud = ({
                         </thead>
                         <tbody>
                             <EachUtils of={tableContent} render={(item, indexRow) => {
-                                return <tr className="cursor-pointer hover:bg-gray-100" onClick={e => handleRowClick(e, item.id)} key={item.id}>
+                                return <tr className="cursor-pointer hover:bg-gray-100" onClick={e => handleRowClick(e, item._id)} key={item.id}>
                                     <EachUtils of={keys} render={(key, indexKey) => {
                                         let content = item[key];
 
                                         // OrderList
                                         if (isOrderList) {
                                             if (indexKey === 2) {
-                                                const currentStatus = item[key];
-                                                const orderStatusIndex = ORDER_STATUS_LIST.findIndex(status => status.title.toLowerCase() === currentStatus.toLowerCase());
+                                                const currentStatus = item[key].name;
+
+                                                const orderStatusIndex = dataCompare.findIndex(status => status.name.toLowerCase() === currentStatus.toLowerCase());
                                                 content = <OrderStatusSelect defaultValue={currentStatus} orderStatusIndex={orderStatusIndex}>
-                                                    <EachUtils of={ORDER_STATUS_LIST} render={(orderStatus, orderStatusIndex) => {
-                                                        return <option key={orderStatusIndex} value={orderStatus.title}>{orderStatus.title}</option>;
+                                                    <EachUtils of={dataCompare} render={(orderStatus, orderStatusIndex) => {
+                                                        return <option key={orderStatusIndex} value={orderStatus.name}>{orderStatus.name}</option>;
                                                     }} />
                                                 </OrderStatusSelect>;
                                             }
@@ -185,6 +186,8 @@ const OrderStatusSelect = ({ orderStatusIndex, defaultValue, children }) => {
         case 4:
             cssClass += "bg-indigo-500 ";
             break;
+        case 5:
+            cssClass += "bg-gray-500";
     }
     return <select className={cssClass} defaultValue={defaultValue}>
         {children}

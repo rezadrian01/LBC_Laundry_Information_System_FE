@@ -1,6 +1,6 @@
 const ORDER_STATUS_LIST = [
     {
-        title: "Masuk",
+        title: "Diterima",
     },
     {
         title: "Dicuci"

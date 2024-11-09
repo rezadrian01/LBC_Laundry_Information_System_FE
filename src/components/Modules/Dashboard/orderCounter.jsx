@@ -1,7 +1,7 @@
-import { ORDER_COUNTER } from '@/constants/orderCounter';
+import { useQuery } from '@tanstack/react-query';
+
 import OrderCounterCard from './orderCounterCard';
 import EachUtils from '@/utils/eachUtils';
-import { useQuery } from '@tanstack/react-query';
 import apiInstance from '@/utils/apiInstance';
 import FallbackText from '@/components/UI/Loading/FallbackText';
 
@@ -10,10 +10,11 @@ const OrderCounter = () => {
         queryKey: ['total-order-per-status'],
         queryFn: async () => {
             const response = await apiInstance('laundryStatus/totalLaundryPerStatus');
-            console.log(response.data.data);
             return response.data.data;
-        }
+        },
+        retry: false
     });
+    if (isError) throw new Error("Failed to fetch total order per status");
     if (isPending) return <FallbackText />;
     totalOrderPerStatus = totalOrderPerStatus.filter(status => status.name !== "Sudah Diambil");
     return (

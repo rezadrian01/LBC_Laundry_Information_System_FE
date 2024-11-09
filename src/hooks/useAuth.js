@@ -11,7 +11,6 @@ const useAuth = () => {
     const { data, isLoading, isError, error } = useQuery({
         queryFn: async () => {
             const response = await apiInstance('auth/check');
-            console.log(response);
             return response;
         },
         queryKey: ['auth-data'],

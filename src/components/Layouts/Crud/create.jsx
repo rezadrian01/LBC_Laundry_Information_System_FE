@@ -76,7 +76,9 @@ const CreateLayout = ({ title, isNew = true, keys = [], isItemDetail = false, is
 
                             {/* Just for orderDetail */}
                             {isOrderDetail && index !== dropdownIndex && <>
-                                <p>: {keys[index] === 'estimateDay' ? `Selesai dalam ${defaultValues[keys[index]]} hari.` : defaultValues[keys[index]]}</p>
+                                {keys[index] === 'status' && <p>: {defaultValues[keys[index]].name}</p>}
+                                {keys[index] === 'branch' && <p>: {defaultValues[keys[index]].name}</p>}
+                                {keys[index] !== 'status' && keys[index] !== 'branch' && <p>: {keys[index] === 'estimateDay' ? `Selesai dalam ${defaultValues[keys[index]]} hari.` : defaultValues[keys[index]]}</p>}
                             </>}
 
                             {isOrderDetail && index === dropdownIndex && <>
