@@ -1,6 +1,5 @@
-import { json, useNavigate, useParams } from 'react-router-dom';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import Swal from 'sweetalert2';
+import { json, useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 import CreateLayout from '@layouts/Crud/create';
 import DefaultLayout from '@layouts/Default';
@@ -10,10 +9,6 @@ import Sidebar from '@mods/Sidebar/sidebar';
 import { SERVICE_DETAIL_LIST } from '@/constants/detailFieldList';
 import useAuth from '@/hooks/useAuth';
 import apiInstance from '@/utils/apiInstance';
-import { queryClient } from '@/utils/query';
-import successAlert from '@/utils/saveAlert/success';
-import errorAlert from '@/utils/saveAlert/error';
-import useSaveAlert from '@/hooks/useSaveAlert';
 import { useState } from 'react';
 
 const Service = () => {

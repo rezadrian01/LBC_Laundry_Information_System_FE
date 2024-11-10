@@ -28,6 +28,7 @@ const CreateLayout = ({
     queryKey = [],
     isDelete = false,
     itemKey = null,
+    note = "",
     setIsDelete = () => { },
     onDelete = () => { }
 }) => {
@@ -147,7 +148,10 @@ const CreateLayout = ({
                     </>;
                     }} />}
             </div>
-            <div className='flex items-center justify-end gap-2 mt-14'>
+                {note && <div className='mt-8 text-justify'>
+                    <p><span className='font-bold'>Catatan:</span> {note}</p>
+                </div>}
+                <div className='flex items-center justify-end gap-2 mt-8'>
                     {!isNew && <button type='button' disabled={isPendingMutation} onClick={handleDeleteClick} className='bg-red-500 hover:bg-red-600 disabled:bg-red-400 text-white px-4 py-2 rounded'>{isPendingMutation ? 'Loading...' : 'Hapus'}</button>}
                 <button
                         disabled={isPendingMutation}

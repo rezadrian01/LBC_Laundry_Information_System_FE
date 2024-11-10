@@ -23,19 +23,14 @@ const ITEM_DETAIL_FIELDS = [
 
 const WEIGHT_DETAIL_FIELDS = [
     {
-        label: "Kiloan (start)",
-        id: "start-weight",
-        name: ["startWeight"],
-    },
-    {
         label: "Kiloan (end)",
         id: "end-weight",
-        name: ["endWeight"]
+        name: ["maxWeight", "updatedMaxWeight"]
     },
     {
         label: "Harga",
         id: "price",
-        name: ["price"]
+        name: ["price", "updatedPrice"]
     },
 ];
 

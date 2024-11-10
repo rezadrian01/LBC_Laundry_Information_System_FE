@@ -1,13 +1,14 @@
 import React from 'react';
+import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useMutation, useQuery } from '@tanstack/react-query';
+
 import LoginBackground from '@layouts/Login/background';
 import LoginTitle from '@mods/Login/loginTitle';
 import AuthInput from '@/components/UI/AuthInput/authInput';
-import { useNavigate } from 'react-router-dom';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import apiInstance from '@/utils/apiInstance';
-import { useDispatch } from 'react-redux';
 import { authAction } from '@/stores/auth';
-import Swal from 'sweetalert2';
 
 const Login = () => {
     const navigate = useNavigate();

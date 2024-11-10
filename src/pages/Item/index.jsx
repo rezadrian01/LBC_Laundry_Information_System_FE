@@ -23,7 +23,7 @@ const Item = () => {
             const response = await apiInstance(`item/${itemId}`);
             return response.data.data;
         },
-        enabled: !loadAuthData && !!itemId
+        enabled: !loadAuthData && !!itemId && !isDelete
     });
 
     const keys = ["name", "Original (Lipat)", "Gantung", "Dry Clean"];
