@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import Swal from 'sweetalert2';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 import CreateLayout from '@layouts/Crud/create';
 import DefaultLayout from '@layouts/Default';
@@ -12,14 +12,12 @@ import useAuth from '@/hooks/useAuth';
 import apiInstance from '@/utils/apiInstance';
 import FallbackText from '@/components/UI/Loading/FallbackText';
 import Sidebar from '@/components/Modules/Sidebar/sidebar';
-import { queryClient } from '@/utils/query';
-import { useState } from 'react';
 
 const Order = () => {
     const { orderId } = useParams();
     const { isLoading: loadAuthData } = useAuth();
     const [isDelete, setIsDelete] = useState(false);
-    const { data: existingOrder, isPending: isPendingOrderDetail, isError: isErrorOrderDetail } = useQuery({
+    const { data: existingOrder, isLoading: isLoadingOrderDetail, isError: isErrorOrderDetail } = useQuery({
         queryKey: ['orders', { orderId }],
         queryFn: async () => {
             const response = await apiInstance(`laundry/id/${orderId}`);
@@ -30,7 +28,7 @@ const Order = () => {
     if (isErrorOrderDetail) throw new Error("Failed to fetch order detail");
 
     const keys = ['receiptNumber', 'formatedDate', 'branch', 'customerName', 'customerAddress', 'customerContact', 'formatedPrice', 'status', 'isPaidOff'];
-    if (!isPendingOrderDetail) {
+    if (!isLoadingOrderDetail) {
         const formatedDate = new Date(existingOrder.createdAt).toLocaleDateString('id-ID', {
             day: '2-digit',
             month: 'long',
@@ -45,8 +43,8 @@ const Order = () => {
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            {isPendingOrderDetail && !loadAuthData && <FallbackText />}
-            {!isPendingOrderDetail && !loadAuthData &&
+            {isLoadingOrderDetail && !loadAuthData && <FallbackText />}
+            {!isLoadingOrderDetail && !loadAuthData &&
                 <CreateLayout isNew={false} itemKey={existingOrder.receiptNumber} isDelete={isDelete} setIsDelete={setIsDelete} queryKey={['orders', { orderId }]} requestUrl='laundry/isPaidOff' isOrderDetail keys={keys} defaultValues={existingOrder} fields={ORDER_DETAIL_FIELDS} dropdownIndex={8} title="Detail Pesanan" />
             }
             <Footer hasNext={false} />

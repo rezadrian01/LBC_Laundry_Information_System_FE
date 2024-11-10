@@ -9,24 +9,37 @@ import { TABLE_CONTENT } from '@/constants/itemList';
 import { ITEM_DETAIL_FIELDS } from '@/constants/detailFieldList';
 
 import useAuth from '@/hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
+import apiInstance from '@/utils/apiInstance';
+import { useState } from 'react';
 
 const Item = () => {
     const { itemId } = useParams();
-    const { isLoading: loadAuthData } = useAuth()
+    const { isLoading: loadAuthData } = useAuth();
+    const [isDelete, setIsDelete] = useState(false);
+    const { data: existingItem, isLoading: isLoadingExistingItem, isError: isErrorExistingItem, error: errorExistingItem } = useQuery({
+        queryKey: ['items', { itemId }],
+        queryFn: async () => {
+            const response = await apiInstance(`item/${itemId}`);
+            // console.log(response.data.data);
+            return response.data.data;
+        },
+        enabled: !loadAuthData && !!itemId
+    });
 
     const keys = ["name", "Original (Lipat)", "Gantung", "Dry Clean"];
     const numberTypeIndex = [1, 2, 3];
 
-    let existingItem = null;
-    if (itemId) {
-        existingItem = TABLE_CONTENT.find(item => item.id === +itemId);
-        if (!existingItem) throw json({ message: "Item not found" }, { status: 404 });
+    if (isErrorExistingItem) {
+        if (errorExistingItem.status === 404) {
+            throw json({ message: "Item not found" }, { status: 404 });
+        }
     }
     return (
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            {!loadAuthData && <CreateLayout isItemDetail isNew={itemId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={existingItem} fields={ITEM_DETAIL_FIELDS} title="Item" />}
+            {!isLoadingExistingItem && <CreateLayout isDelete={isDelete} setIsDelete={setIsDelete} queryKey={['items', { itemId }]} requestUrl='item' isPending={isLoadingExistingItem} isItemDetail isNew={itemId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={!!itemId && existingItem[0]} fields={ITEM_DETAIL_FIELDS} title="Item" />}
             <Footer hasNext={false} />
         </DefaultLayout>
     );

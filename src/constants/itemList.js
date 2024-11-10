@@ -23,17 +23,17 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
             {
                 id: "s2",
-                title: "Gantung",
+                name: "Gantung",
                 price: 15000
             },
             {
                 id: "s3",
-                title: "Dry Clean",
+                name: "Dry Clean",
                 price: 25000
             },
         ]
@@ -44,17 +44,17 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
             {
                 id: "s2",
-                title: "Gantung",
+                name: "Gantung",
                 price: 15000
             },
             {
                 id: "s3",
-                title: "Dry Clean",
+                name: "Dry Clean",
                 price: 25000
             },
         ]
@@ -65,7 +65,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
         ]
@@ -76,7 +76,7 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
         ]
@@ -87,17 +87,17 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
             {
                 id: "s2",
-                title: "Gantung",
+                name: "Gantung",
                 price: 15000
             },
             {
                 id: "s3",
-                title: "Dry Clean",
+                name: "Dry Clean",
                 price: 25000
             },
         ]
@@ -108,17 +108,17 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
             {
                 id: "s2",
-                title: "Gantung",
+                name: "Gantung",
                 price: 15000
             },
             {
                 id: "s3",
-                title: "Dry Clean",
+                name: "Dry Clean",
                 price: 25000
             },
         ]
@@ -129,17 +129,17 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
             {
                 id: "s2",
-                title: "Gantung",
+                name: "Gantung",
                 price: 15000
             },
             {
                 id: "s3",
-                title: "Dry Clean",
+                name: "Dry Clean",
                 price: 25000
             },
         ]
@@ -150,17 +150,17 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
             {
                 id: "s2",
-                title: "Gantung",
+                name: "Gantung",
                 price: 15000
             },
             {
                 id: "s3",
-                title: "Dry Clean",
+                name: "Dry Clean",
                 price: 25000
             },
         ]
@@ -171,17 +171,17 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
             {
                 id: "s2",
-                title: "Gantung",
+                name: "Gantung",
                 price: 15000
             },
             {
                 id: "s3",
-                title: "Dry Clean",
+                name: "Dry Clean",
                 price: 25000
             },
         ]
@@ -192,17 +192,17 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
             {
                 id: "s2",
-                title: "Gantung",
+                name: "Gantung",
                 price: 15000
             },
             {
                 id: "s3",
-                title: "Dry Clean",
+                name: "Dry Clean",
                 price: 25000
             },
         ]
@@ -213,17 +213,17 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
             {
                 id: "s2",
-                title: "Gantung",
+                name: "Gantung",
                 price: 15000
             },
             {
                 id: "s3",
-                title: "Dry Clean",
+                name: "Dry Clean",
                 price: 25000
             },
         ]
@@ -234,17 +234,17 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
             {
                 id: "s2",
-                title: "Gantung",
+                name: "Gantung",
                 price: 15000
             },
             {
                 id: "s3",
-                title: "Dry Clean",
+                name: "Dry Clean",
                 price: 25000
             },
         ]
@@ -255,17 +255,17 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
             {
                 id: "s2",
-                title: "Gantung",
+                name: "Gantung",
                 price: 15000
             },
             {
                 id: "s3",
-                title: "Dry Clean",
+                name: "Dry Clean",
                 price: 25000
             },
         ]
@@ -276,17 +276,17 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
             {
                 id: "s2",
-                title: "Gantung",
+                name: "Gantung",
                 price: 15000
             },
             {
                 id: "s3",
-                title: "Dry Clean",
+                name: "Dry Clean",
                 price: 25000
             },
         ]
@@ -297,17 +297,17 @@ const TABLE_CONTENT = [
         services: [
             {
                 id: "s1",
-                title: "Original (Lipat)",
+                name: "Original (Lipat)",
                 price: 10000
             },
             {
                 id: "s2",
-                title: "Gantung",
+                name: "Gantung",
                 price: 15000
             },
             {
                 id: "s3",
-                title: "Dry Clean",
+                name: "Dry Clean",
                 price: 25000
             },
         ]

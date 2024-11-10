@@ -2,22 +2,22 @@ const ITEM_DETAIL_FIELDS = [
     {
         label: "Nama Barang",
         id: "item-name",
-        name: ["itemName"],
+        name: ["itemName", "updatedItemName"],
     },
     {
         label: "Original (Lipat)",
         id: "original-price",
-        name: ["originalPrice"],
+        name: ["originalPrice", "updatedOriginalPrice"],
     },
     {
         label: "Gantung",
         id: "hang-price",
-        name: ["hangPrice"],
+        name: ["hangPrice", "updatedHangPrice"],
     },
     {
         label: "Dry Clean",
         id: "dry-clean-price",
-        name: ["dryCleanPrice"],
+        name: ["dryCleanPrice", "updatedDryCleanPrice"],
     },
 ];
 
