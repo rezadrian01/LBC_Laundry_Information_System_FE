@@ -21,7 +21,6 @@ const Item = () => {
         queryKey: ['items', { itemId }],
         queryFn: async () => {
             const response = await apiInstance(`item/${itemId}`);
-            // console.log(response.data.data);
             return response.data.data;
         },
         enabled: !loadAuthData && !!itemId
@@ -39,7 +38,7 @@ const Item = () => {
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            {!isLoadingExistingItem && <CreateLayout isDelete={isDelete} setIsDelete={setIsDelete} queryKey={['items', { itemId }]} requestUrl='item' isPending={isLoadingExistingItem} isItemDetail isNew={itemId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={!!itemId && existingItem[0]} fields={ITEM_DETAIL_FIELDS} title="Item" />}
+            {!isLoadingExistingItem && <CreateLayout isDelete={isDelete} setIsDelete={setIsDelete} queryKey={['items', { itemId }]} requestUrl='item/group' isPending={isLoadingExistingItem} isItemDetail isNew={itemId ? false : true} keys={keys} numberTypeIndex={numberTypeIndex} defaultValues={!!itemId && existingItem[0]} fields={ITEM_DETAIL_FIELDS} title="Item" />}
             <Footer hasNext={false} />
         </DefaultLayout>
     );

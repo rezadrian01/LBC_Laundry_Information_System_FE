@@ -34,7 +34,6 @@ const CreateLayout = ({
     const navigate = useNavigate();
     const { mutate, isPending: isPendingMutation, isError } = useMutation({
         mutationFn: async (data) => {
-            console.log(data);
             return apiInstance(`${requestUrl}/${isNew ? '' : (itemKey || defaultValues._id)}`, {
                 data: { ...data },
                 method: isNew ? "POST" : (isDelete ? "DELETE" : "PUT"),
@@ -99,7 +98,6 @@ const CreateLayout = ({
         event.preventDefault();
         const fd = new FormData(event.target);
         const data = Object.fromEntries(fd.entries());
-        console.log(data);
         handleSaveClick(data);
     }
     return (
@@ -111,6 +109,10 @@ const CreateLayout = ({
                         <FallbackText />
                     </div>}
                     {!isPending && <EachUtils of={fields} render={(content, index) => {
+                        let currentItemService;
+                        if (!isNew && isItemDetail) {
+                            currentItemService = defaultValues.services.find(service => service.name === keys[index]);
+                        }
                     const isNumber = numberTypeIndex.includes(index);
                     return <>
                         <div className={`${!isOrderDetail ? 'col-span-2' : 'col-span-3'}`}>
@@ -138,7 +140,7 @@ const CreateLayout = ({
                             </>}
 
                             {/* Just for items with services */}
-                            {!isNew && !isOrderDetail && isItemDetail && !defaultValues[keys[index]] && <Input textSize="text-lg" type="number" step="0.01" defaultValue={defaultValues.services[index - 1]?.price || "-"} name={content.name[1]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />
+                            {!isNew && !isOrderDetail && isItemDetail && !defaultValues[keys[index]] && <Input textSize="text-lg" type="number" step="0.01" defaultValue={currentItemService.price || "-"} name={content.name[1]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />
                             }
 
                         </div>

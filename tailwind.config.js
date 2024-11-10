@@ -10,7 +10,7 @@ export default {
         'primary-pink': {
           100: '#fff6f6',
           200: '#ffdfdf',
-          250: '#f9b8c6',
+          250: '#ffc1cc',
           300: '#f87aac',
           400: '#f875aa',
           500: '#f54394',
