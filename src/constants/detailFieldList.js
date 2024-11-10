@@ -2,22 +2,22 @@ const ITEM_DETAIL_FIELDS = [
     {
         label: "Nama Barang",
         id: "item-name",
-        name: "itemName",
+        name: ["itemName"],
     },
     {
         label: "Original (Lipat)",
         id: "original-price",
-        name: "originalPrice",
+        name: ["originalPrice"],
     },
     {
         label: "Gantung",
         id: "hang-price",
-        name: "hangPrice",
+        name: ["hangPrice"],
     },
     {
         label: "Dry Clean",
         id: "dry-clean-price",
-        name: "dryCleanPrice",
+        name: ["dryCleanPrice"],
     },
 ];
 
@@ -25,17 +25,17 @@ const WEIGHT_DETAIL_FIELDS = [
     {
         label: "Kiloan (start)",
         id: "start-weight",
-        name: "startWeight",
+        name: ["startWeight"],
     },
     {
         label: "Kiloan (end)",
         id: "end-weight",
-        name: "endWeight"
+        name: ["endWeight"]
     },
     {
         label: "Harga",
         id: "price",
-        name: "price"
+        name: ["price"]
     },
 ];
 
@@ -43,12 +43,12 @@ const BRANCH_DETAIL_FIELDS = [
     {
         label: "Nama Cabang",
         id: "branch-name",
-        name: "branchName"
+        name: ["branchName"]
     },
     {
         label: "Alamat",
         id: "branch-address",
-        name: "branchAddress"
+        name: ["branchAddress"]
     },
 ];
 
@@ -56,22 +56,22 @@ const USER_PROFILE_FIELDS = [
     {
         label: "Username",
         id: "username",
-        name: "username",
+        name: ["username"],
     },
     {
         label: "No. HP",
         id: "phone",
-        name: "phone",
+        name: ["phone"],
     },
     {
         label: "Role",
         id: "role",
-        name: "role",
+        name: ["role"],
     },
     {
         label: "Password",
         id: "password",
-        name: "password",
+        name: ["password"],
     },
 ];
 
@@ -80,32 +80,32 @@ const ORDER_DETAIL_FIELDS = [
     {
         id: 'receipt-number',
         label: 'No. Nota',
-        name: 'receiptNumber',
+        name: ['receiptNumber'],
     },
     {
         id: 'entry-date',
         label: 'Tanggal Masuk',
-        name: 'entryDate',
+        name: ['entryDate'],
     },
     {
         id: 'branch',
         label: 'Cabang',
-        name: 'branch',
+        name: ['branch'],
     },
     {
         id: 'customer-name',
         label: 'Nama',
-        name: 'customerName',
+        name: ['customerName'],
     },
     {
         id: 'customer-address',
         label: 'Alamat',
-        name: 'customerAddress',
+        name: ['customerAddress'],
     },
     {
         id: 'customer-phone ',
         label: 'No. Hp',
-        name: 'customerPhone',
+        name: ['customerPhone'],
     },
     // {
     //     id: 'service',
@@ -115,12 +115,12 @@ const ORDER_DETAIL_FIELDS = [
     {
         id: 'price',
         label: 'Harga',
-        name: 'price',
+        name: ['price'],
     },
     {
         id: 'status',
         label: 'Status',
-        name: 'status',
+        name: ['status'],
     },
     // {
     //     id: 'estimate-day',
@@ -130,7 +130,7 @@ const ORDER_DETAIL_FIELDS = [
     {
         id: 'is-paid-off',
         label: 'Pelunasan',
-        name: 'isPaidOff',
+        name: ['isPaidOff'],
     },
 ];
 
@@ -138,12 +138,12 @@ const SERVICE_DETAIL_LIST = [
     {
         id: 'service-name',
         label: 'Nama Layanan',
-        name: 'serviceName'
+        name: ['serviceName', 'updatedServiceName']
     },
     {
         id: 'service-price',
         label: 'Harga',
-        name: 'servicePrice'
+        name: ['servicePrice', 'updatedServicePrice']
     },
 ]
 

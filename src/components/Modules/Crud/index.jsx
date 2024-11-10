@@ -21,6 +21,7 @@ const Crud = ({
     isBranchList = false,
     isEmployeeList = false,
     isServiceList = false,
+    isPending = false,
     onCreate = () => { },
     onEdit = () => { },
     onDelete = () => { },
@@ -76,6 +77,9 @@ const Crud = ({
                             </tr>
                         </thead>
                         <tbody>
+                            {isPending && <tr>
+                                <td className="pt-10 animate-pulse text-lg" colSpan={keys.length}>Loading...</td>
+                            </tr>}
                             <EachUtils of={tableContent} render={(item, indexRow) => {
                                 return <tr className="cursor-pointer hover:bg-gray-100" onClick={e => handleRowClick(e, item._id)} key={item._id}>
                                     <EachUtils of={keys} render={(key, indexKey) => {

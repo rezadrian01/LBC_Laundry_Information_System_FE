@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { json, useParams } from "react-router-dom";
 
 import CreateLayout from "@layouts/Crud/create";
 import DefaultLayout from "@layouts/Default";
