@@ -27,6 +27,7 @@ const CreateLayout = ({
     requestUrl = "",
     queryKey = [],
     isDelete = false,
+    itemKey = null,
     setIsDelete = () => { },
     onDelete = () => { }
 }) => {
@@ -34,7 +35,7 @@ const CreateLayout = ({
     const { mutate, isPending: isPendingMutation, isError } = useMutation({
         mutationFn: async (data) => {
             console.log(data);
-            return apiInstance(`${requestUrl}/${isNew ? '' : defaultValues._id}`, {
+            return apiInstance(`${requestUrl}/${isNew ? '' : (itemKey || defaultValues._id)}`, {
                 data: { ...data },
                 method: isNew ? "POST" : (isDelete ? "DELETE" : "PUT"),
             });
@@ -145,16 +146,15 @@ const CreateLayout = ({
                     }} />}
             </div>
             <div className='flex items-center justify-end gap-2 mt-14'>
-                    {!isNew && <button type='button' disabled={disableDeleteBtn} onClick={handleDeleteClick} className='bg-red-500 hover:bg-red-600 disabled:bg-red-400 text-white px-4 py-2 rounded'>{disableDeleteBtn ? 'Loading...' : 'Hapus'}</button>}
+                    {!isNew && <button type='button' disabled={isPendingMutation} onClick={handleDeleteClick} className='bg-red-500 hover:bg-red-600 disabled:bg-red-400 text-white px-4 py-2 rounded'>{isPendingMutation ? 'Loading...' : 'Hapus'}</button>}
                 <button
-                    disabled={disableSaveBtn}
-                    className='bg-primary-pink-300 hover:bg-primary-pink-500 disabled:bg-primary-pink-250 text-white px-4 py-2 rounded'>{disableSaveBtn ? 'Loading...' : 'Simpan'}</button>
+                        disabled={isPendingMutation}
+                        className='bg-primary-pink-300 hover:bg-primary-pink-500 disabled:bg-primary-pink-250 text-white px-4 py-2 rounded'>{isPendingMutation ? 'Loading...' : 'Simpan'}</button>
             </div>
         </div>
         </form>
     );
 };
 
-//onClick={confirmAlert ? handleSaveClick : successSaveFeedback} 
 
 export default CreateLayout;

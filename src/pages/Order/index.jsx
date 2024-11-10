@@ -13,46 +13,18 @@ import apiInstance from '@/utils/apiInstance';
 import FallbackText from '@/components/UI/Loading/FallbackText';
 import Sidebar from '@/components/Modules/Sidebar/sidebar';
 import { queryClient } from '@/utils/query';
+import { useState } from 'react';
 
 const Order = () => {
     const { orderId } = useParams();
-    const navigate = useNavigate();
     const { isLoading: loadAuthData } = useAuth();
+    const [isDelete, setIsDelete] = useState(false);
     const { data: existingOrder, isPending: isPendingOrderDetail, isError: isErrorOrderDetail } = useQuery({
         queryKey: ['orders', { orderId }],
         queryFn: async () => {
             const response = await apiInstance(`laundry/id/${orderId}`);
             return response.data.data;
         }
-    });
-
-    const { mutate: updateIsPaidOffStatusFn, isPending: isPendingUpdateIsPaidOffStatus } = useMutation({
-        mutationFn: async (data) => {
-            return apiInstance(`laundry/isPaidOff/${existingOrder.receiptNumber}`, {
-                data,
-                method: "PUT"
-            });
-        },
-        onSuccess: (response) => {
-            queryClient.invalidateQueries({ queryKey: ['orders', { orderId }] });
-            Swal.fire({
-                title: "Data berhasil disimpan",
-                icon: "success",
-                confirmButtonColor: '#f87aac'
-            }).then(result => {
-                navigate('..');
-            });
-        },
-        onError: (response) => {
-            Swal.fire({
-                title: "Data gagal disimpan",
-                text: "Maaf saat ini terjadi error di server, anda bisa mencobanya lagi nanti.",
-                icon: "error",
-                confirmButtonColor: '#f87aac'
-            }).then(result => {
-                navigate('..');
-            });
-        },
     });
 
     if (isErrorOrderDetail) throw new Error("Failed to fetch order detail");
@@ -69,22 +41,13 @@ const Order = () => {
         existingOrder.formatedDate = formatedDate;
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const fd = new FormData(event.target);
-        const data = Object.fromEntries(fd.entries());
-        // console.log(data);
-        updateIsPaidOffStatusFn(data);
-    }
-
     return (
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
             {isPendingOrderDetail && !loadAuthData && <FallbackText />}
-            {!isPendingOrderDetail && !loadAuthData && <form onSubmit={handleSubmit}>
-                <CreateLayout disableSaveBtn={isPendingUpdateIsPaidOffStatus} isOrderDetail keys={keys} defaultValues={existingOrder} fields={ORDER_DETAIL_FIELDS} dropdownIndex={8} title="Detail Pesanan" confirmAlert={false} />
-            </form>
+            {!isPendingOrderDetail && !loadAuthData &&
+                <CreateLayout isNew={false} itemKey={existingOrder.receiptNumber} isDelete={isDelete} setIsDelete={setIsDelete} queryKey={['orders', { orderId }]} requestUrl='laundry/isPaidOff' isOrderDetail keys={keys} defaultValues={existingOrder} fields={ORDER_DETAIL_FIELDS} dropdownIndex={8} title="Detail Pesanan" />
             }
             <Footer hasNext={false} />
         </DefaultLayout>
