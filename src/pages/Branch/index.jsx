@@ -7,7 +7,6 @@ import DefaultLayout from "@layouts/Default";
 import Footer from "@mods/Footer";
 import Header from "@mods/Header/header";
 import Sidebar from "@mods/Sidebar/sidebar";
-import { BRANCH_LIST } from "@/constants/branchList";
 import { BRANCH_DETAIL_FIELDS } from "@/constants/detailFieldList";
 
 import useAuth from "@/hooks/useAuth";
@@ -23,16 +22,15 @@ const Branch = () => {
             const response = await apiInstance(`branch/${branchId}`);
             return response.data.data;
         },
-        enabled: !loadAuthData && !!branchId && !isDelete
+        enabled: !loadAuthData && !!branchId && !isDelete,
+        retry: false
     })
 
     const keys = ["name", "address"];
     const textareaIndex = [1];
 
     if (isErrorExistingBranch) {
-        if (errorExistingBranch.status === 404) {
-            throw json({ message: "Branch not found" }, { status: 404 });
-        }
+        throw json({ message: "Branch not found" }, { status: 404 });
     }
 
     return (

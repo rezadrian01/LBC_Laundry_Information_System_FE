@@ -156,6 +156,25 @@ const Crud = ({
                                             if (indexKey === 0) {
                                                 content = `${indexRow + 1}.`;
                                             }
+                                            if (isEmployeeList && indexKey === 2) {
+                                                let cssClass = "w-1/2 mx-auto rounded-full text-white max-w-[5rem] ";
+                                                switch (content.toLowerCase()) {
+                                                    case 'employee':
+                                                        cssClass += "bg-indigo-400";
+                                                        break;
+                                                    case 'admin':
+                                                        cssClass += "bg-blue-400";
+                                                        break;
+                                                    case 'owner':
+                                                        cssClass += "bg-green-400";
+                                                        break;
+                                                }
+                                                return <td className="py-4">
+                                                    <p className={cssClass}>
+                                                        {content}
+                                                    </p>
+                                                </td>;
+                                            }
                                         }
 
 

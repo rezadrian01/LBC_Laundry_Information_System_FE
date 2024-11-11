@@ -30,9 +30,7 @@ const Item = () => {
     const numberTypeIndex = [1, 2, 3];
 
     if (isErrorExistingItem) {
-        if (errorExistingItem.status === 404) {
-            throw json({ message: "Item not found" }, { status: 404 });
-        }
+        throw json({ message: "Item not found" }, { status: 404 });
     }
     return (
         <DefaultLayout>

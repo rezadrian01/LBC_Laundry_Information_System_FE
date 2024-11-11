@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import apiInstance from '@/utils/apiInstance';
 import { useState } from 'react';
 import { queryClient } from '@/utils/query';
+import { ROLE_LIST } from '@/constants/roleList';
 
 const CreateLayout = ({
     title,
@@ -16,16 +17,16 @@ const CreateLayout = ({
     isItemDetail = false,
     isOrderDetail = false,
     isBranchDetail = false,
+    isEmployeeDetail = false,
     textareaIndex = [],
-    dropdownIndex = null,
+    dropdownIndex = [],
     numberTypeIndex = [],
     defaultValues = null,
     isPending = false,
     successCreateAlertTitle = "Data berhasil disimpan",
     successDeleteAlertTitle = "Data berhasil dihapus",
     fields = [],
-    disableSaveBtn = false,
-    disableDeleteBtn = false,
+    disableSave = false,
     requestUrl = "",
     queryKey = [],
     isDelete = false,
@@ -124,20 +125,20 @@ const CreateLayout = ({
                         <div className={`${!isOrderDetail ? 'col-span-4' : 'col-span-3'}`}>
 
                             {/* Default for create new */}
-                            {isNew && !isOrderDetail && !isBranchDetail && < Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[0]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
+                            {isNew && !isOrderDetail && !isBranchDetail && !dropdownIndex?.includes(index) && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[0]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
 
                             {/* Default for update */}
-                            {!isNew && !isOrderDetail && !isBranchDetail && defaultValues[keys[index]] && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[1]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
+                            {!isNew && !isOrderDetail && !isBranchDetail && !dropdownIndex.includes(index) && defaultValues[keys[index]] && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[1]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
 
 
                             {/* Just for orderDetail */}
-                            {isOrderDetail && index !== dropdownIndex && <>
+                            {(isOrderDetail) && index !== dropdownIndex && <>
                                 {keys[index] === 'status' && <p>: {defaultValues[keys[index]].name}</p>}
                                 {keys[index] === 'branch' && <p>: {defaultValues[keys[index]].name}</p>}
                                 {keys[index] !== 'status' && keys[index] !== 'branch' && <p>: {keys[index] === 'estimateDay' ? `Selesai dalam ${defaultValues[keys[index]]} hari.` : defaultValues[keys[index]]}</p>}
                             </>}
 
-                            {isOrderDetail && index === dropdownIndex && <>
+                            {(isOrderDetail) && index === dropdownIndex && <>
                                 : <select className='bg-primary-pink-300 text-white rounded outline-none' name='isPaidOff' defaultValue={defaultValues[keys[index]]}>
                                     <option value={true}>Lunas</option>
                                     <option value={false}>Belum Lunas</option>
@@ -145,13 +146,20 @@ const CreateLayout = ({
                             </>}
 
                             {/* Just for items with services */}
-                            {!isNew && !isOrderDetail && !isBranchDetail && isItemDetail && !defaultValues[keys[index]] && <Input textSize="text-lg" type="number" step="0.01" defaultValue={currentItemService.price || "-"} name={content.name[1]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />
+                            {!isNew && !isOrderDetail && !isBranchDetail && isItemDetail && !defaultValues[keys[index]] && <Input textSize="text-lg" type="number" step="0.01" defaultValue={currentItemService?.price || "-"} name={content.name[1]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />
                             }
 
                             {/* Just for branch detail */}
-                            {isBranchDetail && textareaIndex.includes(index) && <textarea className="w-full outline-none font-semibold placeholder:font-normal p-2 text-lg shadow-xl " defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[isNew ? 0 : 1]} id={content.id} style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
+                            {isBranchDetail && textareaIndex.includes(index) && <textarea className="w-full outline-none font-semibold placeholder:font-normal p-2 text-lg shadow-xl" defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[isNew ? 0 : 1]} id={content.id} style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
 
                             {isBranchDetail && !textareaIndex.includes(index) && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[isNew ? 0 : 1]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
+
+                            {/* Just for employee detail */}
+                            {dropdownIndex.includes(index) && <select name={content.name[isNew ? 0 : 1]} disabled={!isNew} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} className="w-full outline-none font-semibold placeholder:font-normal p-2 text-lg shadow-xl disabled:text-gray-600 disabled:cursor-not-allowed" >
+                                <EachUtils of={ROLE_LIST} render={(role, index) => {
+                                    return <option value={role.en.toLowerCase()}>{role.id}</option>;
+                                }} />
+                            </select>}
                         </div>
                     </>;
                     }} />}
@@ -161,9 +169,9 @@ const CreateLayout = ({
                 </div>}
                 <div className='flex items-center justify-end gap-2 mt-8'>
                     {!isNew && <button type='button' disabled={isPendingMutation} onClick={handleDeleteClick} className='bg-red-500 hover:bg-red-600 disabled:bg-red-400 text-white px-4 py-2 rounded'>{isPendingMutation ? 'Loading...' : 'Hapus'}</button>}
-                <button
+                    {!disableSave && <button
                         disabled={isPendingMutation}
-                        className='bg-primary-pink-300 hover:bg-primary-pink-500 disabled:bg-primary-pink-250 text-white px-4 py-2 rounded'>{isPendingMutation ? 'Loading...' : 'Simpan'}</button>
+                        className='bg-primary-pink-300 hover:bg-primary-pink-500 disabled:bg-primary-pink-250 text-white px-4 py-2 rounded'>{isPendingMutation ? 'Loading...' : 'Simpan'}</button>}
             </div>
         </div>
         </form>
