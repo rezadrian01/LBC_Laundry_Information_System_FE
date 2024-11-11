@@ -23,7 +23,13 @@ const Login = () => {
         onSuccess: (response) => {
             const { adminData } = response.data;
             dispatch(authAction.signin({ userId: adminData.id, role: adminData.role }));
-            navigate('/dashboard');
+            const intervalId = setInterval(() => {
+                const cookie = document.cookie;
+                if (cookie) {
+                    clearInterval(intervalId);
+                    navigate('/dashboard');
+                }
+            }, 500);
         }
     });
     const statusCode = error?.status;

@@ -65,13 +65,18 @@ const USER_PROFILE_FIELDS = [
     },
     {
         label: "Password",
-        id: "password",
-        name: ["password", "updatedPassword"],
+        id: "olPassword",
+        name: ["oldPassword", "oldPassword"],
+    },
+    {
+        label: "New Password",
+        id: "new-password",
+        name: ["newPassword", "newPassword"],
     },
     {
         label: "Confirm Password",
         id: "confirm-password",
-        name: ["confirmPassword", "updatedConfirmPassword"],
+        name: ["confirmNewPassword", "confirmNewPassword"],
     },
 ];
 

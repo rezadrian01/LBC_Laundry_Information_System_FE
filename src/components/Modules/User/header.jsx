@@ -1,8 +1,8 @@
+import { ROLE_LIST } from "@/constants/roleList";
 import { GoPerson } from "react-icons/go";
 
 const UserProfileHeader = ({ user }) => {
-    const translatedRole = getTranslatedRole(user.role);
-
+    const role = ROLE_LIST.find(role => role.en.toLowerCase() === user?.role?.toLowerCase());
     return (
         <div className='bg-primary-pink-300/70 w-full min-h-[40svh] flex flex-col items-center justify-center'>
             <div>
@@ -10,23 +10,12 @@ const UserProfileHeader = ({ user }) => {
                     <GoPerson size={100} />
                 </div>
                 <div className="text-center font-semibold mt-4 text-gray-50">
-                    <h2 className="font-bold text-3xl">{user.name}</h2>
-                    <p className="text-xl">{translatedRole}</p>
+                    <h2 className="font-bold text-3xl">{user?.username}</h2>
+                    <p className="text-xl">{role?.id}</p>
                 </div>
             </div>
         </div>
     );
-};
-
-const getTranslatedRole = (role) => {
-    switch (role.toLowerCase()) {
-        case "employee":
-            return "Karyawan";
-        case "admin":
-            return "Admin";
-        case "owner":
-            return "Owner";
-    }
 };
 
 export default UserProfileHeader;
