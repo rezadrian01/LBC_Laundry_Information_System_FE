@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const useAuth = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { data, isLoading, isError, error } = useQuery({
+    let { data, isLoading, isError, error } = useQuery({
         queryFn: async () => {
             const response = await apiInstance('auth/check');
             return response;

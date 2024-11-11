@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -9,10 +9,16 @@ import LoginTitle from '@mods/Login/loginTitle';
 import AuthInput from '@/components/UI/AuthInput/authInput';
 import apiInstance from '@/utils/apiInstance';
 import { authAction } from '@/stores/auth';
+import { branchAction } from '@/stores/branch';
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [latestBranch, setLatestBranch] = useState({
+        id: localStorage.getItem("latestBranchId"),
+        name: localStorage.getItem("latestBranchName"),
+        address: localStorage.getItem("latestBranchAddress")
+    });
     const { mutate: loginFn, isPending, isError, error } = useMutation({
         mutationFn: async (data) => {
             return await apiInstance('auth/login', {
@@ -23,14 +29,38 @@ const Login = () => {
         onSuccess: (response) => {
             const { adminData } = response.data;
             dispatch(authAction.signin({ userId: adminData.id, role: adminData.role }));
-            const intervalId = setInterval(() => {
-                const cookie = document.cookie;
-                if (cookie) {
-                    clearInterval(intervalId);
-                    navigate('/dashboard');
-                }
-            }, 500);
+            // const latestBranch = {
+            //     id: localStorage.getItem("latestBranchId"),
+            //     name: localStorage.getItem("latestBranchName"),
+            //     address: localStorage.getItem("latestBranchAddress")
+            // };
+            // if (latestBranch?.id && latestBranch?.name && latestBranch?.address) {
+            //     dispatch(branchAction.changeActiveBranch({
+            //         id: latestBranch.id,
+            //         name: latestBranch.name,
+            //         address: latestBranch.address
+            //     }));
+            //     setLatestBranch(true);
+            // }
+            // const intervalId = setInterval(() => {
+            // const cookie = document.cookie;
+            // if (cookie) {
+            //     clearInterval(intervalId);
+            navigate('/dashboard');
+            // }
+            // },);
         }
+    });
+    const { data: defaultBranch } = useQuery({
+        queryKey: ['latestBranch'],
+        queryFn: async () => {
+            const response = await apiInstance('branch/default');
+            // console.log(response.data.data);
+            return response.data.data;
+        },
+        retry: false,
+        enabled: !isPending && !latestBranch
+
     });
     const statusCode = error?.status;
     let errorMessage = "";

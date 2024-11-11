@@ -22,7 +22,7 @@ const Header = ({ hasButton = true, hasBranchBtn = false, branchList = null, isR
         queryKey: ['branches'],
         queryFn: async () => {
             const response = await apiInstance('branch');
-            console.log(response.data.data);
+            // console.log(response.data.data);
             return response.data.data;
         },
         retry: false
@@ -33,7 +33,7 @@ const Header = ({ hasButton = true, hasBranchBtn = false, branchList = null, isR
     };
     const selectBranch = (branch) => {
         setIsBranchDropdownOpen(false);
-        isReports ? onSelect(branch) : dispatch(branchAction.changeBranch(branch));
+        isReports ? onSelect(branch) : dispatch(branchAction.changeActiveBranch(branch));
     };
     return (
         <>

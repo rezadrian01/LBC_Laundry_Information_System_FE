@@ -15,7 +15,7 @@ export const branchSlice = createSlice({
         }
     },
     reducers: {
-        changeBranch: (state, action) => {
+        changeActiveBranch: (state, action) => {
             state.activeBranch = { ...action.payload };
         }
     }

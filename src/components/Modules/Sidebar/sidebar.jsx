@@ -32,10 +32,12 @@ const Sidebar = () => {
             });
         },
         onSuccess: (response) => {
-            dispatch(authAction.signout());
-            queryClient.invalidateQueries({ queryKey: ['auth-data'] });
             navigate('/login');
+            setTimeout(() => {
+            dispatch(authAction.signout());
+                queryClient.invalidateQueries({ queryKey: ['auth-data'] });
             toggleSidebar();
+            }, 500);
         },
         onError: (response) => {
             console.log(response);
