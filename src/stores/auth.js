@@ -18,8 +18,6 @@ export const authSlice = createSlice({
             state.userId = null;
             state.token = null;
             state.role = null;
-            localStorage.removeItem('userId');
-            localStorage.removeItem('token');
         }
     }
 });

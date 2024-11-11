@@ -27,6 +27,10 @@ export const orderSlice = createSlice({
         addTotalItems: (state, action) => {
             state.totalItems += action.payload.totalItems;
         },
+        addWeightAndQuantity: (state, action) => {
+            state.totalItems = action.payload.totalItems;
+            state.weight = action.payload.weight;
+        },
         resetOrder: (state, action) => {
             state.orderTypeId = null;
             state.items = [];
@@ -35,10 +39,17 @@ export const orderSlice = createSlice({
             state.services = [];
         },
         addService: (state, action) => {
-            state.services.push(action.payload.service);
+            state.services.push(action.payload.serviceId);
         },
         removeService: (state, action) => {
-            state.services = state.services.filter(service => service.id !== action.payload.serviceId);
+            state.services = state.services.filter(service => service !== action.payload.serviceId);
+        },
+        resetOrder: (state, action) => {
+            state.orderTypeId = null;
+            state.items = [];
+            state.weight = 0;
+            state.totalItems = 0;
+            state.services = [];
         }
     }
 });

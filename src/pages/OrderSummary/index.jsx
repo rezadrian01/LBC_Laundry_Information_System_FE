@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { useQuery } from '@tanstack/react-query';
 
 import DefaultLayout from '@layouts/Default';
 import OrderLayout from '@layouts/Order';
@@ -11,16 +12,31 @@ import { TABLE_CONTENT as TABLE_CONTENT_ITEM, TABLE_HEADER as TABLE_HEADER_ITEM 
 import { TABLE_CONTENT as TABLE_CONTENT_WEIGHT, TABLE_HEADER as TABLE_HEADER_WEIGHT } from '@/constants/orderWeightSummary';
 
 import useAuth from '@/hooks/useAuth';
+import apiInstance from '@/utils/apiInstance';
+import FallbackText from '@/components/UI/Loading/FallbackText';
 
 const OrderSummary = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const path = location.pathname.split("/")[2];
     const { isLoading: loadAuthData } = useAuth();
+    const { data: latestReceiptNumber, isLoading: isLoadingLatestReceiptNumber, isError: isErrorLatestReceiptNumber } = useQuery({
+        queryKey: ['latestReceiptNumber'],
+        queryFn: async () => {
+            const response = await apiInstance('laundry/receiptNumber');
+            // console.log(response.data.data);
+            return response.data.data;
+        },
+        enabled: !loadAuthData,
+        retry: false
+    });
+    let receiptNumber = "";
+    if (!isLoadingLatestReceiptNumber) {
+        receiptNumber = latestReceiptNumber?.latestReceiptNumber;
+    }
 
     const handleNextClick = () => {
         // Validation
-
         Swal.fire({
             title: "Apakah data sudah sesuai?",
             text: "Anda tidak dapat mengubah data tersebut jika sudah membuat pesanan.",
@@ -52,14 +68,16 @@ const OrderSummary = () => {
     const handlePrintReceipt = () => {
         navigate('/dashboard');
     }
+    const currentDate = new Date().toISOString().split("T")[0]
 
     return (
         <DefaultLayout>
-            <OrderLayout gap='gap-6' titleSize='3xl' title="Nota Satuan">
-                {!loadAuthData && <>
+            <OrderLayout gap='gap-6' titleSize='3xl' title="Nota Kiloan">
+                {isLoadingLatestReceiptNumber && <FallbackText />}
+                {!isLoadingLatestReceiptNumber && <>
                 <section className='flex flex-col gap-2'>
-                    <InputGroup textCenter={false} isOrderSummary={true} label="No. Nota" id="receiptNumber" name="receiptNumber" />
-                    <InputGroup textCenter={false} isOrderSummary={true} label="Tanggal" id="date" name="date" />
+                        <InputGroup defaultValue={receiptNumber} textCenter={false} isOrderSummary={true} label="No. Nota" id="receiptNumber" name="receiptNumber" />
+                        <InputGroup type="date" defaultValue={currentDate} textCenter={false} isOrderSummary={true} label="Tanggal" id="date" name="date" />
                     <InputGroup textCenter={false} isOrderSummary={true} label="Cabang" id="branch" name="branch" />
                 </section>
                 <Table headerCol={path === "weight" ? TABLE_HEADER_WEIGHT : TABLE_HEADER_ITEM} tableContent={path === "weight" ? TABLE_CONTENT_WEIGHT : TABLE_CONTENT_ITEM} isSummary={true} isItemOrderSummary={path === "item"} isWeightOrderSummary={path === "weight"} />

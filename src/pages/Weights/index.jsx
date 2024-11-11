@@ -22,13 +22,19 @@ const Weights = () => {
         },
         enabled: !loadAuthData
     })
-    const keys = ["_", "maxWeight", "price"];
+    const keys = ["_", "maxWeight", "formatedPrice"];
     const handleEditWeightPrice = (weightPriceId) => {
         console.log(weightPriceId);
     };
     const handleDeleteWeightPrice = (weightPriceId) => {
         console.log(weightPriceId);
     };
+    if (!isLoadingWeightPriceList && weightPriceList) {
+        weightPriceList.forEach(weightPrice => {
+            const formatedPrice = new Intl.NumberFormat('id-ID').format(weightPrice.price);
+            weightPrice.formatedPrice = formatedPrice;
+        });
+    }
     return (
         <DefaultLayout>
             <Sidebar />

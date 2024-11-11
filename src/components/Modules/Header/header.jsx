@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
 
 import { MdLocationOn } from "react-icons/md";
 import { IoChevronDown } from "react-icons/io5";
@@ -11,11 +12,21 @@ import Button from "@/components/UI/Button";
 import { BRANCH_LIST } from "@/constants/branchList";
 import EachUtils from "@/utils/eachUtils";
 import { branchAction } from "@/stores/branch";
+import apiInstance from "@/utils/apiInstance";
 
 const Header = ({ hasButton = true, hasBranchBtn = false, branchList = null, isReports = false, onSelect, selectedBranch = null, ...props }) => {
     const dispatch = useDispatch();
     const { activeBranch } = useSelector(state => state.branch);
     const [isBranchDropdownOpen, setIsBranchDropdownOpen] = useState(false);
+    const { data: fetchedBranchList, isLoading: isLoadingBranchList, isError: isErrorBranchList } = useQuery({
+        queryKey: ['branches'],
+        queryFn: async () => {
+            const response = await apiInstance('branch');
+            console.log(response.data.data);
+            return response.data.data;
+        },
+        retry: false
+    })
 
     const toggleBranchDropdown = () => {
         setIsBranchDropdownOpen(!isBranchDropdownOpen);
@@ -44,7 +55,7 @@ const Header = ({ hasButton = true, hasBranchBtn = false, branchList = null, isR
                     </div>
                 </div>
                 {hasBranchBtn && !isReports && <>
-                    <BranchDropdown activeBranch={activeBranch} toggleBranchDropdown={toggleBranchDropdown} isBranchDropdownOpen={isBranchDropdownOpen} onSelect={selectBranch} />
+                    <BranchDropdown branchList={fetchedBranchList} activeBranch={activeBranch} toggleBranchDropdown={toggleBranchDropdown} isBranchDropdownOpen={isBranchDropdownOpen} onSelect={selectBranch} />
                 </>}
             </div>
         </>
@@ -72,7 +83,7 @@ const BranchDropdown = ({ toggleBranchDropdown, activeBranch, isBranchDropdownOp
                     initial='initial'
                     animate='animate'
                     exit='exit' className="absolute z-20 shadow-xl rounded-lg w-[12rem] top-10">
-                <EachUtils of={isReports ? branchList : BRANCH_LIST} render={(branch, index) => {
+                    <EachUtils of={branchList || BRANCH_LIST} render={(branch, index) => {
                     return <li onClick={() => onSelect(branch)} className="cursor-pointer flex items-center text-white bg-primary-pink-300 hover:bg-primary-pink-400 py-2 px-3 last:rounded-b" key={index}>
                         <MdLocationOn size={20} />
                         {branch.name}

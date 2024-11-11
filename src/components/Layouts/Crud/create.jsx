@@ -131,13 +131,13 @@ const CreateLayout = ({
 
 
                             {/* Just for orderDetail */}
-                            {(isOrderDetail) && index !== dropdownIndex && <>
+                            {(isOrderDetail) && index !== dropdownIndex[0] && <>
                                 {keys[index] === 'status' && <p>: {defaultValues[keys[index]].name}</p>}
                                 {keys[index] === 'branch' && <p>: {defaultValues[keys[index]].name}</p>}
                                 {keys[index] !== 'status' && keys[index] !== 'branch' && <p>: {keys[index] === 'estimateDay' ? `Selesai dalam ${defaultValues[keys[index]]} hari.` : defaultValues[keys[index]]}</p>}
                             </>}
 
-                            {(isOrderDetail) && index === dropdownIndex && <>
+                            {(isOrderDetail) && index === dropdownIndex[0] && <>
                                 : <select className='bg-primary-pink-300 text-white rounded outline-none' name='isPaidOff' defaultValue={defaultValues[keys[index]]}>
                                     <option value={true}>Lunas</option>
                                     <option value={false}>Belum Lunas</option>
@@ -154,7 +154,7 @@ const CreateLayout = ({
                             {isBranchDetail && !textareaIndex.includes(index) && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[isNew ? 0 : 1]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
 
                             {/* Just for employee detail */}
-                            {dropdownIndex.includes(index) && <select name={content.name[isNew ? 0 : 1]} disabled={!isNew} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} className="w-full outline-none font-semibold placeholder:font-normal p-2 text-lg shadow-xl disabled:text-gray-600 disabled:cursor-not-allowed" >
+                            {!isOrderDetail && dropdownIndex.includes(index) && <select name={content.name[isNew ? 0 : 1]} disabled={!isNew} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} className="w-full outline-none font-semibold placeholder:font-normal p-2 text-lg shadow-xl disabled:text-gray-600 disabled:cursor-not-allowed" >
                                 <EachUtils of={ROLE_LIST} render={(role, index) => {
                                     return <option value={role.en.toLowerCase()}>{role.id}</option>;
                                 }} />

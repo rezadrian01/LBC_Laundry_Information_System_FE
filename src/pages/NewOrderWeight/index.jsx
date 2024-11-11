@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { json, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { useQuery } from '@tanstack/react-query';
 
 import DefaultLayout from '@layouts/Default';
 import OrderLayout from '@layouts/Order';
@@ -12,28 +13,58 @@ import { orderAction } from '@/stores/order';
 import { TABLE_CONTENT } from '@/constants/serviceList';
 
 import useAuth from '@/hooks/useAuth';
+import apiInstance from '@/utils/apiInstance';
+import FallbackText from '@/components/UI/Loading/FallbackText';
 
 const NewOrderWeight = () => {
     const weightInputRef = useRef(null);
-    const unitInputRef = useRef(null);
+    const quantityInputRef = useRef(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const orderState = useSelector(state => state.order);
-    const { isLoading: loadAuthData } = useAuth()
+    const { isLoading: loadAuthData } = useAuth();
+    const { data: serviceList, isLoading: isLoadingServiceList, isError: isErrorServiceList } = useQuery({
+        queryKey: ['services'],
+        queryFn: async () => {
+            const response = await apiInstance('service');
+            // console.log(response.data.data);
+            return response.data.data;
+        },
+        enabled: !loadAuthData
+    })
 
     const handleNextClick = () => {
-        // console.log(weightInputRef.current.value);
-        // console.log(unitInputRef.current.value);
+        const quantity = +quantityInputRef.current.value;
+        const weight = +weightInputRef.current.value;
+        // Validation
+        if (!quantity || !weight) {
+            Swal.fire({
+                title: "Input tidak boleh kosong",
+                text: "Harap masukan berat dan kuantitas",
+                icon: 'error'
+            });
+            return;
+        }
+        if (orderState.services.length !== 2) {
+            Swal.fire({
+                title: "Layanan kurang",
+                text: "Harap pilih 2 layanan",
+                icon: 'error'
+            });
+            return;
+        }
+        dispatch(orderAction.addWeightAndQuantity({
+            totalItems: +quantity,
+            weight
+        }))
         navigate('summary');
     }
 
     const handleSelectService = (event) => {
         const isChecked = event.target.checked;
         const serviceId = event.target.value;
-        const existingService = TABLE_CONTENT.find(service => service.id === +serviceId);
-        if (!existingService) throw json({ message: "Service not found" }, { status: 404 });
         if (!isChecked) {
-            dispatch(orderAction.removeService({ serviceId: existingService.id }));
+            dispatch(orderAction.removeService({ serviceId }));
         } else {
             if (orderState.services.length >= 2) {
                 Swal.fire({
@@ -45,7 +76,7 @@ const NewOrderWeight = () => {
                 event.target.checked = false;
                 return;
             } else {
-                dispatch(orderAction.addService({ service: existingService }));
+                dispatch(orderAction.addService({ serviceId }));
             }
         }
     };
@@ -57,16 +88,17 @@ const NewOrderWeight = () => {
                 {!loadAuthData && <>
                 <div className='flex flex-col gap-10'>
                     <InputGroup isWeightOrderInput={true} ref={weightInputRef} mainLabel="Berat" subLabel="(maks 20kg)" id="weight" name="weight" unitLabel="Kg" />
-                    <InputGroup isWeightOrderInput={true} ref={unitInputRef} mainLabel="Kuantitas" id="quantity" name="quantity" unitLabel="Pcs" />
+                        <InputGroup isWeightOrderInput={true} ref={quantityInputRef} mainLabel="Kuantitas" id="quantity" name="quantity" unitLabel="Pcs" />
                 </div>
                 <div className='flex flex-col gap-2 mb-6 text-lg bg-primary-pink-200 rounded-xl shadow-xl p-4'>
                     <h3 className='mb-4 text-3xl font-semibold'>Layanan</h3>
-                    <EachUtils of={TABLE_CONTENT} render={(service, index) => {
+                        {isLoadingServiceList && <FallbackText />}
+                        {!isLoadingServiceList && <EachUtils of={serviceList} render={(service, index) => {
                         return <div className='flex gap-2 items-center '>
-                            <input className='bg-primary-pink-300 cursor-pointer' onChange={handleSelectService} type='checkbox' id={service.name} name='service' value={service.id} />
+                            <input className='bg-primary-pink-300 cursor-pointer' onChange={handleSelectService} type='checkbox' id={service.name} name='service' value={service._id} />
                             <label className='cursor-pointer' htmlFor={service.name}>{service.name}</label>
                         </div>;
-                    }} />
+                        }} />}
                 </div>
                 </>}
                 <Footer onNextClick={handleNextClick} />

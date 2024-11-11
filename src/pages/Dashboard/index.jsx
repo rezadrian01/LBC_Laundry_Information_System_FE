@@ -28,7 +28,7 @@ const Dashboard = () => {
     return (
         <DefaultLayout>
             <Sidebar />
-            <Header hasBranchBtn onClick={handleAddNewOrderClick} />
+            {!isLoading && <Header hasBranchBtn onClick={handleAddNewOrderClick} />}
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10'>
                 {!isLoading && <>
                 <StatisticCard title="Pendapatan Harian" />

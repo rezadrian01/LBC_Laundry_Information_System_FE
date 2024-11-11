@@ -45,7 +45,7 @@ const Order = () => {
             <Header hasButton={false} />
             {isLoadingOrderDetail && !loadAuthData && <FallbackText />}
             {!isLoadingOrderDetail && !loadAuthData &&
-                <CreateLayout isNew={false} itemKey={existingOrder.receiptNumber} isDelete={isDelete} setIsDelete={setIsDelete} queryKey={['orders', { orderId }]} requestUrl='laundry/isPaidOff' isOrderDetail keys={keys} defaultValues={existingOrder} fields={ORDER_DETAIL_FIELDS} dropdownIndex={8} title="Detail Pesanan" />
+                <CreateLayout isNew={false} itemKey={existingOrder.receiptNumber} isDelete={isDelete} setIsDelete={setIsDelete} queryKey={['orders', { orderId }]} requestUrl='laundry/isPaidOff' isOrderDetail keys={keys} defaultValues={existingOrder} fields={ORDER_DETAIL_FIELDS} dropdownIndex={[8]} title="Detail Pesanan" />
             }
             <Footer hasNext={false} />
         </DefaultLayout>

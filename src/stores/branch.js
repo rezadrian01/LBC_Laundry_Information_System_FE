@@ -4,6 +4,11 @@ export const branchSlice = createSlice({
     name: "branch",
     initialState: {
         activeBranch: {
+            id: localStorage.getItem("activeBranchId") || 1,
+            name: localStorage.getItem("activeBranchName") || "Blimbing",
+            address: localStorage.getItem("activeBranchAddress") || "Jln. Blimbing"
+        },
+        activeReportBranch: {
             id: 1,
             name: "Blimbing",
             address: "Jln. Blimbing"

@@ -106,7 +106,7 @@ const Crud = ({
                                             if (indexKey >= 2) {
                                                 const itemServiceIndex = item.services.findIndex(service => service.name.toLowerCase() === key.toLowerCase());
                                                 if (itemServiceIndex !== -1) {
-                                                    content = item.services[itemServiceIndex].price;
+                                                    content = new Intl.NumberFormat('id-ID').format(item.services[itemServiceIndex].price);
                                                 } else {
                                                     content = "-"
                                                 }

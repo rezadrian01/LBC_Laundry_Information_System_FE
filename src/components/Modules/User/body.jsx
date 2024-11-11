@@ -119,12 +119,12 @@ const BodyUserProfile = ({ user, keys }) => {
                                 onChangeHandler = setConfirmNewPasswordInput;
                                 break;
                         }
-                        return <div className='col-span-6 md:col-span-8 grid grid-cols-6 md:grid-cols-8 w-full'>
+                        return <div className='col-span-6 md:col-span-8 grid grid-cols-6 md:grid-cols-8 items-center w-full'>
                             {index === 4 && <div className='col-span-6 md:col-span-8 mt-4 mb-6 h-[2px] bg-gray-600' />}
-                        <div className="col-span-2 md:col-span-2">
+                            <div className="col-span-8 md:col-span-2">
                             <h4 className='text-xl'>{content.label}</h4>
                         </div>
-                        <div className="col-span-6 md:col-span-6">
+                            <div className="col-span-8 md:col-span-6">
                                 {<Input value={inputValue} onChange={(event) => onChangeHandler(event.target.value)} textSize="text-lg" name={content.name[0]} id={user?._id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} disabled={content?.id === 'role'} />}
                         </div>
                         </div>;
