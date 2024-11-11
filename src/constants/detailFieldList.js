@@ -38,12 +38,12 @@ const BRANCH_DETAIL_FIELDS = [
     {
         label: "Nama Cabang",
         id: "branch-name",
-        name: ["branchName"]
+        name: ["branchName", "updatedBranchName"]
     },
     {
         label: "Alamat",
         id: "branch-address",
-        name: ["branchAddress"]
+        name: ["branchAddress", "updatedBranchAddress"]
     },
 ];
 

@@ -15,6 +15,8 @@ const CreateLayout = ({
     keys = [],
     isItemDetail = false,
     isOrderDetail = false,
+    isBranchDetail = false,
+    textareaIndex = [],
     dropdownIndex = null,
     numberTypeIndex = [],
     defaultValues = null,
@@ -121,9 +123,11 @@ const CreateLayout = ({
                         </div>
                         <div className={`${!isOrderDetail ? 'col-span-4' : 'col-span-3'}`}>
 
-                            {isNew && !isOrderDetail && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[0]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
+                            {/* Default for create new */}
+                            {isNew && !isOrderDetail && !isBranchDetail && < Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[0]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
 
-                            {!isNew && !isOrderDetail && defaultValues[keys[index]] && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[1]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
+                            {/* Default for update */}
+                            {!isNew && !isOrderDetail && !isBranchDetail && defaultValues[keys[index]] && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[1]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
 
 
                             {/* Just for orderDetail */}
@@ -141,9 +145,13 @@ const CreateLayout = ({
                             </>}
 
                             {/* Just for items with services */}
-                            {!isNew && !isOrderDetail && isItemDetail && !defaultValues[keys[index]] && <Input textSize="text-lg" type="number" step="0.01" defaultValue={currentItemService.price || "-"} name={content.name[1]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />
+                            {!isNew && !isOrderDetail && !isBranchDetail && isItemDetail && !defaultValues[keys[index]] && <Input textSize="text-lg" type="number" step="0.01" defaultValue={currentItemService.price || "-"} name={content.name[1]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />
                             }
 
+                            {/* Just for branch detail */}
+                            {isBranchDetail && textareaIndex.includes(index) && <textarea className="w-full outline-none font-semibold placeholder:font-normal p-2 text-lg shadow-xl " defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[isNew ? 0 : 1]} id={content.id} style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
+
+                            {isBranchDetail && !textareaIndex.includes(index) && <Input textSize="text-lg" type={isNumber ? 'number' : 'text'} step={isNumber ? '0.01' : null} defaultValue={defaultValues ? defaultValues[keys[index]] : ""} name={content.name[isNew ? 0 : 1]} id={content.id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} />}
                         </div>
                     </>;
                     }} />}

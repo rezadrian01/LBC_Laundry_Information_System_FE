@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { json, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 import CreateLayout from "@layouts/Crud/create";
 import DefaultLayout from "@layouts/Default";
@@ -9,23 +11,35 @@ import { BRANCH_LIST } from "@/constants/branchList";
 import { BRANCH_DETAIL_FIELDS } from "@/constants/detailFieldList";
 
 import useAuth from "@/hooks/useAuth";
+import apiInstance from "@/utils/apiInstance";
 
 const Branch = () => {
     const { branchId } = useParams();
-    const { isLoading: loadAuthData } = useAuth()
+    const { isLoading: loadAuthData } = useAuth();
+    const [isDelete, setIsDelete] = useState(false);
+    const { data: existingBranch, isLoading: isLoadingExistingBranch, isError: isErrorExistingBranch, error: errorExistingBranch } = useQuery({
+        queryKey: ['branches', { branchId }],
+        queryFn: async () => {
+            const response = await apiInstance(`branch/${branchId}`);
+            return response.data.data;
+        },
+        enabled: !loadAuthData && !!branchId && !isDelete
+    })
 
     const keys = ["name", "address"];
+    const textareaIndex = [1];
 
-    let existingBranch = null;
-    if (branchId) {
-        existingBranch = BRANCH_LIST.find(branch => branch.id === +branchId);
-        if (!existingBranch) throw json({ message: "Branch not found" }, { status: 404 });
+    if (isErrorExistingBranch) {
+        if (errorExistingBranch.status === 404) {
+            throw json({ message: "Branch not found" }, { status: 404 });
+        }
     }
+
     return (
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            {!loadAuthData && <CreateLayout isNew={branchId ? false : true} keys={keys} defaultValues={existingBranch} fields={BRANCH_DETAIL_FIELDS} title="Cabang" />}
+            {!isLoadingExistingBranch && <CreateLayout isBranchDetail textareaIndex={textareaIndex} isDelete={isDelete} setIsDelete={setIsDelete} queryKey={['branches', { branchId }]} requestUrl="branch" isPending={isLoadingExistingBranch} isNew={branchId ? false : true} keys={keys} defaultValues={existingBranch} fields={BRANCH_DETAIL_FIELDS} title="Cabang" />}
             <Footer hasNext={false} />
         </DefaultLayout>
     );

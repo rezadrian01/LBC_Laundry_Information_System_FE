@@ -29,7 +29,7 @@ const Items = () => {
     return (
         <DefaultLayout>
             <Sidebar />
-            {!loadAuthData && !isLoadingItemList && <Crud onCreate={handleCreateItem} keys={keys} isItemList tableHeader={TABLE_HEADER} tableContent={itemList} />}
+            {!isLoadingItemList && <Crud onCreate={handleCreateItem} keys={keys} isItemList tableHeader={TABLE_HEADER} tableContent={itemList} />}
             <Footer backToDashboard hasNext={false} />
         </DefaultLayout>
     );
