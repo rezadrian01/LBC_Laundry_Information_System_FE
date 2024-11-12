@@ -23,7 +23,6 @@ export const orderSlice = createSlice({
                 quantity: 1,
                 price
             };
-            // console.log(newItem);
             const existingItemIndex = state.items.findIndex(item => item.itemServiceId === itemServiceId);
             if (existingItemIndex === -1) {
                 state.items.push(newItem);

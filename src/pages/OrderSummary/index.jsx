@@ -87,6 +87,7 @@ const OrderSummary = () => {
                 backdrop: "#00000070"
             }).then(result => {
                 if (result.isConfirmed || result.isDismissed) {
+                    setOrderList([]);
                     handlePrintReceipt();
                 }
             });
@@ -99,11 +100,14 @@ const OrderSummary = () => {
             });
         }
     });
-
+    let totalPrice = orderState.orderTypeId === 1 ? orderState.items.reduce((prev, item) => prev + (item.quantity * item.price), 0) : 0;
+    let totalQuantity = orderState.orderTypeId === 1 ? orderState.items.reduce((prev, item) => prev + item.quantity, 0) : 0;
     useEffect(() => {
         switch (orderState.orderTypeId) {
             // Item type order
             case 1:
+                setOrderList([...orderState.items]);
+                break;
             // Weight type order
             case 2:
                 const currentWeight = orderState.weight;
@@ -117,7 +121,7 @@ const OrderSummary = () => {
                 getWeightPrice({ weight: currentWeight });
                 setOrderList([
                     {
-                        id: Math.random(),
+                        // id: Math.random(),
                         weight: currentWeight,
                         quantity: orderState.quantity,
                         services: services.map(service => service?.name).join(", dan ") || ""
@@ -137,7 +141,7 @@ const OrderSummary = () => {
     }
 
     const handleSubmit = (event) => {
-        const isWeightOrder = path === "weight";
+        const isWeightOrder = orderState.orderTypeId === 2;
         event.preventDefault();
         const fd = new FormData(event.target);
         fd.append("isWeight", isWeightOrder);
@@ -145,6 +149,12 @@ const OrderSummary = () => {
             orderState.services.forEach((service, index) => fd.append(`services[${index}][id]`, service.serviceId));
             fd.append("weight", orderState.weight);
             fd.append("totalItems", orderState.quantity);
+        } else {
+            fd.append("totalItems", totalQuantity);
+            orderState.items.forEach((item, index) => {
+                fd.append(`items[${index}][itemServiceId]`, item.itemServiceId);
+                fd.append(`items[${index}][quantity]`, item.quantity);
+            })
         }
         Swal.fire({
             title: "Apakah data sudah sesuai?",
@@ -176,11 +186,11 @@ const OrderSummary = () => {
 
                             <InputGroup titleKey="name" dropdownMenu={branchList} defaultValue={branchState.activeBranch.id} textCenter={false} isOrderSummary isDropdown label="Cabang" id="branch" name="branchId" />
                 </section>
-                        <Table headerCol={path === "weight" ? TABLE_HEADER_WEIGHT : TABLE_HEADER_ITEM} tableContent={path === "weight" ? orderList : TABLE_CONTENT_ITEM} isSummary={true} isItemOrderSummary={path === "item"} isWeightOrderSummary={path === "weight"} />
+                        <Table headerCol={path === "weight" ? TABLE_HEADER_WEIGHT : TABLE_HEADER_ITEM} tableContent={path === "weight" ? orderList : orderList} isSummary={true} isItemOrderSummary={path === "item"} isWeightOrderSummary={path === "weight"} />
                 <div>
                     <div className='grid grid-cols-6 items-center w-full bg-primary-pink-300 text-primary-pink-100 text-center p-2 md:p-4 font-semibold'>
                         <h3 className="col-span-4">Total Harga</h3>
-                        <p className='col-span-2'>40000</p>
+                                <p className='col-span-2'>{new Intl.NumberFormat('id-ID').format(totalPrice)}</p>
                     </div>
                     <CustomerData />
                 </div>

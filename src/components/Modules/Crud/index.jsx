@@ -104,9 +104,9 @@ const Crud = ({
                                                 content = `${indexRow + 1}.`;
                                             }
                                             if (indexKey >= 2) {
-                                                const itemServiceIndex = item.services.findIndex(service => service.name.toLowerCase() === key.toLowerCase());
+                                                const itemServiceIndex = item.services.findIndex(service => service.serviceName.toLowerCase() === key.toLowerCase());
                                                 if (itemServiceIndex !== -1) {
-                                                    content = new Intl.NumberFormat('id-ID').format(item.services[itemServiceIndex].price);
+                                                    content = new Intl.NumberFormat('id-ID').format(item.services[itemServiceIndex].servicePrice);
                                                 } else {
                                                     content = "-"
                                                 }

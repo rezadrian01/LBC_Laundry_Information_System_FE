@@ -21,14 +21,12 @@ const Table = ({ headerCol, tableContent, isSummary = false, isItemOrderSummary 
             });
         },
         onSuccess: (response) => {
-            // console.log(response);
             const { itemId, name, price, _id: serviceId } = response.data.data;
             setSelectedItemId(null);
             dispatch(orderAction.changeService({ prevItemServiceId }));
         }
     });
     const handleChangeServiceChange = (value, itemId) => {
-        // console.log(itemId);
         setSelectedItemId(itemId);
         getServiceIdFn({ serviceName: value });
     };
@@ -39,6 +37,11 @@ const Table = ({ headerCol, tableContent, isSummary = false, isItemOrderSummary 
             dispatch(orderAction.decrementItemQuantity({ itemServiceId }));
         }
     }
+
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('id-ID').format(price);
+    }
+
     return (
         <div className="overflow-auto scrollbar-hide">
             <table className='text-center text-[.73rem] md:text-base font-semibold w-full table-fixed'>
@@ -51,7 +54,6 @@ const Table = ({ headerCol, tableContent, isSummary = false, isItemOrderSummary 
                 </thead>
                 <tbody>
                     <EachUtils of={tableContent} render={(item, index) => {
-                        // console.log(item);
                         return <tr className="">
                             <td className='p-2 md:p-4'>{isItemOrderSummary ? item.itemName : item.weight}</td>
 
@@ -86,8 +88,8 @@ const Table = ({ headerCol, tableContent, isSummary = false, isItemOrderSummary 
                                 <button className='p-2 bg-red-500 hover:bg-red-600 text-white rounded-full'><FaRegTrashAlt /></button>
                             </td>}
                             {isSummary && <>
-                                <td className='p-2 md:p-4'>{isItemOrderSummary ? item.price : item.services}</td>
-                                <td className='p-2 md:p-4'>{isItemOrderSummary ? item.total : item.price}</td>
+                                <td className='p-2 md:p-4'>{isItemOrderSummary ? formatPrice(+item.price) : item.services}</td>
+                                <td className='p-2 md:p-4'>{isItemOrderSummary ? formatPrice(+item.price * +item.quantity) : item.price}</td>
                             </>}
                         </tr>;
                     }} />
