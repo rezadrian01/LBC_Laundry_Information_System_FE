@@ -19,6 +19,7 @@ import { ADMIN_SIDEBAR_MENU } from '@/constants/sidebarList';
 import apiInstance from "@/utils/apiInstance";
 import { queryClient } from "@/utils/query";
 import { authAction } from "@/stores/auth";
+import { branchAction } from "@/stores/branch";
 
 const Sidebar = () => {
     const dispatch = useDispatch();
@@ -34,9 +35,10 @@ const Sidebar = () => {
         onSuccess: (response) => {
             navigate('/login');
             setTimeout(() => {
-            dispatch(authAction.signout());
+                dispatch(authAction.signout());
+                dispatch(branchAction.resetActiveBranch());
                 queryClient.invalidateQueries({ queryKey: ['auth-data'] });
-            toggleSidebar();
+                toggleSidebar();
             }, 500);
         },
         onError: (response) => {

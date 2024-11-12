@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { MdLocationOn } from "react-icons/md";
 import { IoChevronDown } from "react-icons/io5";
@@ -22,18 +22,37 @@ const Header = ({ hasButton = true, hasBranchBtn = false, branchList = null, isR
         queryKey: ['branches'],
         queryFn: async () => {
             const response = await apiInstance('branch');
-            // console.log(response.data.data);
             return response.data.data;
         },
         retry: false
+    });
+    const { mutate: changeBranchFn, isPending: isPendingChangeBranch, isError: isErrorChangeBranch, error: errorChangeBranch } = useMutation({
+        mutationFn: async (data) => {
+            return apiInstance(`admin/latestBranch/${data.branchId}`, {
+                method: "PUT"
+            });
+        },
+        onError: (response) => {
+            console.log(response);
+        }
     })
 
     const toggleBranchDropdown = () => {
         setIsBranchDropdownOpen(!isBranchDropdownOpen);
     };
-    const selectBranch = (branch) => {
+    const selectBranch = async (branch) => {
         setIsBranchDropdownOpen(false);
-        isReports ? onSelect(branch) : dispatch(branchAction.changeActiveBranch(branch));
+        if (isReports) {
+            onSelect(branch);
+        } else {
+            changeBranchFn({ branchId: branch._id });
+            dispatch(branchAction.changeActiveBranch({
+            id: branch._id,
+            name: branch.name,
+            address: branch.address
+        }));
+        }
+
     };
     return (
         <>

@@ -1,4 +1,5 @@
 import { authAction } from "@/stores/auth";
+import { branchAction } from "@/stores/branch";
 import apiInstance from "@/utils/apiInstance";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
@@ -8,15 +9,14 @@ import { useNavigate } from "react-router-dom";
 const useAuth = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    let { data, isLoading, isError, error } = useQuery({
+    let { data: adminData, isLoading, isError, error } = useQuery({
         queryFn: async () => {
             const response = await apiInstance('auth/check');
-            return response;
+            return response.data.adminData;
         },
         queryKey: ['auth-data'],
         retry: false
     });
-
     // Redirect to login page
     useEffect(() => {
         if (isError && error?.response?.status === 401) {
@@ -26,11 +26,15 @@ const useAuth = () => {
 
     // Set global state
     useEffect(() => {
-        if (!isLoading && data) {
-            const { id, role } = data?.data?.adminData;
-            dispatch(authAction.signin({ userId: id, role }));
+        if (!isLoading && adminData) {
+            const { _id, role } = adminData;
+            const { _id: id, name, address } = adminData.latestBranchId;
+            dispatch(authAction.signin({ userId: _id, role }));
+            dispatch(branchAction.changeActiveBranch({
+                id, name, address
+            }))
         }
-    }, [isLoading, data]);
+    }, [isLoading, adminData]);
     return { isLoading };
 };
 
