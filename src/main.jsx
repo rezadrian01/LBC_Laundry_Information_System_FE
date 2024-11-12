@@ -8,7 +8,7 @@ import { queryClient } from './utils/query';
 import store from './stores';
 import './index.css';
 
-import Login from './pages/Login';
+import Login from './pages/login';
 import Dashboard from './pages/Dashboard';
 import NewOrder from './pages/NewOrder';
 import NewOrderItem from './pages/NewOrderItem';
