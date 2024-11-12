@@ -12,7 +12,7 @@ const Select = ({ items, titleKey = 'title', grid = false, isPaidStatus = false,
     return (
         <select className={selectClass} {...props}>
             <EachUtils of={items} render={(item, index) => {
-                return <option className="flex items-center gap-4" value={item.id} key={index}>
+                return <option className="flex items-center gap-4" value={item?._id} key={index}>
                     {item[titleKey]}
                 </option>;
             }} />

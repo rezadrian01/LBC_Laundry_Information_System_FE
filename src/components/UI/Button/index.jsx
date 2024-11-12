@@ -27,7 +27,7 @@ const Button = ({ children, isDefault = true, next = false, backToDashboard = fa
             {isDefault && <button {...props} className="flex items-center justify-center gap-2 md:gap-4 text-white bg-primary-pink-300 hover:bg-primary-pink-500 transition-all py-2 px-2 shadow-lg rounded">{children}</button>}
 
             {/* Back Button */}
-            {!isDefault && back && <button onClick={handleBackClick} {...props} className="flex items-center justify-center gap-2 text-black font-semibold transition-all py-2">
+            {!isDefault && back && <button type="button" onClick={handleBackClick} {...props} className="flex items-center justify-center gap-2 text-black font-semibold transition-all py-2">
                 <FaChevronLeft />
                 Kembali
             </button>}

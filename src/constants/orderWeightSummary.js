@@ -12,10 +12,6 @@ const TABLE_HEADER = [
         title: "LAYANAN"
     },
     {
-        id: 4,
-        title: "WAKTU"
-    },
-    {
         id: 5,
         title: "HARGA"
     },
@@ -27,7 +23,6 @@ const TABLE_CONTENT = [
         weight: 3,
         quantity: 14,
         service: "Cuci Kering",
-        serviceTime: "Reguler",
         price: 15000
     },
     {
@@ -35,7 +30,6 @@ const TABLE_CONTENT = [
         weight: 10,
         quantity: 14,
         service: "Cuci Kering Setrika",
-        serviceTime: "Kilat",
         price: 15000
     },
     {
@@ -43,7 +37,6 @@ const TABLE_CONTENT = [
         weight: 4,
         quantity: 14,
         service: "Cuci Kering",
-        serviceTime: "Express",
         price: 15000
     },
 ];

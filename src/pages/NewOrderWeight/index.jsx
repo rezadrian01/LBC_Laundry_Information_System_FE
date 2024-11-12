@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { json, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -17,12 +17,13 @@ import apiInstance from '@/utils/apiInstance';
 import FallbackText from '@/components/UI/Loading/FallbackText';
 
 const NewOrderWeight = () => {
-    const weightInputRef = useRef(null);
-    const quantityInputRef = useRef(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const orderState = useSelector(state => state.order);
     const { isLoading: loadAuthData } = useAuth();
+    const [weightInput, setWeightInput] = useState(orderState.weight || "");
+    const [quantityInput, setQuantityInput] = useState(orderState.quantity || "");
+
     const { data: serviceList, isLoading: isLoadingServiceList, isError: isErrorServiceList } = useQuery({
         queryKey: ['services'],
         queryFn: async () => {
@@ -34,10 +35,8 @@ const NewOrderWeight = () => {
     })
 
     const handleNextClick = () => {
-        const quantity = +quantityInputRef.current.value;
-        const weight = +weightInputRef.current.value;
         // Validation
-        if (!quantity || !weight) {
+        if (!quantityInput || !weightInput) {
             Swal.fire({
                 title: "Input tidak boleh kosong",
                 text: "Harap masukan berat dan kuantitas",
@@ -54,8 +53,8 @@ const NewOrderWeight = () => {
             return;
         }
         dispatch(orderAction.addWeightAndQuantity({
-            totalItems: +quantity,
-            weight
+            quantity: +quantityInput,
+            weight: +weightInput
         }))
         navigate('summary');
     }
@@ -80,6 +79,13 @@ const NewOrderWeight = () => {
             }
         }
     };
+    const handleInputChange = (value, inputIndex) => {
+        if (inputIndex === 0) {
+            setWeightInput(value);
+        } else {
+            setQuantityInput(value);
+        }
+    }
 
 
     return (
@@ -87,15 +93,16 @@ const NewOrderWeight = () => {
             <OrderLayout title="Masukan Pesanan">
                 {!loadAuthData && <>
                 <div className='flex flex-col gap-10'>
-                    <InputGroup isWeightOrderInput={true} ref={weightInputRef} mainLabel="Berat" subLabel="(maks 20kg)" id="weight" name="weight" unitLabel="Kg" />
-                        <InputGroup isWeightOrderInput={true} ref={quantityInputRef} mainLabel="Kuantitas" id="quantity" name="quantity" unitLabel="Pcs" />
+                        <InputGroup defaultValue={weightInput} onChange={({ target }) => handleInputChange(target.value, 0)} isWeightOrderInput mainLabel="Berat" subLabel="(maks 20kg)" id="weight" name="weight" unitLabel="Kg" />
+                        <InputGroup defaultValue={quantityInput} onChange={({ target }) => handleInputChange(target.value, 1)} isWeightOrderInput mainLabel="Kuantitas" id="quantity" name="quantity" unitLabel="Pcs" />
                 </div>
                 <div className='flex flex-col gap-2 mb-6 text-lg bg-primary-pink-200 rounded-xl shadow-xl p-4'>
                     <h3 className='mb-4 text-3xl font-semibold'>Layanan</h3>
                         {isLoadingServiceList && <FallbackText />}
                         {!isLoadingServiceList && <EachUtils of={serviceList} render={(service, index) => {
+                            const isActive = orderState.services.map(currentService => currentService.serviceId).includes(service._id);
                         return <div className='flex gap-2 items-center '>
-                            <input className='bg-primary-pink-300 cursor-pointer' onChange={handleSelectService} type='checkbox' id={service.name} name='service' value={service._id} />
+                            <input className='bg-primary-pink-300 cursor-pointer' onChange={handleSelectService} type='checkbox' checked={isActive} id={service.name} name='service' value={service._id} />
                             <label className='cursor-pointer' htmlFor={service.name}>{service.name}</label>
                         </div>;
                         }} />}

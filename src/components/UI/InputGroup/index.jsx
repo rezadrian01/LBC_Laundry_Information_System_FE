@@ -3,8 +3,7 @@ import Input from "../Input";
 import Select from "../Select";
 import { PAID_STATUS_LIST } from "@/constants/paidStatusList";
 
-const InputGroup = forwardRef(({ isWeightOrderInput = false, isDropdown = false, isOrderSummary = false, mainLabel, subLabel, id, name, unitLabel, label, textCenter, ...props }, ref) => {
-// console.log();
+const InputGroup = forwardRef(({ isWeightOrderInput = false, isDropdown = false, isOrderSummary = false, mainLabel, subLabel, id, name, unitLabel, label, textCenter, titleKey = "title", dropdownMenu = PAID_STATUS_LIST, ...props }, ref) => {
     return (
         <>
             {isWeightOrderInput && <div>
@@ -19,7 +18,7 @@ const InputGroup = forwardRef(({ isWeightOrderInput = false, isDropdown = false,
 
             {isOrderSummary && isDropdown && <div className='grid grid-cols-4 md:grid-cols-12 items-center gap-4 w-full'>
                 <label className='col-span-1 md:col-span-2 text-nowrap font-semibold' id={id}>{label}</label>
-                <Select isPaidStatus grid items={PAID_STATUS_LIST} id={id} name={name} {...props} />
+                <Select isPaidStatus grid titleKey={titleKey} items={dropdownMenu} id={id} name={name} {...props} />
             </div>}
 
         </>
