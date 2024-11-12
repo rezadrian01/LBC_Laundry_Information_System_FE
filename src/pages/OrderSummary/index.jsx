@@ -102,7 +102,7 @@ const OrderSummary = () => {
             });
         }
     });
-    let totalPrice = orderState.orderTypeId === 1 ? orderState.items.reduce((prev, item) => prev + (item.quantity * item.price), 0) : 0;
+    let totalPrice = orderState.orderTypeId === 1 ? orderState.items.reduce((prev, item) => prev + (item.quantity * item.price), 0) : orderList[0].price;
     let totalQuantity = orderState.orderTypeId === 1 ? orderState.items.reduce((prev, item) => prev + item.quantity, 0) : 0;
     useEffect(() => {
         switch (orderState.orderTypeId) {
@@ -188,7 +188,7 @@ const OrderSummary = () => {
 
                             <InputGroup titleKey="name" dropdownMenu={branchList} defaultValue={branchState.activeBranch.id} textCenter={false} isOrderSummary isDropdown label="Cabang" id="branch" name="branchId" />
                 </section>
-                        <Table headerCol={path === "weight" ? TABLE_HEADER_WEIGHT : TABLE_HEADER_ITEM} tableContent={path === "weight" ? orderList : orderList} isSummary={true} isItemOrderSummary={path === "item"} isWeightOrderSummary={path === "weight"} />
+                        <Table headerCol={path === "weight" ? TABLE_HEADER_WEIGHT : TABLE_HEADER_ITEM} tableContent={orderList} isSummary={true} isItemOrderSummary={path === "item"} isWeightOrderSummary={path === "weight"} />
                 <div>
                     <div className='grid grid-cols-6 items-center w-full bg-primary-pink-300 text-primary-pink-100 text-center p-2 md:p-4 font-semibold'>
                         <h3 className="col-span-4">Total Harga</h3>
@@ -197,7 +197,7 @@ const OrderSummary = () => {
                     <CustomerData />
                 </div>
                 </>}
-                    <Footer onNextClick={() => { }} />
+                    <Footer />
             </OrderLayout>
             </form>
         </DefaultLayout>

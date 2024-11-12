@@ -66,6 +66,9 @@ export const orderSlice = createSlice({
                 state.items[existingItemServiceIndex] = currentItem;
             }
         },
+        removeItem: (state, action) => {
+
+        },
         addWeight: (state, action) => {
             state.weight = action.payload.weight;
         },

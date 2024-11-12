@@ -2,7 +2,7 @@ import Modal from '@/components/UI/Modal';
 import EachUtils from '@/utils/eachUtils';
 import React from 'react';
 
-const ItemServiceModal = ({ item, onClose, onSelectService }) => {
+const ItemServiceModal = ({ item = [], onClose, onSelectService }) => {
     const customClass = 'bg-primary-pink-200 text-gray-700 min-h-[10rem] rounded-lg shadow-2xl';
 
     const handleSelectItemService = (service) => {

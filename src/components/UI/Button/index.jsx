@@ -10,7 +10,7 @@ const Button = ({ children, isDefault = true, next = false, backToDashboard = fa
     const dispatch = useDispatch();
 
     const handleBackClick = () => {
-        if (location.pathname === '/new-order/weight') {
+        if (location.pathname === '/new-order/weight' || location.pathname === '/new-order/item') {
             dispatch(orderAction.resetOrder());
         }
         if (location.pathname === '/new-order' || backToDashboard) {

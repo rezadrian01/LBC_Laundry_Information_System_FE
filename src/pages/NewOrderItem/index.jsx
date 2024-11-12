@@ -36,7 +36,7 @@ const NewOrderItem = () => {
 
     return (
         <>
-            {searchModalIsOpen && <ItemSearchModal onClose={handleBlurSearchInput} />}
+            {searchModalIsOpen && <ItemSearchModal searchInput={searchInput} onClose={handleBlurSearchInput} />}
         <DefaultLayout>
             <OrderLayout title="Masukan Pesanan">
                     {!loadAuthData && <>

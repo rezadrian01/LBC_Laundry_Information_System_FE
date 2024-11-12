@@ -37,6 +37,9 @@ const Table = ({ headerCol, tableContent, isSummary = false, isItemOrderSummary 
             dispatch(orderAction.decrementItemQuantity({ itemServiceId }));
         }
     }
+    const handleDelete = (itemServiceId) => {
+
+    }
 
     const formatPrice = (price) => {
         return new Intl.NumberFormat('id-ID').format(price);
@@ -89,7 +92,7 @@ const Table = ({ headerCol, tableContent, isSummary = false, isItemOrderSummary 
                             </td>}
                             {isSummary && <>
                                 <td className='p-2 md:p-4'>{isItemOrderSummary ? formatPrice(+item.price) : item.services}</td>
-                                <td className='p-2 md:p-4'>{isItemOrderSummary ? formatPrice(+item.price * +item.quantity) : item.price}</td>
+                                <td className='p-2 md:p-4'>{isItemOrderSummary ? formatPrice(+item.price * +item.quantity) : formatPrice(item.price)}</td>
                             </>}
                         </tr>;
                     }} />
