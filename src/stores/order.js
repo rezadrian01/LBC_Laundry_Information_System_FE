@@ -67,7 +67,10 @@ export const orderSlice = createSlice({
             }
         },
         removeItem: (state, action) => {
-
+            const { itemServiceId } = action.payload;
+            let updatedItems = [...state.items];
+            updatedItems = updatedItems.filter(item => item.itemServiceId !== itemServiceId);
+            state.items = updatedItems;
         },
         addWeight: (state, action) => {
             state.weight = action.payload.weight;

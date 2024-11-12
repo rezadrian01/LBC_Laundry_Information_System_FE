@@ -38,7 +38,8 @@ const Table = ({ headerCol, tableContent, isSummary = false, isItemOrderSummary 
         }
     }
     const handleDelete = (itemServiceId) => {
-
+        console.log(itemServiceId);
+        dispatch(orderAction.removeItem({ itemServiceId }))
     }
 
     const formatPrice = (price) => {
@@ -88,7 +89,7 @@ const Table = ({ headerCol, tableContent, isSummary = false, isItemOrderSummary 
                                 </div>
                             </td>}
                             {!isSummary && <td>
-                                <button className='p-2 bg-red-500 hover:bg-red-600 text-white rounded-full'><FaRegTrashAlt /></button>
+                                <button onClick={() => handleDelete(item.itemServiceId)} className='p-2 bg-red-500 hover:bg-red-600 text-white rounded-full'><FaRegTrashAlt /></button>
                             </td>}
                             {isSummary && <>
                                 <td className='p-2 md:p-4'>{isItemOrderSummary ? formatPrice(+item.price) : item.services}</td>

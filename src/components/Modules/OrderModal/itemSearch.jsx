@@ -28,6 +28,7 @@ const ItemSearchModal = ({ onClose, searchInput }) => {
         if (item.services.length > 1) {
             setSelectedItem(item);
         } else {
+            dispatch(orderAction.addItem({ ...item.services[0], itemServiceId: item.services[0]._id }))
             handleCloseCurrentModal();
         }
     };
@@ -53,7 +54,7 @@ const ItemSearchModal = ({ onClose, searchInput }) => {
                     <ul className='flex flex-col gap-4'>
                         {!isLoadingItemList && searchInput.length > 3 ? <EachUtils of={itemList} render={(item, index) => {
                             return <li onClick={() => handleSelectedItem(item)} className='hover:bg-primary-pink-250/50 transition-all p-2 rounded cursor-pointer' key={item._id}>{item.name}</li>;
-                        }} /> : <p className='text-center mt-12 font-normal'>Harap masukan setidaknya 3 huruf untuk memulai pencarian...</p>}
+                        }} /> : <p className='text-center mt-12 font-normal'>Harap masukan setidaknya 4 huruf untuk memulai pencarian...</p>}
                     </ul>
                 </div>
             </Modal>
