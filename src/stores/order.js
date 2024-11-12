@@ -14,12 +14,58 @@ export const orderSlice = createSlice({
             state.orderTypeId = action.payload;
         },
         addItem: (state, action) => {
+            const { itemId, itemName, serviceName, servicePrice: price, itemServiceId } = action.payload;
             const newItem = {
-                itemServiceId: action.payload.itemServiceId,
-                quantity: action.payload.quantity
+                itemId,
+                itemName,
+                serviceName,
+                itemServiceId,
+                quantity: 1,
+                price
             };
-            state.items.push(newItem);
-            state.quantity += action.payload.quantity;
+            // console.log(newItem);
+            const existingItemIndex = state.items.findIndex(item => item.itemServiceId === itemServiceId);
+            if (existingItemIndex === -1) {
+                state.items.push(newItem);
+            } else {
+                const currentItem = { ...state.items[existingItemIndex] };
+                currentItem.quantity += 1;
+                state.items[existingItemIndex] = currentItem;
+
+            }
+        },
+        changeService: (state, action) => {
+            const { prevServiceName, newItemServiceId, newItemServiceName, newItemServicePrice, itemId } = action.payload;
+            const existingItemServiceIndex = state.items.findIndex(item => item.serviceName === prevServiceName);
+            const { itemName, serviceName, itemServiceId, quantity, price } = state.items[existingItemServiceIndex];
+            const updatedItemService = {
+                itemId,
+                itemName,
+                serviceName: newItemServiceName,
+                itemServiceId: newItemServiceId,
+                quantity,
+                price: newItemServicePrice
+            };
+            state.items[existingItemServiceIndex] = updatedItemService;
+
+        },
+        incrementItemQuantity: (state, action) => {
+            const existingItemServiceIndex = state.items.findIndex(item => item.itemServiceId === action.payload.itemServiceId);
+            if (existingItemServiceIndex === -1) return;
+            const currentItem = { ...state.items[existingItemServiceIndex] };
+            currentItem.quantity += 1;
+            state.items[existingItemServiceIndex] = currentItem;
+        },
+        decrementItemQuantity: (state, action) => {
+            const existingItemServiceIndex = state.items.findIndex(item => item.itemServiceId === action.payload.itemServiceId);
+            if (existingItemServiceIndex === -1) return;
+            const currentItem = { ...state.items[existingItemServiceIndex] };
+            if (currentItem.quantity === 1) {
+                state.items = state.items.filter(item => item.itemServiceId !== action.payload.itemServiceId);
+            } else {
+                currentItem.quantity -= 1;
+                state.items[existingItemServiceIndex] = currentItem;
+            }
         },
         addWeight: (state, action) => {
             state.weight = action.payload.weight;

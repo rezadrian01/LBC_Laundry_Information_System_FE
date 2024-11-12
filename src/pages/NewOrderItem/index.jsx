@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Footer from '@mods/Footer';
@@ -13,15 +13,16 @@ import { TABLE_CONTENT, TABLE_HEADER } from '@/constants/orderItemTable';
 import useAuth from '@/hooks/useAuth';
 
 const NewOrderItem = () => {
-    const searchInputRef = useRef();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isLoading: loadAuthData } = useAuth()
+    const orderState = useSelector(state => state.order);
+    const { isLoading: loadAuthData } = useAuth();
     const [searchModalIsOpen, setSearchModalIsOpen] = useState(false);
+    const [searchInput, setSearchInput] = useState("");
 
 
     const handleSearchClick = () => {
-        console.log(searchInputRef.current.value);
+        console.log(searchInput);
     }
     const handleNextClick = () => {
         navigate('summary');
@@ -42,13 +43,13 @@ const NewOrderItem = () => {
                     <div className='relative'>
                         <div className='relative'>
                             <div className='relative z-40'>
-                                <Input onFocus={handleFocusSearchInput} ref={searchInputRef} id="item-name" name="item-name" placeholder="Pilih Item..." textCenter={false} hasSearchBtn={true} onBtnClick={handleSearchClick} />
+                                    <Input onFocus={handleFocusSearchInput} defaultValue={searchInput} onChange={({ target }) => setSearchInput(target.value)} id="item-name" name="item-name" placeholder="Pilih Item..." textCenter={false} hasSearchBtn={true} onBtnClick={handleSearchClick} />
                             </div>
                             <div id='search-input-modal' />
                         </div>
                         <div id='select-item-service-modal' />
                     </div>
-                        <Table isItemOrderSummary headerCol={TABLE_HEADER} tableContent={TABLE_CONTENT} />
+                        <Table isItemOrderSummary headerCol={TABLE_HEADER} tableContent={orderState.items} />
                     </>
                     }
                 <Footer onNextClick={handleNextClick} />

@@ -3,8 +3,42 @@ import { GoPlus } from 'react-icons/go';
 import { HiMinusSmall } from 'react-icons/hi2';
 
 import EachUtils from '@/utils/eachUtils';
+import { ITEM_SERVICE_LIST } from '@/constants/itemServiceList';
+import { useDispatch } from 'react-redux';
+import { useMutation } from '@tanstack/react-query';
+import apiInstance from '@/utils/apiInstance';
+import { useState } from 'react';
+import { orderAction } from '@/stores/order';
 
 const Table = ({ headerCol, tableContent, isSummary = false, isItemOrderSummary = false, isWeightOrderSummary = false }) => {
+    const dispatch = useDispatch();
+    const [selectedItemId, setSelectedItemId] = useState(null);
+    const { mutate: getServiceIdFn } = useMutation({
+        mutationFn: async (data) => {
+            return apiInstance(`itemService/itemIdAndServiceName/${selectedItemId}`, {
+                data,
+                method: "POST"
+            });
+        },
+        onSuccess: (response) => {
+            // console.log(response);
+            const { itemId, name, price, _id: serviceId } = response.data.data;
+            setSelectedItemId(null);
+            dispatch(orderAction.changeService({ prevItemServiceId }));
+        }
+    });
+    const handleChangeServiceChange = (value, itemId) => {
+        // console.log(itemId);
+        setSelectedItemId(itemId);
+        getServiceIdFn({ serviceName: value });
+    };
+    const handleChangeQuantity = (isIncrement, itemServiceId) => {
+        if (isIncrement) {
+            dispatch(orderAction.incrementItemQuantity({ itemServiceId }));
+        } else {
+            dispatch(orderAction.decrementItemQuantity({ itemServiceId }));
+        }
+    }
     return (
         <div className="overflow-auto scrollbar-hide">
             <table className='text-center text-[.73rem] md:text-base font-semibold w-full table-fixed'>
@@ -17,27 +51,30 @@ const Table = ({ headerCol, tableContent, isSummary = false, isItemOrderSummary 
                 </thead>
                 <tbody>
                     <EachUtils of={tableContent} render={(item, index) => {
+                        // console.log(item);
                         return <tr className="">
-                            <td className='p-2 md:p-4'>{isItemOrderSummary ? item.title : item.weight}</td>
+                            <td className='p-2 md:p-4'>{isItemOrderSummary ? item.itemName : item.weight}</td>
 
                             <td className='p-2 md:p-4'>
-                                {!isSummary && <select onChange={({ target }) => handleSelectServiceChange(target.value, item.id)} defaultValue={item.services[item.serviceIndex]} className='outline-none'>
-                                    {item.services.map((service, index) => {
-                                        return <option key={index} value={service}>{service}</option>;
+                                {/* {!isSummary && <select onChange={({ target }) => handleChangeServiceChange(target.value, item.itemId)} defaultValue={item.serviceName} className='outline-none'>
+                                    {ITEM_SERVICE_LIST.map((service, index) => {
+                                        return <option key={index} value={service.name}>{service.name}</option>;
                                     })}
-                                </select>}
-                                {isSummary && (isItemOrderSummary ? item.service : item.quantity)}
+                                </select>} */}
+                                {!isSummary && item.serviceName}
+
+                                {isSummary && (isItemOrderSummary ? item.serviceName : item.quantity)}
                             </td>
 
                             {isItemOrderSummary && <td className='p-2 md:p-4 w-full h-full'>
                                 <div className="flex gap-4 justify-center items-center">
                                     {!isSummary &&
                                         <>
-                                            <button>
+                                        <button onClick={() => handleChangeQuantity(false, item.itemServiceId)}>
                                                 <HiMinusSmall />
                                             </button>
                                             {item.quantity}
-                                            <button>
+                                        <button onClick={() => handleChangeQuantity(true, item.itemServiceId)}>
                                                 <GoPlus />
                                             </button>
                                         </>
