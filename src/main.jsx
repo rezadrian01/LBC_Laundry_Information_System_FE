@@ -8,8 +8,8 @@ import { queryClient } from './utils/query';
 import store from './stores';
 import './index.css';
 
-import Login from './pages/Login/index.jsx';
-import Dashboard from './pages/Dashboard/index.jsx';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
 import NewOrder from './pages/NewOrder';
 import NewOrderItem from './pages/NewOrderItem';
 import NewOrderWeight from './pages/NewOrderWeight';

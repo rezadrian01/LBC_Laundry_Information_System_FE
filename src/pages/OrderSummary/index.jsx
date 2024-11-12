@@ -16,6 +16,7 @@ import { TABLE_CONTENT as TABLE_CONTENT_WEIGHT, TABLE_HEADER as TABLE_HEADER_WEI
 import useAuth from '@/hooks/useAuth';
 import apiInstance from '@/utils/apiInstance';
 import FallbackText from '@/components/UI/Loading/FallbackText';
+import { queryClient } from '@/utils/query';
 
 const OrderSummary = () => {
     const location = useLocation();
@@ -79,6 +80,7 @@ const OrderSummary = () => {
             });
         },
         onSuccess: (response) => {
+            queryClient.invalidateQueries({ queryKey: ['latestReceiptNumber'] })
             Swal.fire({
                 title: "Pesanan Berhasil Dibuat",
                 icon: "success",
