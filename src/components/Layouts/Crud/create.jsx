@@ -37,7 +37,7 @@ const CreateLayout = ({
     const navigate = useNavigate();
     const { mutate, isPending: isPendingMutation, isError } = useMutation({
         mutationFn: async (data) => {
-            return apiInstance(`${requestUrl}/${isNew ? '' : (itemKey || defaultValues._id)}`, {
+            return apiInstance(`${requestUrl}/${isNew ? '' : (itemKey ?? defaultValues._id)}`, {
                 data: { ...data },
                 method: isNew ? "POST" : (isDelete ? "DELETE" : "PUT"),
             });

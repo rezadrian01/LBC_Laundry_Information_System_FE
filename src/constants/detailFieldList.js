@@ -51,12 +51,12 @@ const USER_PROFILE_FIELDS = [
     {
         label: "Username",
         id: "username",
-        name: ["username", "updatedUsername"],
+        name: ["username", "username"],
     },
     {
         label: "No. HP",
         id: "contact",
-        name: ["contact", "updatedContact"],
+        name: ["contact", "contact"],
     },
     {
         label: "Role",
@@ -66,7 +66,7 @@ const USER_PROFILE_FIELDS = [
     {
         label: "Password",
         id: "olPassword",
-        name: ["oldPassword", "oldPassword"],
+        name: ["password", "oldPassword"],
     },
     {
         label: "New Password",
@@ -76,7 +76,7 @@ const USER_PROFILE_FIELDS = [
     {
         label: "Confirm Password",
         id: "confirm-password",
-        name: ["confirmNewPassword", "confirmNewPassword"],
+        name: ["confirmPassword", "confirmNewPassword"],
     },
 ];
 

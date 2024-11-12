@@ -29,16 +29,22 @@ const Employee = () => {
 
     const keys = ["username", "contact", "role", "password"];
     const dropdownIndex = [2];
-
     if (isErrorExistingEmployee) {
         throw json({ message: "Employee not found" }, { status: 404 });
+    }
+
+    let fields = USER_PROFILE_FIELDS.slice(0, 3);
+    if (!existingEmployee) {
+        const startFields = USER_PROFILE_FIELDS.slice(0, 4);
+        const endFields = USER_PROFILE_FIELDS[5];
+        fields = [...startFields, endFields];
     }
 
     return (
         <DefaultLayout>
             <Sidebar />
             <Header hasButton={false} />
-            {!isLoadingExistingEmployee && <CreateLayout isEmployeeDetail disableSave={!!employeeId} isDelete={isDelete} setIsDelete={setIsDelete} queryKey={['employees', { employeeId }]} requestUrl='admin' isPending={isLoadingExistingEmployee} isNew={employeeId ? false : true} keys={keys} dropdownIndex={dropdownIndex} defaultValues={existingEmployee} fields={existingEmployee ? USER_PROFILE_FIELDS.slice(0, 3) : USER_PROFILE_FIELDS} title="Karyawan" />}
+            {!isLoadingExistingEmployee && <CreateLayout isEmployeeDetail disableSave={!!employeeId} isDelete={isDelete} setIsDelete={setIsDelete} queryKey={['employees', { employeeId }]} requestUrl='admin' isPending={isLoadingExistingEmployee} isNew={employeeId ? false : true} keys={keys} dropdownIndex={dropdownIndex} defaultValues={existingEmployee} fields={fields} title="Karyawan" />}
             <Footer hasNext={false} />
         </DefaultLayout>
     );

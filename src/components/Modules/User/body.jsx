@@ -106,7 +106,7 @@ const BodyUserProfile = ({ user, keys }) => {
                                 inputValue = user && roleInput;
                                 onChangeHandler = setRoleInput;
                                 break;
-                            case 'oldpassword':
+                            case 'password':
                                 inputValue = oldPasswordInput;
                                 onChangeHandler = setOldPasswordInput;
                                 break;
@@ -114,7 +114,7 @@ const BodyUserProfile = ({ user, keys }) => {
                                 inputValue = newPasswordInput;
                                 onChangeHandler = setNewPasswordInput;
                                 break;
-                            case 'confirmnewpassword':
+                            case 'confirmpassword':
                                 inputValue = confirmNewPasswordInput;
                                 onChangeHandler = setConfirmNewPasswordInput;
                                 break;
@@ -125,7 +125,7 @@ const BodyUserProfile = ({ user, keys }) => {
                             <h4 className='text-xl'>{content.label}</h4>
                         </div>
                             <div className="col-span-8 md:col-span-6">
-                                {<Input value={inputValue} onChange={(event) => onChangeHandler(event.target.value)} textSize="text-lg" name={content.name[0]} id={user?._id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} disabled={content?.id === 'role'} />}
+                                {<Input value={inputValue} onChange={(event) => onChangeHandler(event.target.value)} textSize="text-lg" name={content.name[1]} id={user?._id} bgColor={null} textCenter={false} hasShadow style={{ borderWidth: '1px', borderRadius: '5px', borderColor: '#e3e3e3' }} disabled={content?.id === 'role'} />}
                         </div>
                         </div>;
                 }}
