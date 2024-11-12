@@ -22,6 +22,8 @@ const Crud = ({
     isEmployeeList = false,
     isServiceList = false,
     isPending = false,
+    searchInput = "",
+    setSearchInput = () => { },
     onCreate = () => { },
     onEdit = () => { },
     onDelete = () => { },
@@ -48,7 +50,7 @@ const Crud = ({
                         </div>}
 
                         {isItemList && <div className='col-span-7 lg:col-span-10'>
-                            <Search placeholder="Nama Item" />
+                            <Search defaultValue={searchInput} onChange={({ target }) => setSearchInput(target.value)} placeholder="Nama Item" />
                         </div>}
 
                         {isItemList && <div className='col-span-5 lg:col-span-2'>
