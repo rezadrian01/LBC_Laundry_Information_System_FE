@@ -18,14 +18,26 @@ const Orders = () => {
     const { isLoading: loadAuthData } = useAuth();
     const [currentPage, setCurrentPage] = useState(1);
     const [hasNextPage, setHasNextPage] = useState(false);
-    const [orderList, setOrderList] = useState([])
-    // Pending first before loadAuthData = false
+    const [orderList, setOrderList] = useState([]);
     const { inView, ref } = useInView();
+    const [selectedOrderTabIndex, setSelectedOrderTabIndex] = useState(0);
+
+    // Pending first before loadAuthData = false
+
+
+    const { data: orderStatusList, isLoading: isLoadingOrderStatusList, isError: errorOrderStatusList } = useQuery({
+        queryKey: ['order-status-list'],
+        queryFn: async () => {
+            const response = await apiInstance('status');
+            return response.data.data;
+        },
+        enabled: !loadAuthData
+    });
 
     const { data, isPending: isPendingOrderList, isError: isErrorOrderList, refetch: refetchOrderList } = useQuery({
-        queryKey: ['orders', { currentPage }],
+        queryKey: ['orders', { currentPage }, { orderStatus: orderStatusList?.[selectedOrderTabIndex]?._id } || ""],
         queryFn: async () => {
-            const response = await apiInstance(`laundry/unarchived?page=${currentPage}`);
+            const response = await apiInstance(`laundryStatus/status/${orderStatusList[selectedOrderTabIndex]?._id}?page=${currentPage}`);
             const { data } = response;
             setHasNextPage(data.data.hasNextPage);
             setOrderList(prev => {
@@ -34,7 +46,7 @@ const Orders = () => {
             return data.data.laundryList;
         },
         retry: false,
-        enabled: !loadAuthData
+        enabled: !loadAuthData && !isLoadingOrderStatusList
     });
 
     useEffect(() => {
@@ -45,14 +57,6 @@ const Orders = () => {
         }
     }, [inView])
 
-    const { data: orderStatusList, isPending: isPendingOrderStatusList, isError: errorOrderStatusList } = useQuery({
-        queryKey: ['order-status-list'],
-        queryFn: async () => {
-            const response = await apiInstance('status');
-            return response.data.data;
-        },
-        enabled: !loadAuthData
-    });
     const { mutate: updateOrderStatusFn, isPending: isPendingUpdateOrderStatus } = useMutation({
         mutationFn: async ({ orderId, statusId }) => {
             return apiInstance(`laundryStatus/${orderId}`, {
@@ -81,13 +85,19 @@ const Orders = () => {
         updateOrderStatusFn({ orderId, statusId });
     }
 
+    const handleSelectTab = (index) => {
+        setCurrentPage(1);
+        setSelectedOrderTabIndex(index);
+        setOrderList([]);
+    }
+
     if (isErrorOrderList || errorOrderStatusList) throw new Error("Failed to fetch orders");
     const keys = ["receiptNumber", "customerName", "status"];
     return (
         <DefaultLayout>
             <Sidebar />
-            {isPendingOrderList || isPendingOrderStatusList && !loadAuthData && <FallbackText />}
-            {orderList.length !== 0 && !isPendingOrderStatusList && !loadAuthData && <Crud dataCompare={orderStatusList} keys={keys} isOrderList tableHeader={TABLE_HEADER} tableContent={orderList} onDropdownChange={handleDropdownChange} />}
+            {isPendingOrderList || isLoadingOrderStatusList && !loadAuthData && <FallbackText />}
+            {!isLoadingOrderStatusList && !loadAuthData && <Crud selectedTabIndex={selectedOrderTabIndex} setSelectedTab={handleSelectTab} hasTab tabMenu={orderStatusList} dataCompare={orderStatusList} keys={keys} isOrderList tableHeader={TABLE_HEADER} tableContent={orderList} onDropdownChange={handleDropdownChange} />}
             <div ref={ref} className='mt-4 md:mt-10'>
                 <Footer backToDashboard hasNext={false} />
             </div>

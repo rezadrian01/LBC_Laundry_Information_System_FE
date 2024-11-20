@@ -30,6 +30,8 @@ const Items = () => {
             }
             const response = await apiInstance(requestUrl);
             const { data } = response;
+
+            // Add itemlist to state
             setItemList(prev => {
                 if (searchInput.length >= 2) {
                     setCurrentPage(1);
@@ -70,7 +72,7 @@ const Items = () => {
     return (
         <DefaultLayout>
             <Sidebar />
-            {<Crud isPending={itemList?.length === 0} searchInput={searchInput} setSearchInput={setSearchInput} onCreate={handleCreateItem} keys={keys} isItemList tableHeader={TABLE_HEADER} tableContent={itemList} />}
+            {<Crud hasTab isPending={itemList?.length === 0} searchInput={searchInput} setSearchInput={setSearchInput} onCreate={handleCreateItem} keys={keys} isItemList tableHeader={TABLE_HEADER} tableContent={itemList} />}
             <div ref={ref} />
             <Footer backToDashboard hasNext={false} />
         </DefaultLayout>
