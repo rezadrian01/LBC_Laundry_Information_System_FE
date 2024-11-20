@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import { useInView } from 'react-intersection-observer';
 
 import DefaultLayout from '@layouts/Default';
 import Crud from '@mods/Crud';
@@ -11,19 +12,39 @@ import useAuth from '@/hooks/useAuth';
 import apiInstance from '@/utils/apiInstance';
 import FallbackText from '@/components/UI/Loading/FallbackText';
 import { queryClient } from '@/utils/query';
+import { useEffect, useState } from 'react';
 
 const Orders = () => {
     const { isLoading: loadAuthData } = useAuth();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [hasNextPage, setHasNextPage] = useState(false);
+    const [orderList, setOrderList] = useState([])
     // Pending first before loadAuthData = false
-    const { data: orderList, isPending: isPendingOrderList, isError: isErrorOrderList } = useQuery({
-        queryKey: ['orders'],
+    const { inView, ref } = useInView();
+
+    const { data, isPending: isPendingOrderList, isError: isErrorOrderList, refetch: refetchOrderList } = useQuery({
+        queryKey: ['orders', { currentPage }],
         queryFn: async () => {
-            const response = await apiInstance('laundry/unarchived');
-            return response.data.data;
+            const response = await apiInstance(`laundry/unarchived?page=${currentPage}`);
+            const { data } = response;
+            setHasNextPage(data.data.hasNextPage);
+            setOrderList(prev => {
+                return [...prev, ...data.data.laundryList];
+            });
+            return data.data.laundryList;
         },
         retry: false,
         enabled: !loadAuthData
     });
+
+    useEffect(() => {
+        if (hasNextPage && !isPendingOrderList && inView) {
+            // refetchOrderList();
+            setCurrentPage(prev => prev + 1);
+            // queryClient.invalidateQueries({ queryKey: ['orders', { currentPage }] });
+        }
+    }, [inView])
+
     const { data: orderStatusList, isPending: isPendingOrderStatusList, isError: errorOrderStatusList } = useQuery({
         queryKey: ['order-status-list'],
         queryFn: async () => {
@@ -66,8 +87,8 @@ const Orders = () => {
         <DefaultLayout>
             <Sidebar />
             {isPendingOrderList || isPendingOrderStatusList && !loadAuthData && <FallbackText />}
-            {!isPendingOrderList && !isPendingOrderStatusList && !loadAuthData && <Crud dataCompare={orderStatusList} keys={keys} isOrderList tableHeader={TABLE_HEADER} tableContent={orderList} onDropdownChange={handleDropdownChange} />}
-            <div className='mt-4 md:mt-10'>
+            {orderList.length !== 0 && !isPendingOrderStatusList && !loadAuthData && <Crud dataCompare={orderStatusList} keys={keys} isOrderList tableHeader={TABLE_HEADER} tableContent={orderList} onDropdownChange={handleDropdownChange} />}
+            <div ref={ref} className='mt-4 md:mt-10'>
                 <Footer backToDashboard hasNext={false} />
             </div>
         </DefaultLayout>

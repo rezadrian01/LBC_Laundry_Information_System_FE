@@ -23,6 +23,8 @@ const Crud = ({
     isServiceList = false,
     isPending = false,
     searchInput = "",
+    hasTab = false,
+    tabMenu = [],
     setSearchInput = () => { },
     onCreate = () => { },
     onEdit = () => { },
@@ -58,6 +60,7 @@ const Crud = ({
                         </div>
                         }
                     </div>}
+                    {/* {hasTab && } */}
                     {(isWeightPriceList || isBranchList || isEmployeeList || isServiceList) && <div className="w-full flex justify-between" >
                         <h3 className="text-primary-pink-300 font-bold text-3xl">{title}</h3>
                         <div className="md:w-[10rem]">
@@ -221,5 +224,14 @@ const OrderStatusSelect = ({ orderStatusIndex, defaultValue, children, orderId, 
         {children}
     </select>;
 };
+
+const OrderTab = ({ index }) => {
+    let cssClass = " ";
+    let content;
+    switch (index) {
+        case 0:
+            cssClass = "";
+    }
+}
 
 export default Crud;

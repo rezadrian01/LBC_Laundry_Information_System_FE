@@ -126,7 +126,7 @@ const OrderSummary = () => {
                         // id: Math.random(),
                         weight: currentWeight,
                         quantity: orderState.quantity,
-                        services: services.map(service => service?.name).join(", dan ") || ""
+                        services: services.map(service => service?.name).join("\n ") || ""
                     }
                 ]);
                 break;

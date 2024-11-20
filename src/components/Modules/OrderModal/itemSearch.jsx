@@ -13,13 +13,13 @@ const ItemSearchModal = ({ onClose, searchInput }) => {
     const [selectedItem, setSelectedItem] = useState(null);
     const dispatch = useDispatch();
     const { data: itemList, isLoading: isLoadingItemList, isError: isErrorItemList } = useQuery({
-        queryKey: ['items', { searchInput }],
+        queryKey: ['items', { searchInput: searchInput.length >= 2 ? searchInput : "" }],
         queryFn: async () => {
             const response = await apiInstance(`item/search/${searchInput}`);
-            // return response.data.data;
+            // return response.data.data;\
             return response?.data?.data || [];
         },
-        enabled: searchInput.length >= 3
+        enabled: searchInput.length >= 2
     });
 
 
@@ -52,7 +52,7 @@ const ItemSearchModal = ({ onClose, searchInput }) => {
             <Modal onClose={onClose} isItemSearch elementId='search-input-modal' customClass={customClass}>
                 <div className='font-semibold'>
                     <ul className='flex flex-col gap-4'>
-                        {!isLoadingItemList && searchInput.length > 3 ? <EachUtils of={itemList} render={(item, index) => {
+                        {!isLoadingItemList && searchInput.length >= 2 ? <EachUtils of={itemList} render={(item, index) => {
                             return <li onClick={() => handleSelectedItem(item)} className='hover:bg-primary-pink-250/50 transition-all p-2 rounded cursor-pointer' key={item._id}>{item.name}</li>;
                         }} /> : <p className='text-center mt-12 font-normal'>Harap masukan setidaknya 4 huruf untuk memulai pencarian...</p>}
                     </ul>
