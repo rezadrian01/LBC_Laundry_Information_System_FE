@@ -8,6 +8,8 @@ import Search from '../Search';
 import Button from '@/components/UI/Button';
 import EachUtils from '@/utils/eachUtils';
 import { ORDER_STATUS_LIST } from '@/constants/orderStatusList';
+import { useRef } from "react";
+import { useDraggable } from "react-use-draggable-scroll";
 
 const Crud = ({
     keys,
@@ -34,6 +36,8 @@ const Crud = ({
     onDropdownChange = () => { }
 }) => {
     const navigate = useNavigate();
+    const parentScrollRef = useRef(null);
+    const { events } = useDraggable(parentScrollRef);
     const handleRowClick = (event, id) => {
         if (event.target.tagName === 'select' || event.target.closest('select')) {
             return;
@@ -63,7 +67,7 @@ const Crud = ({
                         }
                     </div>}
                     {hasTab && <>
-                        <ul className="flex justify-around items-center gap-2 overflow-x-auto mt-14 scrollbar-hide">
+                        <ul className="flex justify-around items-center gap-4 overflow-x-auto mt-14 scrollbar-hide" ref={parentScrollRef} {...events}>
                             <EachUtils of={tabMenu} render={(menu, index) => {
                                 return <li className="h-[3rem] " key={index}>
                                     <OrderTabBtn onSelect={setSelectedTab} activeIndex={selectedTabIndex} index={index}>
@@ -96,6 +100,9 @@ const Crud = ({
                         <tbody>
                             {isPending && <tr>
                                 <td className="pt-10 animate-pulse text-lg" colSpan={keys.length}>Loading...</td>
+                            </tr>}
+                            {!isPending && tableContent.length === 0 && <tr>
+                                <td className="pt-10 text-lg" colSpan={keys.length}>Tidak ada data.</td>
                             </tr>}
                             <EachUtils of={tableContent} render={(item, indexRow) => {
                                 return <tr className="cursor-pointer hover:bg-gray-100" onClick={e => handleRowClick(e, item._id)} key={item._id}>

@@ -34,7 +34,7 @@ const Orders = () => {
         enabled: !loadAuthData
     });
 
-    const { data, isPending: isPendingOrderList, isError: isErrorOrderList, refetch: refetchOrderList } = useQuery({
+    const { data, isLoading: isLoadingOrderList, isError: isErrorOrderList, refetch: refetchOrderList } = useQuery({
         queryKey: ['orders', { currentPage }, { orderStatus: orderStatusList?.[selectedOrderTabIndex]?._id } || ""],
         queryFn: async () => {
             const response = await apiInstance(`laundryStatus/status/${orderStatusList[selectedOrderTabIndex]?._id}?page=${currentPage}`);
@@ -46,11 +46,12 @@ const Orders = () => {
             return data.data.laundryList;
         },
         retry: false,
+        refetchOnWindowFocus: false,
         enabled: !loadAuthData && !isLoadingOrderStatusList
     });
 
     useEffect(() => {
-        if (hasNextPage && !isPendingOrderList && inView) {
+        if (hasNextPage && !isLoadingOrderList && inView) {
             // refetchOrderList();
             setCurrentPage(prev => prev + 1);
             // queryClient.invalidateQueries({ queryKey: ['orders', { currentPage }] });
@@ -96,8 +97,9 @@ const Orders = () => {
     return (
         <DefaultLayout>
             <Sidebar />
-            {isPendingOrderList || isLoadingOrderStatusList && !loadAuthData && <FallbackText />}
-            {!isLoadingOrderStatusList && !loadAuthData && <Crud selectedTabIndex={selectedOrderTabIndex} setSelectedTab={handleSelectTab} hasTab tabMenu={orderStatusList} dataCompare={orderStatusList} keys={keys} isOrderList tableHeader={TABLE_HEADER} tableContent={orderList} onDropdownChange={handleDropdownChange} />}
+            {isLoadingOrderList || isLoadingOrderStatusList && !loadAuthData && <FallbackText />}
+            {!isLoadingOrderStatusList && !loadAuthData &&
+                <Crud selectedTabIndex={selectedOrderTabIndex} setSelectedTab={handleSelectTab} hasTab tabMenu={orderStatusList} dataCompare={orderStatusList} keys={keys} isOrderList tableHeader={TABLE_HEADER} isPending={isLoadingOrderList} tableContent={orderList} onDropdownChange={handleDropdownChange} />}
             <div ref={ref} className='mt-4 md:mt-10'>
                 <Footer backToDashboard hasNext={false} />
             </div>
