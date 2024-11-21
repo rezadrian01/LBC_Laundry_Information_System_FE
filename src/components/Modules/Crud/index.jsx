@@ -29,6 +29,7 @@ const Crud = ({
     setSelectedTab = () => { },
     selectedTabIndex = 0,
     setSearchInput = () => { },
+    onSearchClick = () => { },
     onCreate = () => { },
     onEdit = () => { },
     onDelete = () => { },
@@ -51,7 +52,10 @@ const Crud = ({
                     {/* Searchbar */}
                     {(isOrderList || isItemList) && <div className='grid grid-cols-12 gap-x-2'>
                         {isOrderList && <div className='col-span-12'>
-                            <Search />
+                            <Search type="number" onBtnClick={onSearchClick} defaultValue={searchInput} onChange={({ target }) => {
+                                setSearchInput(target.value);
+                            }
+                            } />
                         </div>}
 
                         {isItemList && <div className='col-span-7 lg:col-span-10'>
@@ -64,15 +68,6 @@ const Crud = ({
                         }
                     </div>}
                     {hasTab && <>
-                        {/* <ul className="flex justify-around items-center gap-4 overflow-x-auto mt-14 scrollbar-hide" ref={parentScrollRef} {...events}>
-                            <EachUtils of={tabMenu} render={(menu, index) => {
-                                return <li className="h-[3rem] " key={index}>
-                                    <OrderTabBtn onSelect={setSelectedTab} activeIndex={selectedTabIndex} index={index}>
-                                        {menu.name}
-                                    </OrderTabBtn>
-                                </li>;
-                            }} />
-                        </ul> */}
                         <OrderTabs tabMenu={tabMenu} setSelectedTab={setSelectedTab} selectedTabIndex={selectedTabIndex} />
                     </>}
                     {(isWeightPriceList || isBranchList || isEmployeeList || isServiceList) && <div className="w-full flex justify-between" >

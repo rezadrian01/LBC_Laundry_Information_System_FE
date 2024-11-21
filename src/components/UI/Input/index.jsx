@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import { IoSearchSharp } from "react-icons/io5";
 
 const Input = forwardRef(({
@@ -22,6 +22,8 @@ const Input = forwardRef(({
     grid = false,
     hasShadow = false,
     ...props }, ref) => {
+
+    const searchBtnRef = useRef(null);
 
     let inputClass = "w-full outline-none font-semibold placeholder:font-normal " + padding + " " + textSize + " ";
     let wrapperClass = "relative w-full ";
@@ -49,15 +51,21 @@ const Input = forwardRef(({
         inputClass += "shadow-xl ";
     }
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            searchBtnRef.current.click();
+        }
+    }
+
     return (
         <div className={wrapperClass}>
-            <input ref={ref} className={inputClass} id={id} name={name} placeholder={placeholder}  {...props} />
+            <input ref={ref} className={inputClass} id={id} name={name} placeholder={placeholder} onKeyDown={handleKeyDown}  {...props} />
 
             {floatLabel && <label className="absolute" htmlFor={id}>{label}</label>}
 
             {unitLabel && <label className="absolute right-1 bottom-2 font-semibold text-gray-500 text-lg" htmlFor={id}>{unitLabel}</label>}
 
-            {hasSearchBtn && <button onClick={onBtnClick} className={btnClass} type='button'>
+            {hasSearchBtn && <button ref={searchBtnRef} onClick={onBtnClick} className={btnClass} type='button'>
                 <IoSearchSharp size={20} />
             </button>}
         </div>
