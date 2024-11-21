@@ -72,7 +72,7 @@ const Items = () => {
     return (
         <DefaultLayout>
             <Sidebar />
-            {<Crud hasTab isPending={itemList?.length === 0} searchInput={searchInput} setSearchInput={setSearchInput} onCreate={handleCreateItem} keys={keys} isItemList tableHeader={TABLE_HEADER} tableContent={itemList} />}
+            {<Crud hasTab isPending={isLoadingItemList} searchInput={searchInput} setSearchInput={setSearchInput} onCreate={handleCreateItem} keys={keys} isItemList tableHeader={TABLE_HEADER} tableContent={itemList} />}
             <div ref={ref} />
             <Footer backToDashboard hasNext={false} />
         </DefaultLayout>

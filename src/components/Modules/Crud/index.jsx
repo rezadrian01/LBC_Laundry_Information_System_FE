@@ -3,13 +3,12 @@ import { FiEdit2 } from "react-icons/fi";
 import { FaRegTrashAlt } from 'react-icons/fa';
 
 
-import CrudLayout from '@/components/Layouts/Crud';
+import CrudLayout from '@layouts/Crud';
 import Search from '../Search';
 import Button from '@/components/UI/Button';
 import EachUtils from '@/utils/eachUtils';
+import OrderTabs from "@mods/OrderTypeTab/Tabs";
 import { ORDER_STATUS_LIST } from '@/constants/orderStatusList';
-import { useRef } from "react";
-import { useDraggable } from "react-use-draggable-scroll";
 
 const Crud = ({
     keys,
@@ -36,8 +35,6 @@ const Crud = ({
     onDropdownChange = () => { }
 }) => {
     const navigate = useNavigate();
-    const parentScrollRef = useRef(null);
-    const { events } = useDraggable(parentScrollRef);
     const handleRowClick = (event, id) => {
         if (event.target.tagName === 'select' || event.target.closest('select')) {
             return;
@@ -67,7 +64,7 @@ const Crud = ({
                         }
                     </div>}
                     {hasTab && <>
-                        <ul className="flex justify-around items-center gap-4 overflow-x-auto mt-14 scrollbar-hide" ref={parentScrollRef} {...events}>
+                        {/* <ul className="flex justify-around items-center gap-4 overflow-x-auto mt-14 scrollbar-hide" ref={parentScrollRef} {...events}>
                             <EachUtils of={tabMenu} render={(menu, index) => {
                                 return <li className="h-[3rem] " key={index}>
                                     <OrderTabBtn onSelect={setSelectedTab} activeIndex={selectedTabIndex} index={index}>
@@ -75,7 +72,8 @@ const Crud = ({
                                     </OrderTabBtn>
                                 </li>;
                             }} />
-                        </ul>
+                        </ul> */}
+                        <OrderTabs tabMenu={tabMenu} setSelectedTab={setSelectedTab} selectedTabIndex={selectedTabIndex} />
                     </>}
                     {(isWeightPriceList || isBranchList || isEmployeeList || isServiceList) && <div className="w-full flex justify-between" >
                         <h3 className="text-primary-pink-300 font-bold text-3xl">{title}</h3>
@@ -244,57 +242,6 @@ const OrderStatusSelect = ({ orderStatusIndex, defaultValue, children, orderId, 
     </select>;
 };
 
-const OrderTabBtn = ({ index, activeIndex, onSelect, children }) => {
-    let cssClass = "h-full px-4 py-1 rounded-lg transition-colors ";
-    switch (index) {
-        case 0:
-            if (index === activeIndex) {
-                cssClass += "bg-blue-500 border-2 border-transparent text-white ";
-            } else {
-                cssClass += "border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white ";
-            }
-            break;
-        case 1:
-            if (index === activeIndex) {
-                cssClass += "bg-gradient-cyan border-2 border-transparent text-white ";
-            } else {
-                cssClass += "border-2 border-gradient-cyan text-gradient-cyan hover:bg-gradient-cyan hover:text-white ";
-            }
-            break;
-        case 2:
-            if (index === activeIndex) {
-                cssClass += "bg-primary-pink-300  border-2 border-transparent text-white ";
-            } else {
-                cssClass += "border-2 border-primary-pink-300 text-primary-pink-300 hover:bg-primary-pink-300 hover:text-white ";
-            }
-            break;
-        case 3:
-            if (index === activeIndex) {
-                cssClass += "bg-gradient-purple  border-2 border-transparent text-white ";
-            } else {
-                cssClass += "border-2 border-gradient-purple text-gradient-purple hover:bg-gradient-purple hover:text-white ";
-            }
-            break;
-        case 4:
-            if (index === activeIndex) {
-                cssClass += "bg-indigo-500  border-2 border-transparent text-white ";
-            } else {
-                cssClass += "border-2 border-indigo-500 text-indigo-500 hover:bg-indigo-500 hover:text-white ";
-            }
-            break;
-        case 5:
-            if (index === activeIndex) {
 
-                cssClass += "bg-gray-500  border-2 border-transparent text-white ";
-            } else {
-                cssClass += "border-2 bordeer-gray-500 text-gray-500 hover:bg-gray-500 hover:text-white ";
-            }
-            break;
-
-    }
-    return <div className=" flex text-nowrap">
-        <button onClick={() => onSelect(index)} className={cssClass}>{children}</button>
-    </div>;
-}
 
 export default Crud;
