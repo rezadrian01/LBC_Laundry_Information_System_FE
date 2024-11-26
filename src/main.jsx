@@ -8,6 +8,7 @@ import { queryClient } from './utils/query';
 import store from './stores';
 import './index.css';
 
+import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import NewOrder from './pages/NewOrder';
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
+        index: true,
+        element: <Landing />
+      },
+      {
         path: 'login',
         element: <Login />,
       },
@@ -59,7 +64,7 @@ const router = createBrowserRouter([
       {
         path: 'items',
         children: [
-          {   
+          {
             index: true,
             element: <Items />
           },
@@ -191,11 +196,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+  <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </Provider>,
   //</React.StrictMode>, 
-
 );
