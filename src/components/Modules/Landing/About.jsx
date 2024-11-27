@@ -77,7 +77,7 @@ const About = () => {
                 <div className="px-6 md:px-10 pt-0 pb-14 md:py-20 text-white">
                     <h4 className="mb-10 underline underline-offset-8 text-xl">{ABOUT_SECTION_CONTENT_LIST[0].content}</h4>
                     <div className="flex flex-col gap-6">
-                        <h2 className="text-5xl font-bold text-slate-800">{ABOUT_SECTION_CONTENT_LIST[1].content}</h2>
+                        <h2 className="text-3xl md:text-5xl font-bold text-slate-800">{ABOUT_SECTION_CONTENT_LIST[1].content}</h2>
                         <div className="flex flex-col gap-6 md:max-w-[30rem] lg:max-w-[40rem]">
                             <p dangerouslySetInnerHTML={{ __html: ABOUT_SECTION_CONTENT_LIST[2].content }} className="text-xl lg:text-2xl"></p>
                             <p dangerouslySetInnerHTML={{ __html: ABOUT_SECTION_CONTENT_LIST[3].content }} className="text-xl lg:text-2xl"></p>
