@@ -1,3 +1,8 @@
+import cuciBasah from "@/assets/cuci-basah.jpg";
+import cuciKering from "@/assets/cuciKering.jpg";
+import cuciKeringSetrika from "@/assets/cuci-kering-setrika.jpg";
+import kilatExpress from "@/assets/kilat-express.jpg";
+
 const NAVBAR_LIST = [
     {
         id: 1,
@@ -62,6 +67,58 @@ const ABOUT_SECTION_CONTENT_LIST = [
         id: 5,
         content: "Pelanggan dapat memilih antara layanan <strong>kiloan atau satuan</strong> dengan berbagai opsi mulai dari <strong>reguler hingga express,</strong> memastikan kepuasan dan pemantauan setiap pesanan."
     },
+];
+
+const SERVICES_SECTION_TITLE_LIST = [
+    {
+        id: 1,
+        title: "Pelayanan"
+    },
+    {
+        id: 2,
+        title: "Pelayanan yang Tersedia"
+    },
+    {
+        id: 3,
+        title: "Pilih jenis layanan yang Anda perlukan, dan kami siap memberikan yang terbaik untuk Anda."
+    },
+];
+
+const SERVICES_SECTION_CONTENT_LIST = [
+    {
+        id: 1,
+        title: "Cuci Basah",
+        description:
+            "Pakaian dicuci dengan air dan deterjen, namun tidak dikeringkan atau disetrika.",
+        imageSrc: cuciBasah,
+    },
+    {
+        id: 2,
+        title: "Cuci Kering",
+        description:
+            "Pakaian dibersihkan tanpa air menggunakan bahan kimia khusus untuk bahan sensitif.",
+        imageSrc: cuciKering,
+    },
+    {
+        id: 3,
+        title: "Cuci Kering Setrika",
+        description:
+            "Pakaian dicuci secara dry cleaning, kemudian disetrika hingga rapi.",
+        imageSrc: cuciKeringSetrika,
+    },
+    {
+        id: 4,
+        title: "Kilat/Express",
+        description:
+            "Layanan cepat yang membersihkan pakaian dalam waktu singkat, biasanya pada hari yang sama.",
+        imageSrc: kilatExpress,
+    },
 ]
 
-export { NAVBAR_LIST, HOME_SECTION_CONTENT_LIST, ABOUT_SECTION_CONTENT_LIST };
+export {
+    NAVBAR_LIST,
+    HOME_SECTION_CONTENT_LIST,
+    ABOUT_SECTION_CONTENT_LIST,
+    SERVICES_SECTION_TITLE_LIST,
+    SERVICES_SECTION_CONTENT_LIST
+};

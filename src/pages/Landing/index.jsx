@@ -29,6 +29,7 @@
 import About from '@/components/Modules/Landing/About'
 import Home from '@/components/Modules/Landing/Home'
 import Navbar from '@/components/Modules/Landing/Navbar'
+import Services from '@/components/Modules/Landing/Services'
 
 const Landing = () => {
     return (
@@ -37,6 +38,7 @@ const Landing = () => {
             <Navbar />
             <Home />
             <About />
+            <Services />
         </>
     )
 }
