@@ -40,15 +40,27 @@
 
 // export default Navbar
 
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { NAVBAR_LIST } from '@/constants/landingConstant'
 import EachUtils from '@/utils/eachUtils'
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const [hash, setHash] = useState(window.location.hash);
+
+    useEffect(() => {
+        const handleHashChange = () => {
+            setHash(window.location.hash);
+        }
+
+        window.addEventListener("hashchange", handleHashChange);
+        return () => {
+            window.removeEventListener("hashchange", handleHashChange);
+        }
+    }, [])
     return (
-        <div className='grid grid-cols-8 justify-around items-center gap-4 p-10 font-semibold'>
+        <div className='sticky z-20 backdrop-blur-sm top-0 grid grid-cols-8 justify-around items-center gap-4 px-10 py-4 font-semibold'>
             <div className='col-span-2'>
                 <h3 className="text-2xl md:text-3xl lg:text-4xl leading-6 font-bold text-left bg-gradient-to-br from-pink-100 to-primary-pink-400 bg-clip-text text-transparent p-1">
                     <Link to={'/'}>
@@ -59,8 +71,8 @@ const Navbar = () => {
             <ul className='flex justify-center gap-10 col-span-4 pt-2 lg:text-xl'>
                 <EachUtils of={NAVBAR_LIST} render={(item, index) => {
                     return <li className='group' key={item.id}>
-                        <Link to={item.link}>{item.title}</Link>
-                        <div className='border-b-[1px] duration-200 group-hover:border-b-slate-950 border-transparent ' />
+                        <a href={item.link}>{item.title}</a>
+                        <div className='border-b-[1px] duration-200 group-hover:border-b-slate-950 border-transparent' style={{ borderBottomColor: hash === item.link ? '#020617' : (hash === '' && item.link === '#home') ? '#020617' : '' }} />
                     </li>
                 }} />
             </ul>

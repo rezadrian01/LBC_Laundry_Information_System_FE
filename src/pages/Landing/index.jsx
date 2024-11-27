@@ -26,16 +26,17 @@
 
 // export default Landing;
 
+import About from '@/components/Modules/Landing/About'
 import Home from '@/components/Modules/Landing/Home'
 import Navbar from '@/components/Modules/Landing/Navbar'
-import React from 'react'
 
 const Landing = () => {
     return (
         <>
-            <div className='bg-primary-pink-250 w-full h-10' />
+            <div id="home" className='bg-primary-pink-250 w-full h-10' />
             <Navbar />
             <Home />
+            <About />
         </>
     )
 }

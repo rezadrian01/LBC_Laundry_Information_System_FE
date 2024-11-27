@@ -54,15 +54,17 @@
 
 // export default Home
 
-import React from 'react';
+import { BsChevronCompactDown } from "react-icons/bs";
+
 import { HOME_SECTION_CONTENT_LIST } from '@/constants/landingConstant';
 import peopleSmellLaundry from '@/assets/smellLaundry.jpg';
 import bgImg from '@/assets/bg.png';
 
 const Home = () => {
     return (
-        <div className='relative '>
-            <section className='relative min-h-[75vh] max-w-[90rem] mx-auto grid grid-cols-1 sm:grid-cols-2 grid-flow-dense gap-8 md:gap-y-16 overflow-hidden'>
+        <div className='relative min-h-[78vh]'>
+            <section className='relative pb-10 max-w-[90rem] mx-auto grid grid-cols-1 sm:grid-cols-2 grid-flow-dense gap-8 md:gap-y-16 overflow-hidden'>
+
                 <div className='col-span-1 flex flex-col gap-4 p-4 md:p-10'>
                     <h4 className='text-2xl lg:text-3xl underline underline-offset-8 decoration-primary-pink-250'>{HOME_SECTION_CONTENT_LIST[0].content}</h4>
                     <h2 className='font-bold text-5xl xl:text-7xl text-slate-800'>{HOME_SECTION_CONTENT_LIST[1].content}</h2>
@@ -90,8 +92,13 @@ const Home = () => {
                 </div>
 
             </section >
-            <div className='absolute lg:-bottom-16 inset-x-0 -z-20'>
-                <img className='w-full object-cover' src={bgImg} />
+            <div className='absolute bottom-0 lg:bottom-0 inset-x-0 -z-20'>
+                <img className='w-full min-h-[15rem] object-cover' src={bgImg} />
+            </div>
+            <div className="absolute -translate-x-1/2 left-1/2 bottom-6">
+                <a href="#about">
+                    <BsChevronCompactDown size={50} />
+                </a>
             </div>
         </div>
     )

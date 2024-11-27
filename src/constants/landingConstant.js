@@ -24,7 +24,7 @@ const NAVBAR_LIST = [
         title: "Kontak",
         link: "#contact"
     },
-]
+];
 
 const HOME_SECTION_CONTENT_LIST = [
     {
@@ -39,6 +39,29 @@ const HOME_SECTION_CONTENT_LIST = [
         id: 3,
         content: "LAUNDRY BE CLEAN"
     },
+];
+
+const ABOUT_SECTION_CONTENT_LIST = [
+    {
+        id: 1,
+        content: "Tentang Kami"
+    },
+    {
+        id: 2,
+        content: "APA ITU LBC LAUNDRY?"
+    },
+    {
+        id: 3,
+        content: "<strong>LBC Laundry</strong> adalah usaha jasa yang telah beroperasi selama <strong>7 tahun,</strong> menawarkan pembersihan pakaian dan barang-barang tekstil lainnya kepada pelanggan."
+    },
+    {
+        id: 4,
+        content: "Kami menyediakan layanan laundry berkualitas bagi <strong>mahasiswa</strong> dan <strong>masyarakat Malang</strong> dengan harga yang <strong>terjangkau,</strong> layanan <strong>cepat,</strong> serta pelacakan cucian yang <strong>mudah.</strong>"
+    },
+    {
+        id: 5,
+        content: "Pelanggan dapat memilih antara layanan <strong>kiloan atau satuan</strong> dengan berbagai opsi mulai dari <strong>reguler hingga express,</strong> memastikan kepuasan dan pemantauan setiap pesanan."
+    },
 ]
 
-export { NAVBAR_LIST, HOME_SECTION_CONTENT_LIST };
+export { NAVBAR_LIST, HOME_SECTION_CONTENT_LIST, ABOUT_SECTION_CONTENT_LIST };
