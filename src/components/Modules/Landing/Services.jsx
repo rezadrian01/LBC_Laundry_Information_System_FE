@@ -1,11 +1,11 @@
+import { MdLocalLaundryService } from "react-icons/md";
+
 import { SERVICES_SECTION_CONTENT_LIST, SERVICES_SECTION_TITLE_LIST } from '@/constants/landingConstant';
 import EachUtils from '@/utils/eachUtils';
-import React from 'react';
-import { MdLocalLaundryService } from "react-icons/md";
 
 const Services = () => {
     return (
-        <section id="services" className="min-h-screen p-10 bg-white relative">
+        <section id="services" className="min-h-[110vh] p-6 md:p-10 bg-white relative">
             {/* Icon at top left */}
             <div className="absolute top-12 left-12 text-pink-500">
                 <MdLocalLaundryService size={30} />

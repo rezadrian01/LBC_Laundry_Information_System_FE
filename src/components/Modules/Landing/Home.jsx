@@ -110,7 +110,7 @@ const Home = () => {
             <div className='absolute bottom-0 lg:bottom-0 inset-x-0 -z-20'>
                 <img className='w-full min-h-[30rem] md:min-h-[15rem] object-cover' src={bgImg} />
             </div>
-            <div className="absolute -translate-x-1/2 left-1/2 bottom-6">
+            <div className="absolute -translate-x-1/2 left-1/2 bottom-2 md:bottom-6">
                 <a href="#about">
                     <BsChevronCompactDown size={50} />
                 </a>

@@ -110,9 +110,118 @@ const SERVICES_SECTION_CONTENT_LIST = [
         id: 4,
         title: "Kilat/Express",
         description:
-            "Layanan cepat yang membersihkan pakaian dalam waktu singkat, biasanya pada hari yang sama.",
+            "Layanan cepat yang membersihkan pakaian dalam waktu singkat, biasanya selesai pada hari yang sama.",
         imageSrc: kilatExpress,
     },
+]
+
+const HOW_IT_WORKS_TITLE_LIST = [
+    {
+        id: 1,
+        title: "Cara Kerja"
+    },
+    {
+        id: 2,
+        title: "Bagaimana Cara Kerjanya?"
+    },
+    {
+        id: 3,
+        title: "langkah-langkah cara kerja layanan laundry di LBC Laundry"
+    },
+]
+
+const HOW_IT_WORKS_CONTENT_LIST = [
+    {
+        title: "Drop Off Cucian",
+        description:
+            "Pakaian dicuci dengan air dan deterjen, namun tidak dikeringkan atau disetrika.",
+    },
+    {
+        title: "Proses Pencucian",
+        description:
+            "Pakaian dibersihkan tanpa air menggunakan bahan kimia khusus untuk bahan sensitif.",
+    },
+    {
+        title: "Pengecekan",
+        description:
+            "Pakaian dicuci secara dry cleaning, kemudian disetrika hingga rapi.",
+    },
+    {
+        title: "Pengambilan",
+        description:
+            "Layanan cepat yang membersihkan pakaian dalam waktu singkat, biasanya selesai pada hari yang sama.",
+    },
+];
+
+const FOOTER_CONTENT_LIST = [
+    {
+        id: 1,
+        title: "Header",
+        contents: [
+            {
+                id: 1,
+                title: "LBC Laundry"
+            },
+            {
+                id: 2,
+                title: "Pakaian Anda, Keahlian Kami, Cepat dan Bersih!"
+            },
+        ]
+    },
+    {
+        id: 2,
+        title: "Contact Us",
+        contents: [
+            {
+                id: 1,
+                content: "08XX-XXXX-XXXX"
+            },
+            {
+                id: 2,
+                content: "Ruko Bajang Ratu Indah Jl. Candi Waringin No.5 <br/> Mojolangu Lowokwaru, Kota Malang, Jawa Timur 65142"
+            },
+        ]
+    },
+    {
+        id: 3,
+        title: "Business Hours",
+        contents: [
+            {
+                id: 1,
+                content: "Senin - Sabtu: 8 am - 8 pm"
+            },
+            {
+                id: 2,
+                content: "Minggu: 8 am - 6 pm"
+            },
+        ]
+    },
+    {
+        id: 4,
+        title: "Navigation",
+        contents: [
+            {
+                id: 1,
+                content: "Home",
+                link: "#home"
+            },
+            {
+                id: 2,
+                content: "About Us",
+                link: "#about"
+            },
+            {
+                id: 3,
+                content: "Services",
+                link: "#services"
+            },
+            {
+                id: 4,
+                content: "Contact",
+                link: "#contact"
+            },
+        ]
+    }
 ]
 
 export {
@@ -120,5 +229,8 @@ export {
     HOME_SECTION_CONTENT_LIST,
     ABOUT_SECTION_CONTENT_LIST,
     SERVICES_SECTION_TITLE_LIST,
-    SERVICES_SECTION_CONTENT_LIST
+    SERVICES_SECTION_CONTENT_LIST,
+    HOW_IT_WORKS_TITLE_LIST,
+    HOW_IT_WORKS_CONTENT_LIST,
+    FOOTER_CONTENT_LIST
 };

@@ -1,74 +1,60 @@
+import { FOOTER_CONTENT_LIST } from '@/constants/landingConstant';
+import EachUtils from '@/utils/eachUtils';
 import React from 'react';
 import { FaFacebook, FaInstagram, FaTwitter, FaYelp } from "react-icons/fa";
 
 const Contact = () => {
     return (
-        <section className="bg-white py-12 px-60">
-            <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <section id='contact' className="bg-white py-12">
+            <div className="max-w-[80rem] mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
                 {/* Bagian Logo dan Deskripsi */}
                 <div className="col-span-1">
                     <h1 className="text-primary-pink-500 font-bold text-4xl">
-                        LBC Laundry
+                        {FOOTER_CONTENT_LIST[0].contents[0].title}
                     </h1>
                     <p className="text-gray-600 mt-2">
-                        Pakaian Anda, Keahlian Kami, Cepat dan Bersih!
+                        {FOOTER_CONTENT_LIST[0].contents[1].title}
                     </p>
-                    <div className="flex space-x-4 mt-4 text-gray-600">
-                        <FaFacebook size={20} />
+
+                    {/* If social media is exist then show this */}
+                    {/* <div className="flex space-x-4 mt-4 text-gray-600">
+                            <FaFacebook size={20} />
                         <FaInstagram size={20} />
                         <FaTwitter size={20} />
                         <FaYelp size={20} />
-                    </div>
+                    </div> */}
+
                 </div>
 
-                {/* Bagian Informasi Kontak */}
+                {/* Contact Section */}
                 <div className="col-span-1">
                     <h3 className="text-lg font-semibold text-gray-800">
-                        Contact Us
+                        {FOOTER_CONTENT_LIST[1].title}
                     </h3>
-                    <p className="text-gray-600 mt-2">085 6423 8880</p>
-                    <p className="text-gray-600">
-                        Ruko Bajang Ratu Indah Jl. Candi Waringin No.5
-                        <br />
-                        MojolanguLowokwaru, Kota Malang, Jawa Timur 65142
-                    </p>
+                    <p className="text-gray-600 mt-2">{FOOTER_CONTENT_LIST[1].contents[0].content}</p>
+                    <p dangerouslySetInnerHTML={{ __html: FOOTER_CONTENT_LIST[1].contents[1].content }} className="text-gray-600" />
                 </div>
 
-                {/* Bagian Jam Operasional */}
+                {/* Operational Time Section */}
                 <div className="col-span-1">
                     <h3 className="text-lg font-semibold text-gray-800">
-                        Business Hours
+                        {FOOTER_CONTENT_LIST[2].title}
                     </h3>
-                    <p className="text-gray-600 mt-2">Mon - Sat: 8 am - 8 pm</p>
-                    <p className="text-gray-600">Sunday: 8 am - 6 pm</p>
+                    <p className="text-gray-600 mt-2">{FOOTER_CONTENT_LIST[2].contents[0].content}</p>
+                    <p className="text-gray-600">{FOOTER_CONTENT_LIST[2].contents[1].content}</p>
                 </div>
 
-                {/* Bagian Navigasi */}
+                {/* Navigation Section */}
                 <div className="col-span-1">
                     <h3 className="text-lg font-semibold text-gray-800">
-                        Navigation
+                        {FOOTER_CONTENT_LIST[3].title}
                     </h3>
-                    <ul className="text-gray-600 space-y-2 mt-2">
-                        <li>
-                            <a href="#" className="hover:underline">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" className="hover:underline">
-                                About Us
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" className="hover:underline">
-                                Services
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" className="hover:underline">
-                                Contact
-                            </a>
-                        </li>
+                    <ul className="text-gray-600 flex flex-col gap-2 mt-2">
+                        <EachUtils of={FOOTER_CONTENT_LIST[3].contents} render={(item, index) => {
+                            return <li key={item.id}>
+                                <a className='hover:underline' href={item.link}>{item.content}</a>
+                            </li>
+                        }} />
                     </ul>
                     <div className="text-gray-600 text-sm mt-4">
                         <p>Terms and conditions</p>
