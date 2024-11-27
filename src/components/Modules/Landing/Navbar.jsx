@@ -45,12 +45,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import { NAVBAR_LIST } from '@/constants/landingConstant'
 import EachUtils from '@/utils/eachUtils'
 import { AnimatePresence, motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
     const navigate = useNavigate();
     const [hash, setHash] = useState(window.location.hash);
     const [navbarIsOpen, setNavbarIsOpen] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const { activeSection } = useSelector(state => state.landingPage);
 
     useEffect(() => {
         const handleResize = () => {
@@ -122,7 +124,7 @@ const Navbar = () => {
                                             }}
                                             className='group' key={item.id}>
                                             <a onClick={() => setNavbarIsOpen(false)} href={item.link}>{item.title}</a>
-                                        <div className='border-b-[1px] duration-200 group-hover:border-b-white border-transparent' style={{ borderBottomColor: hash === item.link ? '#ffffff' : (hash === '' && item.link === '#home') ? '#ffffff' : '' }} />
+                                            <div className='border-b-[1px] duration-200 group-hover:border-b-white border-transparent' style={{ borderBottomColor: activeSection === item.link ? '#ffffff' : '' }} />
                                         </motion.li>
                                 }} />
                                 </motion.ul>
@@ -140,9 +142,14 @@ const Navbar = () => {
             </div>
                 <ul className='hidden lg:flex justify-center gap-4 col-span-4 pt-2 lg:text-base xl:text-xl'>
                 <EachUtils of={NAVBAR_LIST} render={(item, index) => {
+                        let isActive = activeSection === item.link;
+
                     return <li className='group' key={item.id}>
                         <a href={item.link}>{item.title}</a>
-                        <div className='border-b-[1px] duration-200 group-hover:border-b-slate-950 border-transparent' style={{ borderBottomColor: hash === item.link ? '#020617' : (hash === '' && item.link === '#home') ? '#020617' : '' }} />
+                        <div className='border-b-[1px] duration-200 group-hover:border-b-slate-950 border-transparent' style={{
+                            borderBottomColor:
+                                isActive ? '#020617' : ''
+                        }} />
                     </li>
                 }} />
             </ul>

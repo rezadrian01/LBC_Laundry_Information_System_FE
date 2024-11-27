@@ -2,8 +2,21 @@ import { MdLocalLaundryService } from "react-icons/md";
 
 import { SERVICES_SECTION_CONTENT_LIST, SERVICES_SECTION_TITLE_LIST } from '@/constants/landingConstant';
 import EachUtils from '@/utils/eachUtils';
+import { useDispatch } from "react-redux";
+import { useEffect, useRef } from "react";
+import useIsVisible from "@/hooks/useIsVisible";
+import { landingPageAction } from "@/stores/landing";
 
 const Services = () => {
+    const dispatch = useDispatch();
+    const servicesSectionRef = useRef(null);
+    const isVisible = useIsVisible(servicesSectionRef);
+    useEffect(() => {
+        if (isVisible) {
+            dispatch(landingPageAction.changeActiveSection({ activeSection: '#services' }));
+        }
+    }, [isVisible]);
+
     return (
         <section id="services" className="min-h-[110vh] p-6 md:p-10 bg-white relative">
             {/* Icon at top left */}
@@ -27,9 +40,10 @@ const Services = () => {
             </div>
 
             {/* Service layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
+            <div ref={servicesSectionRef} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
                 <EachUtils of={SERVICES_SECTION_CONTENT_LIST} render={(item, index) => {
                     return <div
+
                         key={index}
                         className="col-span-1 flex flex-col items-center text-center w-full border rounded-lg shadow-xl"
                     >
@@ -54,7 +68,7 @@ const Services = () => {
                             </div>
                         ) : (
                             // Image above title and description
-                            <div className='flex flex-col justify-between h-full w-full'>
+                                <div className='flex flex-col justify-between h-full w-full'>
                                 <img
                                     draggable={false}
                                     src={item.imageSrc}
@@ -74,6 +88,7 @@ const Services = () => {
                     </div>
                 }} />
             </div>
+            <div />
         </section>
     )
 }

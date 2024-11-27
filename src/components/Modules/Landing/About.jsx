@@ -57,13 +57,25 @@
 
 import laundryImg from "@/assets/laundry.jpg";
 import { ABOUT_SECTION_CONTENT_LIST } from "@/constants/landingConstant";
+import useIsVisible from "@/hooks/useIsVisible";
+import { landingPageAction } from "@/stores/landing";
+import { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
 
 const About = () => {
+    const dispatch = useDispatch();
+    const aboutSectionRef = useRef(null);
+    const isVisible = useIsVisible(aboutSectionRef);
+    useEffect(() => {
+        if (isVisible) {
+            dispatch(landingPageAction.changeActiveSection({ activeSection: '#about' }));
+        }
+    }, [isVisible]);
     return (
         <section id="about" className='relative bg-primary-pink-250 min-h-screen overflow-hidden pt-10'>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
 
-                <div className='    p-4 flex flex-col justify-center items-center md:justify-start md:items-start'>
+                <div className='p-4 flex flex-col justify-center items-center md:justify-start md:items-start'>
                     <div className="relative flex justify-center items-center w-full">
                         <div className=" md:mt-36 md:ml-[4.5rem] relative z-10">
                             <img draggable={false} className="aspect-square lg:w-[30rem]" src={laundryImg} alt="Person bringing laundry" />
@@ -80,7 +92,7 @@ const About = () => {
                         <h2 className="text-3xl md:text-5xl font-bold text-slate-800">{ABOUT_SECTION_CONTENT_LIST[1].content}</h2>
                         <div className="flex flex-col gap-6 md:max-w-[30rem] lg:max-w-[40rem]">
                             <p dangerouslySetInnerHTML={{ __html: ABOUT_SECTION_CONTENT_LIST[2].content }} className="text-xl lg:text-2xl"></p>
-                            <p dangerouslySetInnerHTML={{ __html: ABOUT_SECTION_CONTENT_LIST[3].content }} className="text-xl lg:text-2xl"></p>
+                            <p ref={aboutSectionRef} dangerouslySetInnerHTML={{ __html: ABOUT_SECTION_CONTENT_LIST[3].content }} className="text-xl lg:text-2xl"></p>
                             <p dangerouslySetInnerHTML={{ __html: ABOUT_SECTION_CONTENT_LIST[4].content }} className="text-xl lg:text-2xl"></p>
                         </div>
 

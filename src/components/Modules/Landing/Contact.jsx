@@ -1,9 +1,23 @@
 import { FOOTER_CONTENT_LIST } from '@/constants/landingConstant';
+import useIsVisible from '@/hooks/useIsVisible';
+import { landingPageAction } from '@/stores/landing';
 import EachUtils from '@/utils/eachUtils';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter, FaYelp } from "react-icons/fa";
+import { useDispatch } from 'react-redux';
 
 const Contact = () => {
+    const dispatch = useDispatch();
+    const contactSectionRef = useRef(null);
+    const isVisible = useIsVisible(contactSectionRef);
+    useEffect(() => {
+        if (isVisible) {
+            dispatch(landingPageAction.changeActiveSection({ activeSection: '#contact' }));
+        } else {
+            dispatch(landingPageAction.changeActiveSection({ activeSection: '#works' }));
+        }
+    }, [isVisible]);
+
     return (
         <section id='contact' className="bg-white py-12">
             <div className="max-w-[80rem] mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
@@ -62,6 +76,7 @@ const Contact = () => {
                     </div>
                 </div>
             </div>
+            <div ref={contactSectionRef} />
         </section>
     )
 }

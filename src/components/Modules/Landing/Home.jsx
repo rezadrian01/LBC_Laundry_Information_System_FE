@@ -1,69 +1,26 @@
-// import React from 'react';
-// import { FaChevronDown } from "react-icons/fa";
-// import { GrApps } from "react-icons/gr";
-// import { useNavigate } from "react-router-dom";
-
-// import bgImage from "@/assets/bg.png";
-
-// const Home = () => {
-//     const navigate = useNavigate();
-//     return (
-//         <section
-//             className="min-h-[90vh] flex justify-center items-center bg-no-repeat bg-bottom w-full"
-//             style={{
-//                 backgroundImage: `url(${bgImage})`,
-//                 backgroundSize: "100% 50vh",
-//             }}
-//         >
-//             <div className="absolute top-80 right-1/3 text-primary-pink-250">
-//                 <GrApps size={160} />
-//             </div>
-//             <div className="absolute bottom-40 right-20 text-primary-pink-250">
-//                 <GrApps size={160} />
-//             </div>
-//             <div className="flex-1 px-[10%]">
-//                 <p className="text-[18px] border-b-2 border-pink-300 w-[150px] mb-4">
-//                     Pelayanan Laundry
-//                 </p>
-//                 <h2 className="text-black-900 text-[45px] font-bold">
-//                     Pakaian Anda, Keahlian Kami, Cepat dan Bersih!
-//                 </h2>
-//                 <p className="text-[20px] font-semibold mt-2">
-//                     LAUNDRY BE CLEAN
-//                 </p>
-//                 <button
-//                     className="bg-primary-pink-250 text-white px-5 py-2 mt-12 rounded-md text-[16px] font-medium"
-//                     onClick={() => navigate("/cek-pesanan")}
-//                 >
-//                     CEK PESANAN
-//                 </button>
-//             </div>
-//             <div className="px-[10%]">
-//                 <img
-//                     src="src\assets\OM-removebg-preview.jpg"
-//                     alt="Laundry service"
-//                     className="max-w-full w-[400px] rounded-lg border-4 border-white"
-//                 />
-//             </div>
-//             <div className="absolute bottom-12 text-black">
-//                 <FaChevronDown size={40} />
-//             </div>
-//         </section>
-//     )
-// }
-
-// export default Home
-
 import { BsChevronCompactDown } from "react-icons/bs";
+import { useEffect, useRef } from "react";
 
 import { HOME_SECTION_CONTENT_LIST } from '@/constants/landingConstant';
 import peopleSmellLaundry from '@/assets/smellLaundry.jpg';
 import bgImg from '@/assets/bg.png';
+import useIsVisible from "@/hooks/useIsVisible";
+import { useDispatch } from "react-redux";
+import { landingPageAction } from "@/stores/landing";
 
 const Home = () => {
+    const dispatch = useDispatch();
+    const homeSectionRef = useRef(null);
+    const isVisible = useIsVisible(homeSectionRef);
+    useEffect(() => {
+        if (isVisible) {
+            dispatch(landingPageAction.changeActiveSection({ activeSection: '#home' }));
+        }
+    }, [isVisible]);
+
     return (
         <div className='relative min-h-[78vh]'>
-            <section className='relative pb-10 max-w-[90rem] mx-auto grid grid-cols-1 sm:grid-cols-2 grid-flow-dense gap-8 md:gap-y-16 overflow-hidden'>
+            <section ref={homeSectionRef} className='relative pb-10 max-w-[90rem] mx-auto grid grid-cols-1 sm:grid-cols-2 grid-flow-dense gap-8 md:gap-y-16 overflow-hidden'>
 
                 {/* Small screen will shown */}
                 <div className='flex sm:hidden col-span-1 justify-center pt-14'>

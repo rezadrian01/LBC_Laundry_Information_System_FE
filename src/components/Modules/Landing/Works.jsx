@@ -7,14 +7,27 @@ import { IoIosSearch } from "react-icons/io";
 import EachUtils from '@/utils/eachUtils';
 import clothesImg from '@/assets/clothes.png';
 import { HOW_IT_WORKS_CONTENT_LIST, HOW_IT_WORKS_TITLE_LIST } from "@/constants/landingConstant";
+import { useDispatch } from "react-redux";
+import { useEffect, useRef } from "react";
+import useIsVisible from "@/hooks/useIsVisible";
+import { landingPageAction } from "@/stores/landing";
 
 const Works = () => {
+    const dispatch = useDispatch();
+    const worksSectionRef = useRef(null);
+    const isVisible = useIsVisible(worksSectionRef);
+    useEffect(() => {
+        if (isVisible) {
+            dispatch(landingPageAction.changeActiveSection({ activeSection: '#works' }));
+        }
+    }, [isVisible]);
+
     return (
         <section id="works" className="min-h-screen p-6 md:p-10 bg-primary-pink-250 relative">
             <div className="absolute left-16 top-12 text-white ">
                 <MdLocalLaundryService size={40} />
             </div>
-            <div className="text-center mb-20 mt-10">
+            <div ref={worksSectionRef} className="text-center mb-20 mt-10">
                 <div className="flex justify-center">
                     <h2 className="text-[18px] border-b-2 border-white w-[100px] text-center">
                         {HOW_IT_WORKS_TITLE_LIST[0].title}
@@ -48,6 +61,7 @@ const Works = () => {
                     return (
                         <>
                             <div
+                                ref={worksSectionRef}
                                 key={index}
                                 className="flex flex-col items-center bg-white drop-shadow-md rounded-3xl px-2 py-8"
                             >
