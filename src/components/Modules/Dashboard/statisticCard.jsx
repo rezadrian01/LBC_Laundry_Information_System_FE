@@ -7,11 +7,12 @@ import BarChart from '@mods/BarChart';
 
 Chart.register(CategoryScale);
 
-const StatisticCard = ({ title, datasetTitle, datasets }) => {
+const StatisticCard = ({ title, datasetTitle, datasets = [] }) => {
     const LABEL_KEY = 'day';
     const VALUE_KEY = 'totalIncome';
+    const DATE_KEY = 'endDate';
 
-    const [chartData, setChartData] = useState({
+    const chartData = {
         labels: datasets.map((data) => data[LABEL_KEY]),
         datasets: [
             {
@@ -22,7 +23,8 @@ const StatisticCard = ({ title, datasetTitle, datasets }) => {
                 borderWidth: 2,
             },
         ],
-    });
+    }
+
     return (
         <div>
             <div className='p-2 sm:p-4 w-full aspect-square bg-gradient-to-b from-pink-50 to bg-primary-pink-200 border-[1px] rounded-xl md:rounded-3xl shadow-lg'>

@@ -1,59 +1,43 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { useDispatch, useSelector } from 'react-redux';
 
 import StatisticCard from '@mods/Dashboard/statisticCard';
 import Sidebar from '@mods/Sidebar/sidebar';
 import Header from '@mods/Header/header';
 import OrderCounter from '@mods/Dashboard/orderCounter';
 import DefaultLayout from '@layouts/Default';
-import { useDispatch, useSelector } from 'react-redux';
 import { orderAction } from '@/stores/order';
-import { useEffect } from 'react';
 import useAuth from '@/hooks/useAuth';
 import { REPORT_CONTENT_LIST } from '@/constants/reportList';
+import apiInstance from '@/utils/apiInstance';
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
-    const { isLoading } = useAuth();
+    const { isLoading: loadAuthData } = useAuth();
+    const { activeBranch } = useSelector(state => state.branch);
 
-    const fallbackData = [
-        {
-            id: 1,
-            totalIncome: 0,
-            day: "Senin"
+    let { data: reportList, isLoading: isLoadingReportList, isError, error, isFetched: isFetchedReportList } = useQuery({
+        queryKey: ['reports', { period: 'harian' }, { branchId: activeBranch.id }],
+        queryFn: async () => {
+            const response = await apiInstance(`report/reportByPeriod/harian/${activeBranch.id}`);
+            return response.data.data;
         },
-        {
-            id: 2,
-            totalIncome: 0,
-            day: "Selasa"
-        },
-        {
-            id: 3,
-            totalIncome: 0,
-            day: "Rabu"
-        },
-        {
-            id: 4,
-            totalIncome: 0,
-            day: "Kamis"
-        },
-        {
-            id: 5,
-            totalIncome: 0,
-            day: "Jumat"
-        },
-        {
-            id: 6,
-            totalIncome: 0,
-            day: "Sabtu"
-        },
-        {
-            id: 7,
-            totalIncome: 0,
-            day: "Minggu"
-        },
-    ]
+        enabled: !loadAuthData,
+        gcTime: 0
+    });
+
+    if (isFetchedReportList) {
+        reportList = reportList.map(report => {
+            const day = new Date(report.endDate).toLocaleDateString('id-ID', { weekday: 'long' });
+            return { ...report, day }
+        });
+        reportList.reverse();
+    }
+
 
     // Reset Global State
     useEffect(() => {
@@ -67,13 +51,13 @@ const Dashboard = () => {
     return (
         <DefaultLayout>
             <Sidebar />
-            {!isLoading && <Header hasBranchBtn onClick={handleAddNewOrderClick} />}
+            {!loadAuthData && <Header hasBranchBtn onClick={handleAddNewOrderClick} />}
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10'>
-                {!isLoading && <>
-                    <StatisticCard datasetTitle="Penghasilan Selama Seminggu" datasets={REPORT_CONTENT_LIST} title="Pendapatan Harian" />
-                <OrderCounter />
-                </>
-                }
+                {/* {!isLoadingReportList && isFetchedReportList && <> */}
+                <StatisticCard datasetTitle="Penghasilan Selama Seminggu" datasets={reportList} title="Pendapatan Harian" />
+                {/* </> */}
+                {/* } */}
+                {!loadAuthData && <OrderCounter />}
             </div>
         </DefaultLayout>
     );

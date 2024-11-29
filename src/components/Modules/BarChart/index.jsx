@@ -25,6 +25,7 @@ const BarChart = ({ chartData, title }) => {
                             },
                         },
                     },
+
                 }}
                 height={300}
                 width={300}
