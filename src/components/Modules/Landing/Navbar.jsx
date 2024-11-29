@@ -154,8 +154,8 @@ const Navbar = () => {
                 }} />
             </ul>
                 <div className='col-span-4 lg:col-span-2 flex justify-end lg:justify-center w-full gap-4'>
-                    <Link to={"https://wa.me/"} className='text-primary-pink-100 text-sm md:text-base bg-primary-pink-300 hover:bg-primary-pink-500 px-2 md:px-4 py-2 rounded-lg'>Hubungi Kami</Link>
-                    <button onClick={() => navigate('/login')} className='text-primary-pink-100 text-sm md:text-base bg-primary-pink-300 hover:bg-primary-pink-500 px-2 md:px-4 py-2 rounded-lg'>Login</button>
+                    <Link to={"https://wa.me/"} className='text-primary-pink-100 text-[.7rem] sm:text-base bg-primary-pink-300 hover:bg-primary-pink-500 px-2 md:px-4 py-2 rounded-lg'>Hubungi Kami</Link>
+                    <button onClick={() => navigate('/login')} className='text-primary-pink-100 text-[.7rem] sm:text-base bg-primary-pink-300 hover:bg-primary-pink-500 px-2 md:px-4 py-2 rounded-lg'>Login</button>
                 </div>
         </div>
 

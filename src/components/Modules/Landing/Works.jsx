@@ -68,7 +68,7 @@ const Works = () => {
                                 <div className="w-full h-40 flex items-center justify-center object-cover rounded-md mb-4">
                                     {icon}
                                 </div>
-                                <h3 className="text-lg font-bold mb-2 text-primary-pink-500">
+                                <h3 className="text-2xl font-bold mb-2 text-primary-pink-500">
                                     {item.title}
                                 </h3>
                                 <p className="text-black-600 text-center">
