@@ -83,7 +83,7 @@ const Services = () => {
                 }}
                 initial='initial'
                 animate={wrapperAnimation}
-                ref={servicesSectionRef} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
+                ref={servicesSectionRef} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 max-w-[75rem] mx-auto">
                 <EachUtils of={SERVICES_SECTION_CONTENT_LIST} render={(item, index) => {
                     return <motion.div
                         variants={{
@@ -107,6 +107,7 @@ const Services = () => {
                                     </p>
                                 </div>
                                 <img
+                                    loading="lazy"
                                     draggable={false}
                                     src={item.imageSrc}
                                     alt={item.title}
@@ -120,6 +121,7 @@ const Services = () => {
                                     draggable={false}
                                     src={item.imageSrc}
                                     alt={item.title}
+                                        loading="lazy"
                                         className="w-full h-[20rem] object-cover rounded-t-lg mb-4"
                                 />
                                 <div className=''>

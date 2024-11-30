@@ -44,7 +44,7 @@ const About = () => {
 
                         className="relative flex justify-center items-center w-full">
                         <div className=" md:mt-36 md:ml-[4.5rem] relative z-10">
-                            <img draggable={false} className="aspect-square lg:w-[30rem]" src={laundryImg} alt="Person bringing laundry" />
+                            <img loading="lazy" draggable={false} className="aspect-square lg:w-[30rem]" src={laundryImg} alt="Person bringing laundry" />
                         </div>
                         <div className='absolute -left-16 sm:left-0 lg:left-10 xl:left-32 -top-10 sm:-top-8 md:top-[9.5rem]'>
                             <BgLines />

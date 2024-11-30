@@ -48,7 +48,7 @@ const Home = () => {
 
 
     return (
-        <div className='relative min-h-[78vh]'>
+        <div className='relative min-h-[78vh] flex flex-col items-center lg:justify-center'>
             <section ref={homeSectionRef} className='relative pb-10 max-w-[90rem] mx-auto grid grid-cols-1 sm:grid-cols-2 grid-flow-dense gap-8 md:gap-y-16 overflow-hidden'>
 
                 {/* Small screen will shown */}

@@ -23,6 +23,10 @@ const Works = () => {
     const wrapperIsInView = useInView(wrapperRef, { once: true });
     const wrapperAnimation = useAnimation();
 
+    const imgClothesRef = useRef(null);
+    const imgClothesIsInView = useInView(imgClothesRef, { once: true });
+    const imgClothesAnimation = useAnimation();
+
     useEffect(() => {
         if (isVisible) {
             dispatch(landingPageAction.changeActiveSection({ activeSection: '#works' }));
@@ -33,7 +37,11 @@ const Works = () => {
         if (wrapperIsInView) {
             wrapperAnimation.start('animate');
         }
-    }, [wrapperIsInView]);
+        if (imgClothesIsInView) {
+            console.log(imgClothesIsInView);
+            imgClothesAnimation.start('animate');
+        }
+    }, [wrapperIsInView, imgClothesIsInView]);
 
     return (
         <section id="works" className="min-h-screen p-6 md:p-10 bg-primary-pink-250 relative">
@@ -83,7 +91,7 @@ const Works = () => {
                 initial='initial'
                 animate={wrapperAnimation}
                 ref={wrapperRef}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-[75rem] mx-auto">
                 {/* Here */}
                 <EachUtils of={HOW_IT_WORKS_CONTENT_LIST} render={(item, index) => {
                     let icon;
@@ -111,7 +119,7 @@ const Works = () => {
 
                                 ref={worksSectionRef}
                                 key={index}
-                                className="flex flex-col items-center bg-white drop-shadow-md rounded-3xl px-2 py-8"
+                                className="flex flex-col items-center bg-white drop-shadow-md rounded-3xl px-2 py-8 text-center"
                             >
                                 <div className="w-full h-40 flex items-center justify-center object-cover rounded-md mb-4">
                                     {icon}
@@ -127,14 +135,28 @@ const Works = () => {
                     );
                 }} />
             </motion.div>
-            <div className="pt-[3.5%]">
-                <img
+            <motion.div
+                ref={imgClothesRef}
+                className="pt-[3.5%]  max-w-[75rem] mx-auto overflow-hidden">
+                <motion.img
+
+                    variants={{
+                        initial: { opacity: 0, x: -1500 },
+                        animate: { opacity: 1, x: 0, transition: { duration: .7, delay: .15, ease: 'easeInOut' } }
+
+                    }}
+                    initial='initial'
+                    animate={imgClothesAnimation}
                     draggable={false}
                     src={clothesImg}
                     alt="Clothes"
+                    loading="lazy"
                     className="w-full min-h-[12rem] object-cover"
                 />
-            </div>
+
+
+
+            </motion.div>
         </section>
     )
 }

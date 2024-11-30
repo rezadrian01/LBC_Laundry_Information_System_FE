@@ -170,7 +170,7 @@ const FOOTER_CONTENT_LIST = [
     },
     {
         id: 2,
-        title: "Contact Us",
+        title: "Hubungi Kami",
         contents: [
             {
                 id: 1,
@@ -184,7 +184,7 @@ const FOOTER_CONTENT_LIST = [
     },
     {
         id: 3,
-        title: "Business Hours",
+        title: "Jam Operasional",
         contents: [
             {
                 id: 1,
@@ -198,26 +198,26 @@ const FOOTER_CONTENT_LIST = [
     },
     {
         id: 4,
-        title: "Navigation",
+        title: "Navigasi",
         contents: [
             {
                 id: 1,
-                content: "Home",
+                content: "Beranda",
                 link: "#home"
             },
             {
                 id: 2,
-                content: "About Us",
+                content: "Tentang Kami",
                 link: "#about"
             },
             {
                 id: 3,
-                content: "Services",
+                content: "Pelayanan",
                 link: "#services"
             },
             {
                 id: 4,
-                content: "Contact",
+                content: "Kontak",
                 link: "#contact"
             },
         ]
