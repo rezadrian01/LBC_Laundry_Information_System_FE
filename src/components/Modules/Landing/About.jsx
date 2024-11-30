@@ -12,10 +12,8 @@ const About = () => {
     const aboutSectionRef = useRef(null);
     const isVisible = useIsVisible(aboutSectionRef);
 
-    const contentRef = useRef(null);
-
-    const contentIsInView = useInView(contentRef, { once: true });
-
+    const wrapperRef = useRef(null);
+    const wrapperIsInView = useInView(wrapperRef, { once: true });
     const wrapperAnimation = useAnimation();
 
     useEffect(() => {
@@ -25,11 +23,10 @@ const About = () => {
     }, [isVisible]);
 
     useEffect(() => {
-        console.log(contentIsInView)
-        if (contentIsInView) {
+        if (wrapperIsInView) {
             wrapperAnimation.start('animate')
         }
-    }, [contentIsInView])
+    }, [wrapperIsInView])
 
 
     return (
@@ -76,7 +73,7 @@ const About = () => {
                             initial='initial'
                             animate={wrapperAnimation}
 
-                            ref={contentRef} className="text-3xl md:text-5xl font-bold text-slate-800">{ABOUT_SECTION_CONTENT_LIST[1].content}</motion.h2>
+                            ref={wrapperRef} className="text-3xl md:text-5xl font-bold text-slate-800">{ABOUT_SECTION_CONTENT_LIST[1].content}</motion.h2>
 
                         <motion.div
                             variants={{

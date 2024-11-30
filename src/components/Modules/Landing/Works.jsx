@@ -1,3 +1,7 @@
+import { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+
+import { motion, useAnimation, useInView } from "framer-motion";
 import { MdLocalLaundryService } from "react-icons/md";
 import { TbArrowUpToArc } from "react-icons/tb";
 import { PiArrowsClockwiseBold } from "react-icons/pi";
@@ -7,8 +11,6 @@ import { IoIosSearch } from "react-icons/io";
 import EachUtils from '@/utils/eachUtils';
 import clothesImg from '@/assets/clothes.png';
 import { HOW_IT_WORKS_CONTENT_LIST, HOW_IT_WORKS_TITLE_LIST } from "@/constants/landingConstant";
-import { useDispatch } from "react-redux";
-import { useEffect, useRef } from "react";
 import useIsVisible from "@/hooks/useIsVisible";
 import { landingPageAction } from "@/stores/landing";
 
@@ -16,11 +18,22 @@ const Works = () => {
     const dispatch = useDispatch();
     const worksSectionRef = useRef(null);
     const isVisible = useIsVisible(worksSectionRef);
+
+    const wrapperRef = useRef(null);
+    const wrapperIsInView = useInView(wrapperRef, { once: true });
+    const wrapperAnimation = useAnimation();
+
     useEffect(() => {
         if (isVisible) {
             dispatch(landingPageAction.changeActiveSection({ activeSection: '#works' }));
         }
     }, [isVisible]);
+
+    useEffect(() => {
+        if (wrapperIsInView) {
+            wrapperAnimation.start('animate');
+        }
+    }, [wrapperIsInView]);
 
     return (
         <section id="works" className="min-h-screen p-6 md:p-10 bg-primary-pink-250 relative">
@@ -28,19 +41,49 @@ const Works = () => {
                 <MdLocalLaundryService size={40} />
             </div>
             <div ref={worksSectionRef} className="text-center mb-20 mt-10">
-                <div className="flex justify-center">
-                    <h2 className="text-[18px] border-b-2 border-white w-[100px] text-center">
+                <motion.h2
+                    variants={{
+                        initial: { opacity: 0 },
+                        animate: { opacity: 1, transition: { duration: .3, delay: .15 } }
+
+                    }}
+                    initial='initial'
+                    animate={wrapperAnimation}
+                    className="text-lg underline underline-offset-8 decoration-white">
                         {HOW_IT_WORKS_TITLE_LIST[0].title}
-                    </h2>
-                </div>
-                <h2 className="pt-10 text-5xl font-bold text-gray-800">
+                </motion.h2>
+                <motion.h2
+                    variants={{
+                        initial: { opacity: 0 },
+                        animate: { opacity: 1, transition: { duration: .3, delay: .15 } }
+
+                    }}
+                    initial='initial'
+                    animate={wrapperAnimation}
+                    className="pt-10 text-5xl font-bold text-gray-800">
                     {HOW_IT_WORKS_TITLE_LIST[1].title}
-                </h2>
-                <p className="text-2xl text-black-600 mt-2">
+                </motion.h2>
+                <motion.p
+                    variants={{
+                        initial: { opacity: 0 },
+                        animate: { opacity: 1, transition: { duration: .3, delay: .15 } }
+
+                    }}
+                    initial='initial'
+                    animate={wrapperAnimation}
+                    className="text-2xl text-black-600 mt-2">
                     {HOW_IT_WORKS_TITLE_LIST[2].title}
-                </p>
+                </motion.p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <motion.div
+                variants={{
+                    initial: { opacity: 0, y: -100 },
+                    animate: { opacity: 1, y: 0, transition: { duration: .35, delay: .35, staggerChildren: .25, delayChildren: .5 } }
+                }}
+                initial='initial'
+                animate={wrapperAnimation}
+                ref={wrapperRef}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {/* Here */}
                 <EachUtils of={HOW_IT_WORKS_CONTENT_LIST} render={(item, index) => {
                     let icon;
@@ -60,7 +103,12 @@ const Works = () => {
                     }
                     return (
                         <>
-                            <div
+                            <motion.div
+                                variants={{
+                                    initial: { opacity: 0, },
+                                    animate: { opacity: 1, },
+                                }}
+
                                 ref={worksSectionRef}
                                 key={index}
                                 className="flex flex-col items-center bg-white drop-shadow-md rounded-3xl px-2 py-8"
@@ -74,11 +122,11 @@ const Works = () => {
                                 <p className="text-black-600 text-center">
                                     {item.description}
                                 </p>
-                            </div>
+                            </motion.div>
                         </>
                     );
                 }} />
-            </div>
+            </motion.div>
             <div className="pt-[3.5%]">
                 <img
                     draggable={false}

@@ -94,7 +94,7 @@ const Navbar = () => {
                     </AnimatePresence>
 
                     <h3 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl leading-6 font-bold text-center md:text-left bg-gradient-to-br from-pink-100 to-primary-pink-400 bg-clip-text text-transparent p-1 ">
-                    <Link to={'/'}>
+                        <Link onClick={() => window.scrollTo(0, 0)} to={'/'}>
                         LBC Laundry
                     </Link>
                 </h3>

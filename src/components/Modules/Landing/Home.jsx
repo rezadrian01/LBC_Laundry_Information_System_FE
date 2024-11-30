@@ -75,25 +75,47 @@ const Home = () => {
                     </div>
                 </motion.div>
 
-                <motion.div
+                <div
                     ref={titleRef}
-                    variants={{
-                        initial: { opacity: 0, y: -100 },
-                        animate: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.25 } }
-                    }}
-                    initial='initial'
-                    animate={titleAnimation}
 
                     className='col-span-1 flex flex-col gap-2 sm:gap-4 p-4 md:p-10'>
-                    <h4 className='text-2xl lg:text-3xl underline underline-offset-8 decoration-primary-pink-250'>{HOME_SECTION_CONTENT_LIST[0].content}</h4>
-                    <h2 className='font-bold text-5xl xl:text-7xl text-slate-800'>{HOME_SECTION_CONTENT_LIST[1].content}</h2>
-                    <div className='my-2 sm:my-6'>
+                    <motion.h4
+                        variants={{
+                            initial: { opacity: 0, },
+                            animate: { opacity: 1, transition: { duration: 0.4, delay: 0.45 } }
+                        }}
+                        initial='initial'
+                        animate={titleAnimation}
+                        className='text-2xl lg:text-3xl underline underline-offset-8 decoration-primary-pink-250'>{HOME_SECTION_CONTENT_LIST[0].content}</motion.h4>
+                    <motion.h2
+                        variants={{
+                            initial: { opacity: 0, y: -100 },
+                            animate: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.25 } }
+                        }}
+                        initial='initial'
+                        animate={titleAnimation}
+                        className='font-bold text-5xl xl:text-7xl text-slate-800'>{HOME_SECTION_CONTENT_LIST[1].content}</motion.h2>
+                    <motion.div
+                        variants={{
+                            initial: { opacity: 0, y: 20 },
+                            animate: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.25 } }
+                        }}
+                        initial='initial'
+                        animate={titleAnimation}
+                        className='my-2 sm:my-6'>
                         <h4 className='tracking-wider text-base lg:text-xl'>{HOME_SECTION_CONTENT_LIST[2].content}</h4>
-                    </div>
-                    <div className='justify-start'>
+                    </motion.div>
+                    <motion.div
+                        variants={{
+                            initial: { opacity: 0, },
+                            animate: { opacity: 1, transition: { duration: 0.4, delay: 0.25 } }
+                        }}
+                        initial='initial'
+                        animate={titleAnimation}
+                        className='justify-start'>
                         <button className='bg-primary-pink-250 hover:scale-[1.02] hover:bg-primary-pink-300 transition-all px-8 py-2 rounded text-white font-bold shadow-lg'>Cek Pesanan</button>
-                    </div>
-                </motion.div>
+                    </motion.div>
+                </div>
 
                 {/* Bigger screen will shown */}
                 <motion.div
