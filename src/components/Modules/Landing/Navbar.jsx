@@ -1,51 +1,10 @@
-// import React from 'react'
-// import { Link } from 'react-router-dom';
-
-// const Navbar = () => {
-//     return (
-//         <header className="flex justify-around items-center pt-8 w-full border-t-[3rem] border-primary-pink-250">
-//             <Link to={"/"} className="text-primary-pink-500 font-bold text-4xl">
-//                 LBC Laundry
-//             </Link>
-//             <nav>
-//                 <ul className="flex gap-10 m-0 p-0 list-none text-xl font-medium text-black-500">
-//                     <li className="cursor-pointer">
-//                         <a href="#beranda">Beranda</a>
-//                     </li>
-//                     <li className="cursor-pointer">
-//                         <a href="#tentang-kami">Tentang Kami</a>
-//                     </li>
-//                     <li className="cursor-pointer">
-//                         <a href="#pelayanan">Pelayanan</a>
-//                     </li>
-//                     <li className="cursor-pointer">
-//                         <a href="#cara-kerja">Cara Kerja</a>
-//                     </li>
-//                     <li className="cursor-pointer">
-//                         <a href="#kontak">Kontak</a>
-//                     </li>
-//                 </ul>
-//             </nav>
-//             <div className="buttons">
-//                 <button className="bg-primary-pink-500 text-white px-4 py-2 m-10 rounded-md font-medium text-2xl">
-//                     Hubungi Kami
-//                 </button>
-//                 <button className="bg-primary-pink-400 text-white px-6 py-3 rounded-md font-medium text-xl">
-//                     Login
-//                 </button>
-//             </div>
-//         </header>
-//     );
-// }
-
-// export default Navbar
-
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { AnimatePresence, motion } from 'framer-motion';
+
 import { NAVBAR_LIST } from '@/constants/landingConstant'
 import EachUtils from '@/utils/eachUtils'
-import { AnimatePresence, motion } from 'framer-motion';
-import { useSelector } from 'react-redux';
 
 const Navbar = () => {
     const navigate = useNavigate();

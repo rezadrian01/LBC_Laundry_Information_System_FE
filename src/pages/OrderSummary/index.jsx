@@ -102,6 +102,7 @@ const OrderSummary = () => {
             });
         }
     });
+
     let totalPrice = orderState.orderTypeId === 1 ? orderState.items.reduce((prev, item) => prev + (item.quantity * item.price), 0) : (orderList[0]?.price || 0);
     let totalQuantity = orderState.orderTypeId === 1 ? orderState.items.reduce((prev, item) => prev + item.quantity, 0) : 0;
     useEffect(() => {
@@ -139,6 +140,7 @@ const OrderSummary = () => {
     }
 
     const handlePrintReceipt = () => {
+        // window.print();
         navigate('/dashboard');
     }
 

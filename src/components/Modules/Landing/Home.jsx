@@ -1,5 +1,6 @@
-import { BsChevronCompactDown } from "react-icons/bs";
 import { useEffect, useRef } from "react";
+import { BsChevronCompactDown } from "react-icons/bs";
+import { motion, useInView, useAnimation } from 'framer-motion';
 
 import { HOME_SECTION_CONTENT_LIST } from '@/constants/landingConstant';
 import peopleSmellLaundry from '@/assets/smellLaundry.jpg';
@@ -7,23 +8,60 @@ import bgImg from '@/assets/bg.png';
 import useIsVisible from "@/hooks/useIsVisible";
 import { useDispatch } from "react-redux";
 import { landingPageAction } from "@/stores/landing";
+import { duration } from "@mui/material";
 
 const Home = () => {
     const dispatch = useDispatch();
     const homeSectionRef = useRef(null);
     const isVisible = useIsVisible(homeSectionRef);
+
+    const titleRef = useRef(null);
+    const mainImgRef = useRef(null);
+    const secondaryImgRef = useRef(null);
+
+    const titleIsInView = useInView(titleRef, { once: true });
+    const mainImgIsInView = useInView(mainImgRef, { once: true });
+    const secondaryImgIsInView = useInView(secondaryImgRef, { once: true });
+
+    const titleAnimation = useAnimation();
+    const mainImgAnimation = useAnimation();
+    const secondaryImgAnimation = useAnimation();
+
     useEffect(() => {
         if (isVisible) {
             dispatch(landingPageAction.changeActiveSection({ activeSection: '#home' }));
         }
     }, [isVisible]);
 
+    // Animation Trigger
+    useEffect(() => {
+        if (titleIsInView) {
+            titleAnimation.start('animate');
+        }
+        if (mainImgIsInView) {
+            mainImgAnimation.start('animate');
+        }
+        if (secondaryImgIsInView) {
+            secondaryImgAnimation.start('animate');
+        }
+    }, [titleIsInView, mainImgIsInView, secondaryImgIsInView])
+
+
     return (
         <div className='relative min-h-[78vh]'>
             <section ref={homeSectionRef} className='relative pb-10 max-w-[90rem] mx-auto grid grid-cols-1 sm:grid-cols-2 grid-flow-dense gap-8 md:gap-y-16 overflow-hidden'>
 
                 {/* Small screen will shown */}
-                <div className='flex sm:hidden col-span-1 justify-center pt-14'>
+                <motion.div
+                    ref={secondaryImgRef}
+                    variants={{
+                        initial: { opacity: 0 },
+                        animate: { opacity: 1, transition: { duration: 0.4, delay: 0.25 } }
+                    }}
+                    initial='initial'
+                    animate={secondaryImgAnimation}
+
+                    className='flex sm:hidden col-span-1 justify-center pt-14'>
                     <div className='relative'>
                         <div className='bg-white p-1 rounded-xl'>
                             <img className='rounded-xl object-cover max-w-[18rem] md:max-w-[20rem] lg:max-w-[25rem] xl:max-w-[33rem]' draggable={false} loading='lazy' src={peopleSmellLaundry} />
@@ -35,9 +73,18 @@ const Home = () => {
                             <PinkSquares />
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
-                <div className='col-span-1 flex flex-col gap-2 sm:gap-4 p-4 md:p-10'>
+                <motion.div
+                    ref={titleRef}
+                    variants={{
+                        initial: { opacity: 0, y: -100 },
+                        animate: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.25 } }
+                    }}
+                    initial='initial'
+                    animate={titleAnimation}
+
+                    className='col-span-1 flex flex-col gap-2 sm:gap-4 p-4 md:p-10'>
                     <h4 className='text-2xl lg:text-3xl underline underline-offset-8 decoration-primary-pink-250'>{HOME_SECTION_CONTENT_LIST[0].content}</h4>
                     <h2 className='font-bold text-5xl xl:text-7xl text-slate-800'>{HOME_SECTION_CONTENT_LIST[1].content}</h2>
                     <div className='my-2 sm:my-6'>
@@ -46,13 +93,24 @@ const Home = () => {
                     <div className='justify-start'>
                         <button className='bg-primary-pink-250 hover:scale-[1.02] hover:bg-primary-pink-300 transition-all px-8 py-2 rounded text-white font-bold shadow-lg'>Cek Pesanan</button>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Bigger screen will shown */}
-                <div className='hidden sm:flex col-span-1 justify-center pt-20'>
+                <motion.div
+                    ref={mainImgRef}
+                    variants={{
+                        initial: { opacity: 0 },
+                        animate: { opacity: 1, transition: { duration: 0.4, delay: 0.25 } }
+                    }}
+                    initial='initial'
+                    animate={mainImgAnimation}
+
+                    className='hidden sm:flex col-span-1 justify-center pt-20'>
                     <div className='relative'>
                         <div className='bg-white p-1 rounded-xl'>
-                            <img className='rounded-xl object-cover max-w-[18rem] md:max-w-[20rem] lg:max-w-[25rem] xl:max-w-[33rem]' draggable={false} loading='lazy' src={peopleSmellLaundry} />
+                            <img
+
+                                className='rounded-xl object-cover max-w-[18rem] md:max-w-[20rem] lg:max-w-[25rem] xl:max-w-[33rem]' draggable={false} loading='lazy' src={peopleSmellLaundry} />
                         </div>
                         <div className='absolute lg:-top-10 -top-14 -left-8 -z-10'>
                             <PinkSquares />
@@ -61,7 +119,7 @@ const Home = () => {
                             <PinkSquares />
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
             </section >
             <div className='absolute bottom-0 lg:bottom-0 inset-x-0 -z-20'>
