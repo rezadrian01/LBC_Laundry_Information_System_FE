@@ -222,7 +222,9 @@ const FOOTER_CONTENT_LIST = [
             },
         ]
     }
-]
+];
+
+const ADMIN_CONTACT = "";
 
 export {
     NAVBAR_LIST,
@@ -232,5 +234,6 @@ export {
     SERVICES_SECTION_CONTENT_LIST,
     HOW_IT_WORKS_TITLE_LIST,
     HOW_IT_WORKS_CONTENT_LIST,
-    FOOTER_CONTENT_LIST
+    FOOTER_CONTENT_LIST,
+    ADMIN_CONTACT
 };

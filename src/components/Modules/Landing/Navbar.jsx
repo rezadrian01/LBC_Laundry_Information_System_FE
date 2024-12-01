@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { NAVBAR_LIST } from '@/constants/landingConstant'
+import { ADMIN_CONTACT, NAVBAR_LIST } from '@/constants/landingConstant'
 import EachUtils from '@/utils/eachUtils'
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [hash, setHash] = useState(window.location.hash);
     const [navbarIsOpen, setNavbarIsOpen] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -41,6 +42,7 @@ const Navbar = () => {
         }
     }, []);
 
+    const isLandingPage = location.pathname === '/';
 
     return (
         <>
@@ -82,7 +84,7 @@ const Navbar = () => {
                                                 exit: { opacity: 0, y: -10 }
                                             }}
                                             className='group' key={item.id}>
-                                            <a onClick={() => setNavbarIsOpen(false)} href={item.link}>{item.title}</a>
+                                            <a onClick={() => setNavbarIsOpen(false)} href={`${isLandingPage ? item.link : `/${item.link}`}`}>{item.title}</a>
                                             <div className='border-b-[1px] duration-200 group-hover:border-b-white border-transparent' style={{ borderBottomColor: activeSection === item.link ? '#ffffff' : '' }} />
                                         </motion.li>
                                 }} />
@@ -104,7 +106,7 @@ const Navbar = () => {
                         let isActive = activeSection === item.link;
 
                     return <li className='group' key={item.id}>
-                        <a href={item.link}>{item.title}</a>
+                        <a href={`${isLandingPage ? item.link : `/${item.link}`}`}>{item.title}</a>
                         <div className='border-b-[1px] duration-200 group-hover:border-b-slate-950 border-transparent' style={{
                             borderBottomColor:
                                 isActive ? '#020617' : ''
@@ -113,7 +115,7 @@ const Navbar = () => {
                 }} />
             </ul>
                 <div className='col-span-4 lg:col-span-2 flex justify-end lg:justify-center w-full gap-4'>
-                    <Link to={"https://wa.me/"} className='text-primary-pink-100 text-[.7rem] sm:text-base bg-primary-pink-300 hover:bg-primary-pink-500 px-2 md:px-4 py-2 rounded-lg'>Hubungi Kami</Link>
+                    <Link to={`https://wa.me/${ADMIN_CONTACT}`} className='text-primary-pink-100 text-[.7rem] sm:text-base bg-primary-pink-300 hover:bg-primary-pink-500 px-2 md:px-4 py-2 rounded-lg'>Hubungi Kami</Link>
                     <button onClick={() => navigate('/login')} className='text-primary-pink-100 text-[.7rem] sm:text-base bg-primary-pink-300 hover:bg-primary-pink-500 px-2 md:px-4 py-2 rounded-lg'>Login</button>
                 </div>
         </div>

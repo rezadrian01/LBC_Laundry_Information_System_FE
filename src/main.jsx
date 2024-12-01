@@ -30,6 +30,7 @@ import Employees from './pages/Employees';
 import Employee from './pages/Employee';
 import Services from './pages/Services';
 import Service from './pages/Service';
+import OrderCheck from './pages/CheckOrder';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Landing />
+      },
+      {
+        path: 'check-order',
+        element: <OrderCheck />
       },
       {
         path: 'login',

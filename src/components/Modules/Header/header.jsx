@@ -18,6 +18,7 @@ const Header = ({ hasButton = true, hasBranchBtn = false, branchList = null, isR
     const dispatch = useDispatch();
     const { activeBranch } = useSelector(state => state.branch);
     const [isBranchDropdownOpen, setIsBranchDropdownOpen] = useState(false);
+
     const { data: fetchedBranchList, isLoading: isLoadingBranchList, isError: isErrorBranchList } = useQuery({
         queryKey: ['branches'],
         queryFn: async () => {

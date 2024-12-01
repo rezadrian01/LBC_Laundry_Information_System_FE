@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { BsChevronCompactDown } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import { motion, useInView, useAnimation } from 'framer-motion';
 
 import { HOME_SECTION_CONTENT_LIST } from '@/constants/landingConstant';
@@ -8,12 +9,12 @@ import bgImg from '@/assets/bg.png';
 import useIsVisible from "@/hooks/useIsVisible";
 import { useDispatch } from "react-redux";
 import { landingPageAction } from "@/stores/landing";
-import { duration } from "@mui/material";
 
 const Home = () => {
     const dispatch = useDispatch();
     const homeSectionRef = useRef(null);
     const isVisible = useIsVisible(homeSectionRef);
+    const navigate = useNavigate();
 
     const titleRef = useRef(null);
     const mainImgRef = useRef(null);
@@ -105,6 +106,8 @@ const Home = () => {
                         className='my-2 sm:my-6'>
                         <h4 className='tracking-wider text-base lg:text-xl'>{HOME_SECTION_CONTENT_LIST[2].content}</h4>
                     </motion.div>
+
+                    {/* CTA Button */}
                     <motion.div
                         variants={{
                             initial: { opacity: 0, },
@@ -113,7 +116,9 @@ const Home = () => {
                         initial='initial'
                         animate={titleAnimation}
                         className='justify-start'>
-                        <button className='bg-primary-pink-250 hover:scale-[1.02] hover:bg-primary-pink-300 transition-all px-8 py-2 rounded text-white font-bold shadow-lg'>Cek Pesanan</button>
+                        <button
+                            onClick={() => navigate('check-order')}
+                            className='bg-primary-pink-250 hover:scale-[1.02] hover:bg-primary-pink-300 transition-all px-8 py-2 rounded text-white font-bold shadow-lg'>Cek Pesanan</button>
                     </motion.div>
                 </div>
 
