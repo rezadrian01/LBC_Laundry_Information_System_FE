@@ -29,6 +29,7 @@
     "react-router-dom": "^6.27.0",
     "react-use-draggable-scroll": "^0.4.7",
     "sweetalert2": "^11.14.4",
+    "swiper": "^10.0.0",
     "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {

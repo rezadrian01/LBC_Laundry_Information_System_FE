@@ -29,16 +29,10 @@ const REPORT_STATISTIC_TITLE_LIST = [
         title: "Penghasilan Harian"
     },
     {
-        title: "Cuci Basah"
+        title: "Penghasilan Mingguan"
     },
     {
-        title: "Cuci Kering"
-    },
-    {
-        title: "Cuci Kering Setrika"
-    },
-    {
-        title: "Setrika"
+        title: "Penghasilan Bulanan"
     },
 ];
 
@@ -87,11 +81,74 @@ const REPORT_CONTENT_LIST = [
     },
 ]
 
+const SUMMARY_REPORT_LIST = [
+    {
+        id: 1,
+        category: "Order",
+        title: "Total Pesanan",
+        contents: [
+            {
+                id: 1,
+                title: "Dialy Order",
+                prev: 110,
+                next: 130,
+                comparativeWords: "Dari kemarin"
+
+            },
+            {
+                id: 2,
+                title: "Weekly Order",
+                prev: 250,
+                next: 275,
+                comparativeWords: "Dari minggu lalu"
+            },
+            {
+                id: 3,
+                title: "Monthly Order",
+                prev: 500,
+                next: 560,
+                comparativeWords: "Dari bulan lalu"
+            },
+
+        ]
+    },
+    {
+        id: 2,
+        category: "Profit",
+        title: "Total Pendapatan",
+        contents: [
+            {
+                id: 1,
+                title: "Dialy Profit",
+                prev: 90_000,
+                next: 130_000,
+                comparativeWords: "Dari kemarin"
+            },
+            {
+                id: 2,
+                title: "Weekly Profit",
+                prev: 500_000,
+                next: 700_000,
+                comparativeWords: "Dari minggu lalu"
+            },
+            {
+                id: 3,
+                title: "Monthly Profit",
+                prev: 1_500_000,
+                next: 1_900_000,
+                comparativeWords: "Dari bulan lalu"
+            },
+
+        ]
+    },
+
+]
 
 
 export {
     ORDER_TYPE_LIST,
     REPORT_TYPE_LIST,
     REPORT_STATISTIC_TITLE_LIST,
-    REPORT_CONTENT_LIST
+    REPORT_CONTENT_LIST,
+    SUMMARY_REPORT_LIST
 };

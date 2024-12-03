@@ -1,10 +1,12 @@
-import { authAction } from "@/stores/auth";
-import { branchAction } from "@/stores/branch";
-import apiInstance from "@/utils/apiInstance";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+import { authAction } from "@/stores/auth";
+import { branchAction } from "@/stores/branch";
+import apiInstance from "@/utils/apiInstance";
+import { queryClient } from "@/utils/query";
 
 const useAuth = () => {
     const navigate = useNavigate();
@@ -15,7 +17,7 @@ const useAuth = () => {
             return response.data.adminData;
         },
         queryKey: ['auth-data'],
-        retry: false
+        retry: false,
     });
     // Redirect to login page
     useEffect(() => {
@@ -34,6 +36,11 @@ const useAuth = () => {
                 id, name, address
             }))
         }
+
+        return () => {
+            queryClient.invalidateQueries({ queryKey: ['auth-data'] });
+        }
+
     }, [isLoading, adminData]);
     return { isLoading };
 };
