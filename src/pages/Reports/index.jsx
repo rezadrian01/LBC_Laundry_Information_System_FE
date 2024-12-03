@@ -27,18 +27,19 @@ const Reports = () => {
         mingguan: [],
         bulanan: [],
         tahunan: []
-    })
+    });
+    const [reportSummary, setReportSummary] = useState(null);
 
     let { data: fetchedBranchList, isPending: isPendingBranchList, isError: isErrorBranchList, } = useQuery({
         queryKey: ['branches'],
         queryFn: async () => {
             const response = await apiInstance('branch');
-            setBranchList(response.data.data);
             return response.data.data;
         },
         retry: false,
         enabled: !loadAuthData,
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
+        throwOnError: true
     });
 
     const { data: fetchedReportList, isPending: isPendingReportList, isFetched: isFetchedReportList, refetch: refetchReportList } = useQuery({
@@ -52,26 +53,27 @@ const Reports = () => {
         refetchOnWindowFocus: false
     });
 
+    // Branch
     useEffect(() => {
         if (!isPendingBranchList) {
-            setSelectedBranchReport({
-                id: branchList[0]._id || "",
-                name: branchList[0].name
-            })
-            setBranchList(prev => {
-                const updatedBranchList = [...prev, { name: "Semua", _id: "all" }];
+            setBranchList(() => {
+                const updatedBranchList = [...fetchedBranchList, { name: "Semua", _id: "all" }];
                 return updatedBranchList;
             });
+            setSelectedBranchReport({
+                id: fetchedBranchList[0]?._id || "",
+                name: fetchedBranchList[0]?.name || ""
+            })
+
         }
-    }, [isPendingBranchList]);
+    }, [isPendingBranchList, fetchedBranchList]);
 
+    //  Report
     useEffect(() => {
-
         if (!isPendingReportList) {
             for (let key in fetchedReportList) {
                 const currentReportList = fetchedReportList[key].map(report => {
                     let label;
-
                     if (key === 'harian' || key === 'mingguan') {
                         label = new Date(report.endDate).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit' });
                     }
@@ -85,18 +87,17 @@ const Reports = () => {
                     return { ...report, label };
                 });
 
-                // if (key === 'harian') console.table(currentReportList);
                 currentReportList.reverse();
-                // if (key === 'harian') console.table(currentReportList);
                 fetchedReportList[key] = [...currentReportList];
                 setReportList(prev => ({
                     ...prev,
                     [key]: [...currentReportList]
                 }))
             }
-
         }
-    }, [isPendingReportList, fetchedReportList])
+    }, [isPendingReportList, fetchedReportList]);
+
+
 
     const handleSelectBranchReport = (branch) => {
         setSelectedBranchReport({
@@ -106,17 +107,22 @@ const Reports = () => {
         refetchReportList();
     }
 
+    // console.table(reportList.harian);
+
     return (
         <DefaultLayout>
             <Sidebar />
-            {!isPendingBranchList && !isPendingReportList && <>
+            {!isPendingBranchList &&
                 <Header hasButton={false} hasBranchBtn isReports selectedBranch={selectedBranchReport} branchList={branchList} onSelect={handleSelectBranchReport} />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-                    <EachUtils of={SUMMARY_REPORT_LIST} render={(item, index) => {
-                        return <ReportSummaryCard content={item} key={index} />
+            }
+            {true && <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                <EachUtils of={calculateReportSummary(reportList)} render={(item, index) => {
+                    const reportSummary = calculateReportSummary(reportList);
+                    return <ReportSummaryCard isPending={isPendingReportList} content={item} key={index} />
                     }} />
-                </div>
+            </div>}
 
+            {isFetchedReportList && !isPendingReportList && <>
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10'>
                 <EachUtils of={REPORT_STATISTIC_TITLE_LIST} render={(item, index) => {
                         let datasets = [];
@@ -143,3 +149,98 @@ const Reports = () => {
 };
 
 export default Reports;
+
+const calculateReportSummary = (reportList) => {
+    const dialyReport = reportList.harian;
+    const weeklyReport = reportList.mingguan;
+    const monthlyReport = reportList.bulanan;
+    const yearlyReport = reportList.tahunan;
+
+    const prevDialy = dialyReport[dialyReport?.length - 2] || 0;
+    const nextDialy = dialyReport[dialyReport?.length - 1] || 0;
+
+    const prevWeekly = weeklyReport[weeklyReport?.length - 2] || 0;
+    const nextWeekly = weeklyReport[weeklyReport?.length - 1] || 0;
+
+    const prevMonthly = monthlyReport[monthlyReport?.length - 2] || 0;
+    const nextMonthly = monthlyReport[monthlyReport?.length - 1] || 0;
+
+    const prevYearly = yearlyReport[yearlyReport?.length - 2] || 0;
+    const nextYearly = yearlyReport[yearlyReport?.length - 1] || 0;
+    // console.log({ prevDialy, nextDialy, prevWeekly, nextWeekly, prevMonthly, nextMonthly, prevYearly, nextYearly });
+
+    const result = [
+        {
+            id: 1,
+            category: "Order",
+            title: "Total Pesanan",
+            contents: [
+                {
+                    id: 1,
+                    title: "Dialy Order",
+                    prev: prevDialy?.totalTransactions || 0,
+                    next: nextDialy?.totalTransactions || 0,
+                    comparativeWords: "Dari kemarin."
+                },
+                {
+                    id: 2,
+                    title: "Weekly Order",
+                    prev: prevWeekly?.totalTransactions || 0,
+                    next: nextWeekly?.totalTransactions || 0,
+                    comparativeWords: "Dari minggu lalu."
+                },
+                {
+                    id: 3,
+                    title: "Monthly Order",
+                    prev: prevMonthly?.totalTransactions || 0,
+                    next: nextMonthly?.totalTransactions || 0,
+                    comparativeWords: "Dari bulan lalu."
+                },
+                {
+                    id: 4,
+                    title: "Yearly Order",
+                    prev: prevYearly?.totalTransactions || 0,
+                    next: nextYearly?.totalTransactions || 0,
+                    comparativeWords: "Dari tahun lalu."
+                },
+            ]
+        },
+        {
+            id: 2,
+            category: "Income",
+            title: "Total Pendapatan",
+            contents: [
+                {
+                    id: 1,
+                    title: "Dialy Income",
+                    prev: prevDialy?.totalIncome || 0,
+                    next: nextDialy?.totalIncome || 0,
+                    comparativeWords: "Dari kemarin."
+                },
+                {
+                    id: 2,
+                    title: "Weekly Income",
+                    prev: prevWeekly?.totalIncome || 0,
+                    next: nextWeekly?.totalIncome || 0,
+                    comparativeWords: "Dari minggu lalu."
+                },
+                {
+                    id: 3,
+                    title: "Monthly Income",
+                    prev: prevMonthly?.totalIncome || 0,
+                    next: nextMonthly?.totalIncome || 0,
+                    comparativeWords: "Dari bulan lalu."
+                },
+                {
+                    id: 4,
+                    title: "Yearly Income",
+                    prev: prevYearly?.totalIncome || 0,
+                    next: nextYearly?.totalIncome || 0,
+                    comparativeWords: "Dari tahun lalu."
+                },
+            ]
+        },
+
+    ]
+    return result;
+}

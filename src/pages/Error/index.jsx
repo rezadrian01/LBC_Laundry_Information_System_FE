@@ -16,7 +16,7 @@ export const Error = () => {
     }
 
     return (
-        <div className="h-screen w-full flex justify-center pt-52 font-bold text-5xl text-primary-pink-500">
+        <div className="h-screen w-full flex justify-center pt-52 font-bold text-5xl text-primary-pink-500 p-4">
             <div className="flex flex-col gap-2 items-center">
                 {is404 && <div className="flex items-center justify-center gap-1 ">
                     <span>4</span>
@@ -25,7 +25,7 @@ export const Error = () => {
                     </span>
                     <span>4</span>
                 </div>}
-                <div className="flex flex-col gap-3 items-center">
+                <div className="flex flex-col gap-3 text-center items-center">
                     <h2>{title}</h2>
                     <p className="text-xl">{message}</p>
                 </div>

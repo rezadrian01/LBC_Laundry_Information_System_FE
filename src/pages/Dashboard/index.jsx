@@ -33,7 +33,6 @@ const Dashboard = () => {
     if (isFetchedReportList) {
         reportList = reportList.map(report => {
             const day = new Date(report.endDate).toLocaleDateString('id-ID', { weekday: 'long' });
-            console.log(day);
             return { ...report, day }
         });
         reportList.reverse();
