@@ -7,8 +7,8 @@ import BarChart from '@mods/BarChart';
 
 Chart.register(CategoryScale);
 
-const StatisticCard = ({ title, datasetTitle, datasets = [] }) => {
-    const LABEL_KEY = 'day';
+const StatisticCard = ({ title, datasetTitle = "", datasets = [], labelKey = 'day' }) => {
+    const LABEL_KEY = labelKey;
     const VALUE_KEY = 'totalIncome';
     const DATE_KEY = 'endDate';
 

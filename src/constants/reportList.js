@@ -26,13 +26,20 @@ const REPORT_TYPE_LIST = [
 
 const REPORT_STATISTIC_TITLE_LIST = [
     {
-        title: "Penghasilan Harian"
+        title: "Penghasilan Harian",
+        key: "harian"
     },
     {
-        title: "Penghasilan Mingguan"
+        title: "Penghasilan Mingguan",
+        key: "mingguan"
     },
     {
-        title: "Penghasilan Bulanan"
+        title: "Penghasilan Bulanan",
+        key: "bulanan"
+    },
+    {
+        title: "Penghasilan Tahunan",
+        key: "tahunan"
     },
 ];
 
