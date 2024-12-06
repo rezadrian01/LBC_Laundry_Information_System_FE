@@ -1,11 +1,22 @@
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { LuShoppingCart } from "react-icons/lu";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { PiWashingMachineLight } from "react-icons/pi";
 import { TbIroning } from "react-icons/tb";
+import { orderStatusAction } from "@/stores/orderStatus";
 
 
 const OrderCounterCard = ({ item, index }) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleClickCard = (orderStatusId) => {
+        dispatch(orderStatusAction.setActiveOrderStatusId(orderStatusId));
+        navigate(`${import.meta.env.VITE_BASE_URL}/orders`);
+    }
+
     let icon;
     let wrapperClass = "relative col-span-1 aspect-square flex flex-col items-center cursor-pointer ";
     let iconClass;
@@ -32,7 +43,7 @@ const OrderCounterCard = ({ item, index }) => {
             break;
     }
     return (
-        <div className={wrapperClass}>
+        <div className={wrapperClass} onClick={() => handleClickCard(item._id)}>
             <header className="flex items-center gap-2 mt-4">
                 <div className={iconClass}>
                     {icon}

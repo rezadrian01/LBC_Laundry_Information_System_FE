@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import { useInView } from 'react-intersection-observer';
+import { useDispatch, useSelector } from 'react-redux';
 
 import DefaultLayout from '@layouts/Default';
 import Crud from '@mods/Crud';
@@ -12,10 +14,13 @@ import useAuth from '@/hooks/useAuth';
 import apiInstance from '@/utils/apiInstance';
 import FallbackText from '@/components/UI/Loading/FallbackText';
 import { queryClient } from '@/utils/query';
-import { useEffect, useState } from 'react';
+import { orderStatusAction } from '@/stores/orderStatus';
 
 const Orders = () => {
     const { inView, ref } = useInView();
+    const { activeOrderStatusId } = useSelector(state => state.orderStatus);
+    const dispatch = useDispatch();
+
     const { isLoading: loadAuthData } = useAuth();
     const [currentPage, setCurrentPage] = useState(1);
     const [hasNextPage, setHasNextPage] = useState(false);
@@ -27,29 +32,41 @@ const Orders = () => {
 
 
     // Pending first before loadAuthData = false
-    const { data: orderStatusList, isLoading: isLoadingOrderStatusList, isError: errorOrderStatusList } = useQuery({
+    const { data: orderStatusList, isLoading: isloadingOrderStatusList, isError: errorOrderStatusList } = useQuery({
         queryKey: ['order-status-list'],
         queryFn: async () => {
             const response = await apiInstance('status');
             return response.data.data;
         },
-        enabled: !loadAuthData
+        enabled: !loadAuthData,
+        refetchOnWindowFocus: false,
+        retry: false
     });
 
+
     const { data, isLoading: isLoadingOrderList, isError: isErrorOrderList, refetch: refetchOrderList } = useQuery({
-        queryKey: ['orders', { currentPage }, { orderStatus: orderStatusList?.[selectedOrderTabIndex]?._id } || ""],
+        queryKey: ['orders', { currentPage }, { orderStatus: activeOrderStatusId || orderStatusList?.[selectedOrderTabIndex]?._id } || ""],
         queryFn: async () => {
-            const response = await apiInstance(`laundryStatus/status/${orderStatusList[selectedOrderTabIndex]?._id}?page=${currentPage}`);
+            const response = await apiInstance(`laundryStatus/status/${activeOrderStatusId || orderStatusList[selectedOrderTabIndex]?._id}?page=${currentPage}`);
             const { data } = response;
+
             setHasNextPage(data.data.hasNextPage);
             setOrderList(prev => {
                 return [...prev, ...data.data.laundryList];
             });
+
+            if (activeOrderStatusId) {
+                setSelectedOrderTabIndex(prev => {
+                    const index = orderStatusList.findIndex(status => status._id === activeOrderStatusId);
+                    return index;
+                })
+            }
+
             return data.data.laundryList;
         },
         retry: false,
         refetchOnWindowFocus: false,
-        enabled: !loadAuthData && !isLoadingOrderStatusList
+        enabled: !loadAuthData && !isloadingOrderStatusList
     });
 
     const { mutate: updateOrderStatusFn, isPending: isPendingUpdateOrderStatus } = useMutation({
@@ -104,6 +121,8 @@ const Orders = () => {
     }
 
     const handleSelectTab = (index) => {
+        // dispatch(orderStatusAction.resetActiveOrderStatusId());
+        dispatch(orderStatusAction.setActiveOrderStatusId(orderStatusList[index]._id));
         setCurrentPage(1);
         setSelectedOrderTabIndex(index);
         setOrderList([]);
@@ -131,12 +150,27 @@ const Orders = () => {
 
     if (isErrorOrderList || errorOrderStatusList) throw new Error("Failed to fetch orders");
     const keys = ["receiptNumber", "customerName", "status"];
+
     return (
         <DefaultLayout>
             <Sidebar />
-            {isLoadingOrderList || isLoadingOrderStatusList && !loadAuthData && <FallbackText />}
-            {!isLoadingOrderStatusList && !loadAuthData &&
-                <Crud onSearchClick={handleSearchClick} searchInput={searchInput} setSearchInput={handleChangeSearchInput} selectedTabIndex={selectedOrderTabIndex} setSelectedTab={handleSelectTab} hasTab={showTab} tabMenu={orderStatusList} dataCompare={orderStatusList} keys={keys} isOrderList tableHeader={TABLE_HEADER} isPending={isLoadingOrderList} tableContent={orderList} onDropdownChange={handleDropdownChange} />}
+            {isLoadingOrderList || isloadingOrderStatusList && !loadAuthData && <FallbackText />}
+            {!isloadingOrderStatusList && !loadAuthData &&
+                <Crud onSearchClick={handleSearchClick}
+                    searchInput={searchInput}
+                    setSearchInput={handleChangeSearchInput}
+                    selectedTabIndex={selectedOrderTabIndex}
+                    setSelectedTab={handleSelectTab}
+                    hasTab={showTab}
+                    tabMenu={orderStatusList}
+                    dataCompare={orderStatusList}
+                    keys={keys}
+                    isOrderList
+                    tableHeader={TABLE_HEADER}
+                    isPending={isLoadingOrderList}
+                    tableContent={orderList}
+                    onDropdownChange={handleDropdownChange} />}
+
             <div ref={ref} className='mt-4 md:mt-10'>
                 <Footer backToDashboard hasNext={false} />
             </div>

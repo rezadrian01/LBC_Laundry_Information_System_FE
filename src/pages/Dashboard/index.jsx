@@ -12,6 +12,7 @@ import { orderAction } from '@/stores/order';
 import useAuth from '@/hooks/useAuth';
 import { REPORT_CONTENT_LIST } from '@/constants/reportList';
 import apiInstance from '@/utils/apiInstance';
+import { orderStatusAction } from '@/stores/orderStatus';
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -27,7 +28,8 @@ const Dashboard = () => {
             return response.data.data;
         },
         enabled: !loadAuthData,
-        gcTime: 0
+        gcTime: 0,
+        retry: false
     });
 
     if (isFetchedReportList) {
@@ -41,6 +43,7 @@ const Dashboard = () => {
 
     // Reset Global State
     useEffect(() => {
+        // dispatch(orderStatusAction.resetActiveOrderStatusId());
         dispatch(orderAction.resetOrder());
     }, [])
 

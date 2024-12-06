@@ -72,7 +72,7 @@ const OrderSummary = () => {
     });
 
     // Mutation
-    const { mutate: createOrderFn, isError: isErrorCreateOrder } = useMutation({
+    const { mutate: createOrderFn, isError: isErrorCreateOrder, isSuccess: isSuccessCreateOrder } = useMutation({
         mutationFn: async (formData) => {
             return apiInstance('laundry', {
                 data: formData,
@@ -140,13 +140,13 @@ const OrderSummary = () => {
     }
 
     const handlePrintReceipt = () => {
-        // window.print();
+        window.print();
         navigate('/dashboard');
     }
 
     const handleSubmit = (event) => {
-        const isWeightOrder = orderState.orderTypeId === 2;
         event.preventDefault();
+        const isWeightOrder = orderState.orderTypeId === 2;
         const fd = new FormData(event.target);
         fd.append("isWeight", isWeightOrder);
         if (isWeightOrder) {
@@ -178,30 +178,33 @@ const OrderSummary = () => {
 
     return (
         <DefaultLayout>
+            {/* <div className='max-w-[30rem] mx-auto'> */}
+
             <form onSubmit={handleSubmit}>
-            <OrderLayout gap='gap-6' titleSize='3xl' title="Nota Kiloan">
+                <OrderLayout gap='gap-6' titleSize='3xl' title={path === "weight" ? "Nota Kiloan" : "Nota Satuan"}>
                 {isLoadingLatestReceiptNumber && <FallbackText />}
 
                 {!isLoadingLatestReceiptNumber && <>
-                <section className='flex flex-col gap-2'>
+                        <section className='flex flex-col gap-2'>
                             <InputGroup defaultValue={receiptNumber} textCenter={false} isOrderSummary label="No. Nota" id="receiptNumber" name="receiptNumber" />
 
                             <InputGroup defaultValue={currentDate} type="date" textCenter={false} isOrderSummary label="Tanggal" id="date" name="date" />
 
                             <InputGroup titleKey="name" dropdownMenu={branchList} defaultValue={branchState.activeBranch.id} textCenter={false} isOrderSummary isDropdown label="Cabang" id="branch" name="branchId" />
-                </section>
+                        </section>
                         <Table headerCol={path === "weight" ? TABLE_HEADER_WEIGHT : TABLE_HEADER_ITEM} tableContent={orderList} isSummary={true} isItemOrderSummary={path === "item"} isWeightOrderSummary={path === "weight"} />
-                <div>
-                    <div className='grid grid-cols-6 items-center w-full bg-primary-pink-300 text-primary-pink-100 text-center p-2 md:p-4 font-semibold'>
-                        <h3 className="col-span-4">Total Harga</h3>
+                        <div>
+                            <div className='grid grid-cols-6 items-center w-full bg-primary-pink-300 text-primary-pink-100 text-center p-2 md:p-4 font-semibold'>
+                                <h3 className="col-span-4">Total Harga</h3>
                                 <p className='col-span-2'>{new Intl.NumberFormat('id-ID').format(totalPrice)}</p>
-                    </div>
+                            </div>
                     <CustomerData />
-                </div>
+                        </div>
                 </>}
                     <Footer />
             </OrderLayout>
             </form>
+            {/* </div> */}
         </DefaultLayout>
     );
 };

@@ -4,6 +4,7 @@ import { sidebarSlice } from "./sidebar";
 import { branchSlice } from "./branch";
 import { orderSlice } from "./order";
 import { landingPageSlice } from "./landing";
+import { orderStatusSlice } from "./orderStatus";
 
 
 
@@ -13,7 +14,8 @@ const store = configureStore({
         sidebar: sidebarSlice.reducer,
         branch: branchSlice.reducer,
         order: orderSlice.reducer,
-        landingPage: landingPageSlice.reducer
+        landingPage: landingPageSlice.reducer,
+        orderStatus: orderStatusSlice.reducer
     }
 });
 

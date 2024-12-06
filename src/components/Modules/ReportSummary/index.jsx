@@ -23,14 +23,17 @@ const ReportSummaryCard = ({ content, isPending }) => {
                 {isPending && <p className='text-center animate-pulse'>Loading</p>}
                 {!isPending && <>
                 <h4 className='text-lg'>{content.title}</h4>
-                <p className="font-semibold">{formatedPrice}</p>
+                    <p className="font-semibold">{`${isProfit ? "Rp." : ""} ${formatedPrice}`}</p>
 
                 <div className="flex  items-center gap-1 text-sm sm:text-base">
-                    <div className="flex items-center gap-1 font-semibold" style={{ color: isIncrease ? '#22c55e' : '#ef4444' }}>
+                        <div className="flex items-center gap-1 font-semibold" style={{
+                            color: percentage === 0 ? 'black' :
+                                isIncrease ? '#22c55e' : '#ef4444'
+                        }}>
                         {isIncrease ? <BsGraphUpArrow /> : <BsGraphDownArrow />}
-                            <p>{`${percentage.toFixed(2)}%`} </p>
+                            <p>{`${percentage === 0 ? 0 : percentage.toFixed(2)}%`} </p>
                     </div>
-                        {currentSummary.comparativeWords.toLowerCase()}
+                        {percentage === 0 ? "Tidak ada perubahan" : currentSummary.comparativeWords.toLowerCase()}
                 </div>
                 </>
                 }
