@@ -52,11 +52,11 @@ const Input = forwardRef(({
     }
 
     const handleKeyDown = (event) => {
+        if (!hasSearchBtn) return
         if (event.key === 'Enter') {
             searchBtnRef.current.click();
         }
     }
-
     return (
         <div className={wrapperClass}>
             <input ref={ref} className={inputClass} id={id} name={name} placeholder={placeholder} onKeyDown={handleKeyDown}  {...props} />

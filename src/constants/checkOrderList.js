@@ -6,7 +6,7 @@ const CHECK_ORDER_CONTENT_LIST = [
     },
     {
         id: 2,
-        title: "No Nota",
+        title: "No. Nota",
         keys: ["receiptNumber"]
     },
     {

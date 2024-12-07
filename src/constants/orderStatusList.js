@@ -3,10 +3,10 @@ const ORDER_STATUS_LIST = [
         title: "Diterima",
     },
     {
-        title: "Dicuci"
+        title: "Sedang Dicuci"
     },
     {
-        title: "Disetrika"
+        title: "Sedang Disetrika"
     },
     {
         title: "Siap Diambil"

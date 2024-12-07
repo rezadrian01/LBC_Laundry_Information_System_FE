@@ -49,12 +49,10 @@ const Orders = () => {
         queryFn: async () => {
             const response = await apiInstance(`laundryStatus/status/${activeOrderStatusId || orderStatusList[selectedOrderTabIndex]?._id}?page=${currentPage}`);
             const { data } = response;
-
             setHasNextPage(data.data.hasNextPage);
             setOrderList(prev => {
                 return [...prev, ...data.data.laundryList];
             });
-
             if (activeOrderStatusId) {
                 setSelectedOrderTabIndex(prev => {
                     const index = orderStatusList.findIndex(status => status._id === activeOrderStatusId);
@@ -66,7 +64,7 @@ const Orders = () => {
         },
         retry: false,
         refetchOnWindowFocus: false,
-        enabled: !loadAuthData && !isloadingOrderStatusList
+        enabled: !loadAuthData && !isloadingOrderStatusList && !searchInput
     });
 
     const { mutate: updateOrderStatusFn, isPending: isPendingUpdateOrderStatus } = useMutation({
@@ -99,6 +97,7 @@ const Orders = () => {
         queryKey: ['orders', { searchInput }],
         queryFn: async () => {
             const response = await apiInstance(`laundry/receiptNumber/${searchInput}`);
+            setCurrentPage(1);
             setTriggerSearch(false);
             setShowTab(false);
             setOrderList([response.data.data]);
@@ -129,6 +128,7 @@ const Orders = () => {
     }
 
     const handleSearchClick = () => {
+        setCurrentPage(1);
         if (searchInput.trim() === "") {
             setShowTab(true);
             setOrderList([]);
@@ -140,6 +140,7 @@ const Orders = () => {
 
     const handleChangeSearchInput = (value) => {
         if (value.trim() === "") {
+            setCurrentPage(1);
             setShowTab(true);
             setOrderList([]);
             refetchOrderList();
